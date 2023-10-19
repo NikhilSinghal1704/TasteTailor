@@ -1,4 +1,2 @@
 .vscode/
-API/__pycache__/
-Home/__pycache__/
-TasteTailor/__pycache__/
+__pycache__/

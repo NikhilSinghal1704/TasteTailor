@@ -4,7 +4,7 @@ from .models import APIKey
 @admin.register(APIKey)
 class APIKeyAdmin(admin.ModelAdmin):
     list_display = ('email', 'is_active', 'usage_count')
-    list_filter = ('is_active', 'created_at')
+    list_filter = ('is_active', 'usage_count', 'last_called')
     search_fields = ('key', 'email')
     list_editable = ('is_active',)
 
