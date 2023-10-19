@@ -8,6 +8,12 @@ class APIKeyAdmin(admin.ModelAdmin):
     search_fields = ('key', 'email')
     list_editable = ('is_active',)
 
+    add_fieldsets = (
+        ("Details", {
+            'fields': ('key', 'email', 'is_active')
+        }),
+    )
+    
     fieldsets = (
         ("Details", {
             'fields': ('key', 'email', 'is_active', 'usage_count')
