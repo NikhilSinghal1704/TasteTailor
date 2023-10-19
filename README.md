@@ -1,6 +1,6 @@
 # TasteTailor
 
-![TasteTailor Logo](\static\img\logo.png)
+![TasteTailor Logo](https://github.com/NikhilSinghal1704/TasteTailor/blob/main/static/img/logo.png?raw=true)
 
 TasteTailor is your all-in-one culinary companion, designed to transform your cooking and meal planning experience. Explore a world of flavors, access personalized recipes, and cook with confidence.
 
