@@ -23,6 +23,9 @@ def get_next_api_key():
         
         # Increment the index and loop it if it exceeds the list length
         current_index = (current_index + 1) % len(active_api_keys)
+        
+        #Update the usage count of the API Key
+        next_api_key.update_usage_count()
 
         # Update the index in the storage file
         with open("index_storage", "w") as fl:
