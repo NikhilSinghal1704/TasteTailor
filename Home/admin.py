@@ -3,9 +3,26 @@ from .models import APIKey
 
 @admin.register(APIKey)
 class APIKeyAdmin(admin.ModelAdmin):
-    list_display = ('key', 'email', 'is_active', 'rotation_order', 'created_at')
+    list_display = ('email', 'is_active', 'usage_count')
     list_filter = ('is_active', 'created_at')
     search_fields = ('key', 'email')
-    list_editable = ('is_active', 'rotation_order')
+    list_editable = ('is_active',)
 
-admin.site.site_header = 'API Key Administration'
+    fieldsets = (
+        ("Details", {
+            'fields': ('key', 'email', 'is_active', 'usage_count')
+        }),
+        ('Date Information', {
+            'fields': ('call_history', 'last_called', 'created_at'),
+            'classes': ('collapse',),
+        }),
+    )
+
+    readonly_fields = ('created_at',)
+
+    def get_fieldsets(self, request, obj=None):
+        if not obj:
+            return self.add_fieldsets
+        return super().get_fieldsets(request, obj)
+
+admin.site.site_header = 'TasteTailor Administration'

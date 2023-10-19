@@ -46,9 +46,7 @@ def home(request):
 
 def search(request):
     var = {}
-
-    def search(s):
-        var["results"] = json.loads(get_recipe_by_query(s).content.decode())
+    
 
     query = None  # Initialize query outside of the POST block
 
@@ -57,10 +55,9 @@ def search(request):
         var["query"] = query
 
     if query:
-        thread = threading.Thread(
-            target=search, args=(query,)  # Pass query as a single-element tuple
-        )
-        thread.start()
+        
+        var["results"] = json.loads(get_recipe_by_query(query).content.decode())
+        
         return render(request, "result.html", var)
 
     return render(request, "result.html", var)
