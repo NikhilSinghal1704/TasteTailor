@@ -67,7 +67,7 @@ def get_recipe_by_tags(tag, include_popularity=True):
 
 def get_top_recipe():
     # Use a more suitable cache key
-    choices = ["main_course", "dessert", "appetizer"]
+    choices = ["soup", "dessert", "appetizer"]
     query = random.choice(choices)
 
     cache_key = query + "top_recipes_cache_key"

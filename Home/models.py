@@ -13,21 +13,22 @@ class APIKey(models.Model):
 
     def update_usage_count(self):
         now = timezone.now()
-
+    
         # Check if the last_called time is before today (midnight)
         if not self.last_called or self.last_called.date() < now.date():
             # Reset usage count and update call history
-            self.call_history.insert(0, {
+            self.call_history.append({
                 'date': str(self.last_called.date()) if self.last_called else str(now.date()),
                 'count': self.usage_count
             })
-            self.call_history = self.call_history[:10]  # Limit to the last 10 days
+            self.call_history = self.call_history[-10:]  # Limit to the last 10 days
             self.usage_count = 1
         else:
             self.usage_count += 1
-
+    
         self.last_called = now
         self.save()
+
 
     def __str__(self):
         return self.key
