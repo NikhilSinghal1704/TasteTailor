@@ -34,7 +34,9 @@ SECRET_KEY = 'django-insecure-0qkhdoj0*t=(gyeg1z%)4k57d_56^9pxh8tik6*e=iyen)_#kw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://tion-comment-website-tests.trycloudflare.com', '*']
+
+CRF_TRUSTED_ORIGINS = ['https://tion-comment-website-tests.trycloudflare.com',]
 
 
 # Application definition
