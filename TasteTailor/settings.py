@@ -36,7 +36,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['https://tion-comment-website-tests.trycloudflare.com', '*']
 
-CRF_TRUSTED_ORIGINS = ['https://tion-comment-website-tests.trycloudflare.com',]
+CSRF_TRUSTED_ORIGINS = ['https://client-tap-strings-serbia.trycloudflare.com']
 
 
 # Application definition
