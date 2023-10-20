@@ -240,7 +240,7 @@
                                                 <div class="card">
                                                     <!-- Set a fixed height for the card -->
                                                     <div class="card-img-container" style="height: 200px; overflow: hidden;">
-                                                        <img src="{{ ingredient.img_url }}" alt="{{ ingredient.name }}" class="card-img-top img-fluid">
+                                                        <img src="{{ingredient.img_url}}" alt="{{ ingredient.name }}" class="card-img-top img-fluid">
                                                     </div>
                                                     <div class="card-body">
                                                         <h5 class="card-title">{{ ingredient.name }}</h5>
@@ -270,7 +270,7 @@
                             <br>
                             <h2>Instructions</h2>
                             <p>
-                                {{ recipe_info.Instructions|safe }}
+                                {{ Instructions|safe }}
                             </p>
                             <br>
                             <div>
@@ -291,7 +291,7 @@
             </div>
             <div class="gallery-slider swiper">
                 <div class="swiper-wrapper align-items-center">
-                    {% for recipe in recipe_info.similar %}
+                    {% for recipe in similar %}
                     <div class="swiper-slide">
                         <a class="glightbox" data-gallery="images-gallery" href={{recipe.image_url}}>
                             <img src={{recipe.image_url}}

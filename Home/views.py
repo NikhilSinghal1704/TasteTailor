@@ -7,7 +7,7 @@ import threading
 
 def home(request):
     # Create a dictionary to store the results
-    var = {"top": None}
+    var = {"top": None, 'what': "/static/img/bhaisab.png",}
 
     # Define a function to fetch recipes and store them in the var dictionary
     def fetch_and_store_recipes(tag, key):
@@ -24,12 +24,11 @@ def home(request):
             target=fetch_and_store_recipes, args=("appetizer", "starters")
         ),
         threading.Thread(
-            target=fetch_and_store_recipes, args=("breakfast", "breakfasts")
-        ),
-        threading.Thread(
             target=fetch_and_store_recipes, args=("main course", "lunches")
         ),
-        threading.Thread(target=fetch_and_store_recipes, args=("dessert", "dinners")),
+        threading.Thread(
+            target=fetch_and_store_recipes, args=("dessert", "dinners")
+        ),
         threading.Thread(target=top),
     ]
 
@@ -45,7 +44,7 @@ def home(request):
 
 
 def search(request):
-    var = {}
+    var = {'what': "/static/img/bhaisab.png",}
     
 
     query = None  # Initialize query outside of the POST block
@@ -61,3 +60,29 @@ def search(request):
         return render(request, "result.html", var)
 
     return render(request, "result.html", var)
+
+def recipeinfo(request, id):
+    
+    recipe_data = get_recipe_details(id)
+    Instructions = get_instructions(id)
+    similar = get_similar_recipes(id)
+    
+    json_to_txt(similar, 'lul.txt')
+    
+    if recipe_data:
+        # Pass the recipe_data to the HTML template
+        var = {
+            'what': "/static/img/bhaisab.png",
+            'recipe_info': recipe_data['recipe_info'],
+            'ingredients': recipe_data['ingredients'],
+            "Instructions" : Instructions,
+            "similar" : similar
+        }
+
+        return render(request, 'recipeinfo.html', var)
+
+    # Handle the case where data retrieval failed, e.g., by displaying an error message
+    error_message = "Recipe data could not be retrieved."
+    var = {'error_message': error_message}
+        
+    return render(request, 'recipeinfo.html', var)
