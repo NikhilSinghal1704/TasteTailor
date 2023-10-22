@@ -51,9 +51,15 @@ def search(request):
 
     if request.method == "POST":
         query = request.POST["q"]
+        Diet = request.POST.get('Diet')
+        intolerances = request.POST.getlist('intolerances')
+        Type = request.POST.get('Type')
+        sort = request.POST.get('sort')
         var["query"] = query
-
-    if query:
+        var["Diet"] = Diet
+        var["intolerances"] = intolerances
+        var["Type"] = Type
+        var["sort"] = sort
         
         var["results"] = json.loads(get_recipe_by_query(query).content.decode())
         
