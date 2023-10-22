@@ -151,34 +151,34 @@
                           <label class="fw-bold" for="category2">Type:</label>
                           <select id="Type" name="Type" class="form-control">
                               <option value="" {% if Type == "" %}selected{% endif %}>Any</option>                                                                                                                                                     
-                              <option value="main course" {% if Type == "" %}selected{% endif %}>Main Course</option>
-                              <option value="side dish" {% if Type == "" %}selected{% endif %}>Side Dish</option>
-                              <option value="dessert" {% if Type == "" %}selected{% endif %}>Dessert</option>
-                              <option value="appetizer" {% if Type == "" %}selected{% endif %}>Appetizer</option>
-                              <option value="salad" {% if Type == "" %}selected{% endif %}>Salad</option>
-                              <option value="bread" {% if Type == "" %}selected{% endif %}>Bread</option>
-                              <option value="breakfast" {% if Type == "" %}selected{% endif %}>Breakfast</option>
-                              <option value="soup" {% if Type == "" %}selected{% endif %}>Soup</option>
-                              <option value="beverage" {% if Type == "" %}selected{% endif %}>Beverage</option>
-                              <option value="sauce" {% if Type == "" %}selected{% endif %}>Sauce</option>
-                              <option value="marinade" {% if Type == "" %}selected{% endif %}>Marinade</option>
-                              <option value="fingerfood" {% if Type == "" %}selected{% endif %}>Fingerfood</option>
-                              <option value="snack" {% if Type == "" %}selected{% endif %}>Snack</option>
-                              <option value="drink" {% if Type == "" %}selected{% endif %}>Drink</option>
+                              <option value="main course" {% if Type == "main course" %}selected{% endif %}>Main Course</option>
+                              <option value="side dish" {% if Type == "side dish" %}selected{% endif %}>Side Dish</option>
+                              <option value="dessert" {% if Type == "dessert" %}selected{% endif %}>Dessert</option>
+                              <option value="appetizer" {% if Type == "appetizer" %}selected{% endif %}>Appetizer</option>
+                              <option value="salad" {% if Type == "salad" %}selected{% endif %}>Salad</option>
+                              <option value="bread" {% if Type == "bread" %}selected{% endif %}>Bread</option>
+                              <option value="breakfast" {% if Type == "breakfast" %}selected{% endif %}>Breakfast</option>
+                              <option value="soup" {% if Type == "soup" %}selected{% endif %}>Soup</option>
+                              <option value="beverage" {% if Type == "beverage" %}selected{% endif %}>Beverage</option>
+                              <option value="sauce" {% if Type == "sauce" %}selected{% endif %}>Sauce</option>
+                              <option value="marinade" {% if Type == "marinade" %}selected{% endif %}>Marinade</option>
+                              <option value="fingerfood" {% if Type == "fingerfood" %}selected{% endif %}>Fingerfood</option>
+                              <option value="snack" {% if Type == "snack" %}selected{% endif %}>Snack</option>
+                              <option value="drink" {% if Type == "drink" %}selected{% endif %}>Drink</option>
                           </select>
                       </div>
                   
                       <div class="form-group">
                           <label class="fw-bold" for="category3">Sort By:</label>
                           <select id="sort" name="sort" class="form-control">
-                              <option value="">--Select--</option>
-                              <option value="meta-score">meta-score</option>
-                              <option value="popularity">popularity</option>
-                              <option value="healthiness">healthiness</option>
-                              <option value="price">price</option>
-                              <option value="time">time</option>
-                              <option value="random">random</option>
-                              <option value="energy">energy</option>
+                              <option value="" {% if sort == "" %}selected{% endif %} >--Select--</option>
+                              <option value="meta-score"{% if sort == "meta-score" %}selected{% endif %}>meta-score</option>
+                              <option value="popularity"{% if sort == "popularity" %}selected{% endif %}>popularity</option>
+                              <option value="healthiness"{% if sort == "healthiness" %}selected{% endif %}>healthiness</option>
+                              <option value="price"{% if sort == "price" %}selected{% endif %}>price</option>
+                              <option value="time"{% if sort == "time" %}selected{% endif %}>time</option>
+                              <option value="random"{% if sort == "random" %}selected{% endif %}>random</option>
+                              <option value="energy"{% if sort == "energy" %}selected{% endif %}>energy</option>
                           </select>
                       </div>
                   
