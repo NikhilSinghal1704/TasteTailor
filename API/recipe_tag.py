@@ -309,7 +309,7 @@ def get_recipe_details(recipe_id):
         print(f"Error: {response.status_code}")
         return None
 
-def get_recipe_by_query(query):
+def get_recipe_by_query(query, ex_params = {}):
     # Use a more suitable cache key
     cache_key = query.replace(" ", "+") + "_cache_key"
 
@@ -326,11 +326,11 @@ def get_recipe_by_query(query):
 
     params = {
         "apiKey": key,
-        "sort": "popularity",
         "number": 900,
     }
     
     params.update(analyze_query(query))
+    params.update(ex_params)
     
     print(params)
 

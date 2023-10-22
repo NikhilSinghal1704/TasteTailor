@@ -61,7 +61,18 @@ def search(request):
         var["Type"] = Type
         var["sort"] = sort
         
-        var["results"] = json.loads(get_recipe_by_query(query).content.decode())
+        ex = {}
+        
+        if Diet != "":
+            ex["diet"] = Diet
+        if Type != "":
+            ex["type"] = Type
+        if sort != "":
+            ex["sort"] = sort
+        if intolerances != "":
+            ex["intolerances"] = ",".join(intolerances)
+        
+        var["results"] = json.loads(get_recipe_by_query(query, ex).content.decode())
         
         return render(request, "result.html", var)
 
@@ -69,21 +80,47 @@ def search(request):
 
 def recipeinfo(request, id):
     
-    recipe_data = get_recipe_details(id)
-    Instructions = get_instructions(id)
-    similar = get_similar_recipes(id)
-    
-    json_to_txt(similar, 'lul.txt')
-    
-    if recipe_data:
-        # Pass the recipe_data to the HTML template
-        var = {
+    var = {
             'what': "/static/img/bhaisab.png",
-            'recipe_info': recipe_data['recipe_info'],
-            'ingredients': recipe_data['ingredients'],
-            "Instructions" : Instructions,
-            "similar" : similar
         }
+    
+    # Define a function to fetch recipe data
+    def get_recipe_data():
+        recipe_data = get_recipe_details(id)
+        var['recipe_info'] = recipe_data['recipe_info']
+        var['ingredients'] = recipe_data['ingredients']
+
+    # Define a function to fetch instructions
+    def get_recipe_instructions():
+        Instructions = get_instructions(id)
+        var["Instructions"] = Instructions
+
+    # Define a function to fetch similar recipes
+    def get_similar_recipes_data():
+        similar = get_similar_recipes(id)
+        var["similar"] = similar
+    
+    threads = [
+        threading.Thread(
+            target=get_recipe_data
+        ),
+        threading.Thread(
+            target=get_recipe_instructions
+        ),
+        threading.Thread(
+            target=get_similar_recipes_data
+        ),
+    ]
+    
+    # Start all threads
+    for thread in threads:
+        thread.start()
+
+    # Wait for all threads to complete
+    for thread in threads:
+        thread.join()
+    
+    if var['recipe_info']:
 
         return render(request, 'recipeinfo.html', var)
 
