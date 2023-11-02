@@ -1,1 +1,1 @@
-web: gunicorn TasteTailor.wsji --log-file -
+web: gunicorn TasteTailor.wsgi --log-file -
