@@ -1,0 +1,1 @@
+web: gunicorn TasteTailor.wsji --log-file -
