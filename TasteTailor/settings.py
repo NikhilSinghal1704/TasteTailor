@@ -34,9 +34,9 @@ SECRET_KEY = 'django-insecure-0qkhdoj0*t=(gyeg1z%)4k57d_56^9pxh8tik6*e=iyen)_#kw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['tastetailor-production.up.railway.app']
+ALLOWED_HOSTS = ['tastetailor-production.up.railway.app', "127.0.0.1"]
 
-CSRF_TRUSTED_ORIGINS = ['https://tastetailor-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://tastetailor-production.up.railway.app', "http://127.0.0.1"]
 
 
 # Application definition
@@ -128,9 +128,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / "static"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
