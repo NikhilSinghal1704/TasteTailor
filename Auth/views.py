@@ -34,8 +34,6 @@ def is_valid_password(password):
         return False  # No special character
     if not re.search(r"\d", password):
         return False  # No numeric digit
-    if not re.search(r"[a-zA-Z]", password):
-        return False  # No alphabetic character
 
     # If all checks pass, the password is valid
     return True
@@ -102,7 +100,7 @@ def signup(request):
         email = EmailMessage(
             email_subject, email_message, settings.EMAIL_HOST_USER, [myuser.email]
         )
-        email.fail_silently = True
+        email.fail_silently = False
         email.send()
 
         return render(request, "message.html")
