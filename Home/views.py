@@ -71,6 +71,8 @@ def search(request):
             ex["sort"] = sort
         if intolerances != "":
             ex["intolerances"] = ",".join(intolerances)
+
+        #print(ex)
         
         var["results"] = json.loads(get_recipe_by_query(query, ex).content.decode())
         

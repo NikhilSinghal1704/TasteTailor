@@ -330,8 +330,12 @@ def get_recipe_by_query(query, ex_params = {}):
     }
     
     params.update(analyze_query(query))
+    #print(params)
     params.update(ex_params)
     
+    if params["intolerances"] == '':
+        params.pop("intolerances")
+        
     print(params)
 
     try:
