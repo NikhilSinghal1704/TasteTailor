@@ -35,9 +35,9 @@ SECRET_KEY = "django-insecure-0qkhdoj0*t=(gyeg1z%)4k57d_56^9pxh8tik6*e=iyen)_#kw
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["tastetailor-production.up.railway.app", "*"]
+ALLOWED_HOSTS = ["tastetailor.nik-server.in", "*"]
 
-CSRF_TRUSTED_ORIGINS = ["https://tastetailor-production.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["http://tastetailor.nik-server.in"]
 
 
 # Application definition
