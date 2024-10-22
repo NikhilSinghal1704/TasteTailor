@@ -37,7 +37,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["tastetailor.nik-server.in", "*"]
 
-CSRF_TRUSTED_ORIGINS = ["https://tastetailor.nik-server.in/"]
+CSRF_TRUSTED_ORIGINS = ["https://tastetailor.nik-server.in"]
 
 
 # Application definition
