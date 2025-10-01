@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+      <title>TasteTailor</title>
+      <meta content="" name="description">
+      <meta content="" name="keywords">
+  
+      <!-- Favicons -->
+      <link href="{% static 'img/logo.png' %}" rel="icon">
+      <link href="{% static 'img/logo.png' %}" rel="apple-touch-icon">
+  
+      <!-- Google Fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+          rel="stylesheet">
+  
+      <!-- Vendor CSS Files -->
+      <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+      <link href="{% static "vendor/bootstrap-icons/bootstrap-icons.css" %}" rel="stylesheet">
+      <link href="{% static "vendor/aos/aos.css" %}" rel="stylesheet">
+      <link href="{% static "vendor/glightbox/css/glightbox.min.css" %}" rel="stylesheet">
+      <link href="{% static "vendor/swiper/swiper-bundle.min.css" %}" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  
+  
+      <!-- Template Main CSS File -->
+      <link href="{% static 'css/main.css' %}" rel="stylesheet">
+      <style>
+          /* Style for the button */
+          .popup-button {
+              display: none;
+              position: absolute;
+              bottom: 0; /* Position at the bottom of the image */
+              left: 50%;
+              transform: translateX(-50%);
+              padding: 5px 15px; /* Smaller size */
+              background-color: #007bff; /* Blue background color */
+              color: #fff;
+              border: 1px solid #007bff; /* Blue border */
+              border-radius: 10px; /* Rounded edges */
+              box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
+              cursor: pointer;
+              z-index: 1;
+          }
+          
+          /* Hover effect */
+          .swiper-slide:hover .popup-button {
+              display: block;
+          }
+          /* Add this CSS to your stylesheet */
+          .nutrition-table {
+              width: 100%;
+              border-collapse: collapse;
+          }
+          
+          .nutrient-header, .amount-header, .percent-header {
+              padding: 10px; /* Adjust the padding to control spacing */
+              text-align: left;
+          }
+          
+          .nutrient-name, .nutrient-amount, .percent-of-needs {
+              padding: 10px; /* Adjust the padding to control spacing */
+              text-align: left;
+              border-top: 1px solid #ddd; /* Add a top border for separation */
+          }
+
+          .slider-button {
+              cursor: pointer;
+              padding: 10px 20px;
+              background-color: #f5f5f5;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+              margin-right: 10px;
+          }
+          .slider-button.active {
+              background-color: #007bff;
+              color: #fff;
+          }
+          
+      </style>
+    </head>
+
+    <body>
+    
+        <!-- ======= Header ======= -->
+        <header id="header" class="header fixed-top d-flex align-items-center justify-content-around">
+            <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
+                <img src="{% static 'img/logo.png' %}" alt="TasteTailor Logo">
+                <h1>TasteTailor</h1>
+            </a>
+        
+            <!-- .navbar -->
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li><a href="/#hero">Home</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <li><a href="/#menu">Menu</a></li>
+                    <li><a href="#gallery">Similar Recipes</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle">
+                            <span>Services</span>
+                        </a>
+                        <ul>
+                            <li><a href="#">Generate Recipe</a></li>
+                            <li><a href="#">Analyse Recipe</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle">
+                                    <span>Recommender</span>
+                                </a>
+                                <ul>
+                                    <li><a href="#">Search by Ingredients</a></li>
+                                    <li><a href="#">Search by Nutrients</a></li>
+                                    <li><a href="#">Random Recipe</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav>
+        
+            <div class="dropdown">
+                <a class="btn btn-link dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{what}}" alt="mdo" width="32" height="32" class="rounded-circle">
+                </a>
+                <ul class="dropdown-menu p-0 border-1">
+
+                    {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href = "/authentication/signout">Sign Out</a></li>
+
+                    {% else %}
+                    <li><a class="dropdown-item" href="/authentication/signup">Sign Up</a></li>
+                    <li><a class="dropdown-item" href="/authentication/signin">Sign In</a></li>
+
+                    {% endif %}
+
+                </ul>
+            </div>            
+        </header>
+        <!-- End Header -->
+
+    <main id="main">
+  
+      <!-- ======= Breadcrumbs ======= -->
+      <div class="breadcrumbs">
+        <div class="container">
+            <div class="container recepie_details_area">
+                <div class="row align-items-center">
+                    <div class="col-xl-6 col-md-6">
+                        <div class="recepies_thumb">
+                            <img src="{{ recipe_info.image_url }}" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-md-6">
+                        <div class="recepies_info">
+                            <h3>{{ recipe_info.title }}</h3>
+                            <p>{{ recipe_info.summary|safe }}</p>
+                            <div class="resepies_details">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <strong>Serves:</strong> {{ recipe_info.servings }}
+                                    </li>
+                                    <li>
+                                        <strong>Time:</strong> {{ recipe_info.time_to_prepare }} Mins
+                                    </li>
+                                    <li>
+                                        <strong>Category:</strong> {{ recipe_info.type|join:", " }}
+                                    </li>
+                                    <li>
+                                        <strong>Health Rating:</strong> {{ recipe_info.health_rating }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="links">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <h2>Ingredients</h2>
+                <br>
+                <div class="row">
+                    <div class="col-xl-12">
+                        
+                        <div class="recepies_text">
+
+                            <!-- Create a container for the sliding button -->
+                            <div class="d-flex justify-content-center align-items-center mb-3">
+                                <div class="slider-button" id="tableButton">Table</div>
+                                <div class="slider-button" id="gridButton">Grid</div>
+                            </div>
+
+                            <!-- Create a carousel for view selection -->
+                            <div id="viewSelectionCarousel" class="carousel slide">
+                                <!-- Slides -->
+                                <div class="carousel-inner">
+                                    <!-- Table View -->
+                                    <div class="carousel-item active" id="tableView">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Image</th>
+                                                    <th>Name</th>
+                                                    <th>Qty</th>
+                                                    <th>Metric</th>
+                                                    <th>Price</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for ingredient in ingredients %}
+                                                <tr>
+                                                    <td><img src="{{ ingredient.img_url }}" alt="{{ ingredient.name }}" style="width: 50px; height: 50px;"></td>
+                                                    <td>{{ ingredient.name }}</td>
+                                                    <td>{{ ingredient.qty }}</td>
+                                                    <td>{{ ingredient.metric }}</td>
+                                                    <td>{{ ingredient.price }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- Grid View -->
+                                    
+                                    <div class="carousel-item" id="gridView">
+                                        <div class="row">
+                                            {% for ingredient in ingredients %}
+                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
+                                                <div class="card">
+                                                    <!-- Set a fixed height for the card -->
+                                                    <div class="card-img-container" style="height: 200px; overflow: hidden;">
+                                                        <img src="{{ingredient.img_url}}" alt="{{ ingredient.name }}" class="card-img-top img-fluid">
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">{{ ingredient.name }}</h5>
+                                                        <p class="card-text"><strong>Qty:</strong> {{ ingredient.qty }}</p>
+                                                        <p class="card-text"><strong>Metric:</strong> {{ ingredient.metric }}</p>
+                                                        <p class="card-text"><strong>Price:</strong> {{ ingredient.price }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    
+                                    </div>
+                                </div>
+                                <!-- Controls -->
+                                <a class="carousel-control-prev" href="#viewSelectionCarousel" role="button" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#viewSelectionCarousel" role="button" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </a>
+                            </div>
+                        
+                            <br>
+                            <h2>Instructions</h2>
+                            <p>
+                                {{ Instructions|safe }}
+                            </p>
+                            <br>
+                            <div>
+                                {{ recipe_info.nutrients|safe }}
+                            </div>
+                        </div>
+                                               
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <section id="gallery" class="gallery section-bg">
+        <div class="container" data-aos="fade-up">
+            <div class="section-header">
+                <p>Check Out <span> Similar Recipes</span></p>
+            </div>
+            <div class="gallery-slider swiper">
+                <div class="swiper-wrapper align-items-center">
+                    {% for recipe in similar %}
+                    <div class="swiper-slide">
+                        <a class="glightbox" data-gallery="images-gallery" href={{recipe.image_url}}>
+                            <img src={{recipe.image_url}}
+                                 class="img-fluid" alt="">
+                            <!-- Button to be shown on hover -->
+                            <a href = "/recipeinfo/{{recipe.id}}"><button class="popup-button">View Details</button></a>
+                        </a>
+                    </div>                            
+                    {% empty %}
+                        <p>No recipes available.</p>
+
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+      </section>
+      <!-- End Gallery Section -->
+
+      
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      <div class="container">
+          <div class="row gy-3">
+              <div class="col-lg-3 col-md-6 d-flex">
+                  <i class="bi bi-geo-alt icon"></i>
+                  <div>
+                      <h4>Address</h4>
+                      <p>
+                          FlatNo.104, Palam , New Delhi<br>
+                          New Delhi, Dl 0112525 - IND<br>
+                      </p>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-md-6 footer-links d-flex">
+                  <i class="bi bi-telephone icon"></i>
+                  <div>
+                      <h4>Reservations</h4>
+                      <p>
+                          <strong>Phone:</strong>+91 8708458376<br>
+                          <strong>Email:</strong>TasteTailor@gmail.com<br>
+                      </p>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-md-6 footer-links d-flex">
+                  <i class="bi bi-clock icon"></i>
+                  <div>
+                      <h4>24*7 Available</h4>
+                  </div>
+              </div>
+              <div class="col-lg-3 col-md-6 footer-links">
+                  <h4>Follow Us</h4>
+                  <div class="social-links d-flex">
+                      <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                      <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                      <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                      <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="container">
+          <div class="copyright">
+              &copy; Copyright <strong><span>TasteTailor</span></strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+              Designed by Culinary AI
+          </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+    
+    <a href="/" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    <div id="preloader"></div> 
+    
+    <!-- Vendor JS Files -->
+    <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+    <script src="{% static "vendor/aos/aos.js" %}"></script>
+    <script src="{% static "vendor/glightbox/js/glightbox.min.js" %}"></script>
+    <script src="{% static "vendor/purecounter/purecounter_vanilla.js" %}"></script>
+    <script src="{% static "vendor/swiper/swiper-bundle.min.js" %}"></script>
+    <script src="{% static "vendor/php-email-form/validate.js" %}"></script>
+    
+    <!-- Template Main JS File -->
+    <script src="{% static "js/main.js" %}"></script>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  
+    <!-- Add the JavaScript for the toggle button here -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tableButton = document.getElementById("tableButton");
+            const gridButton = document.getElementById("gridButton");
+            const viewSelectionCarousel = new bootstrap.Carousel(document.getElementById("viewSelectionCarousel"));
+        
+            tableButton.addEventListener("click", function () {
+                // Show Table View
+                viewSelectionCarousel.to(0); // Go to the first slide (Table View)
+                tableButton.classList.add("active");
+                gridButton.classList.remove("active");
+            });
+        
+            gridButton.addEventListener("click", function () {
+                // Show Grid View
+                viewSelectionCarousel.to(1); // Go to the second slide (Grid View)
+                gridButton.classList.add("active");
+                tableButton.classList.remove("active");
+            });
+        });
+    </script> 
+
+  </body>
+
+</html>
