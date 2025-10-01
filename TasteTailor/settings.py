@@ -87,10 +87,15 @@ WSGI_APPLICATION = "TasteTailor.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# NEW
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "tastetailor",
+        "USER": "tastetailor",
+        "PASSWORD": "njiokm,lp",
+        "HOST": "192.168.1.104",
+        "PORT": "5432",
     }
 }
 
