@@ -33,20 +33,14 @@ RUN apt-get update \
 WORKDIR /app
 
 # ------------------
-# 5. Install Python Dependencies
-# ------------------
-# Copy the requirements file first to leverage Docker layer caching.
-# This way, dependencies are only re-installed if requirements.txt changes.
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# ------------------
-# 6. Copy Application Code
+# 5. Copy Application Code
 # ------------------
 # Copy the rest of the application's code into the container.
 RUN git clone https://github.com/NikhilSinghal1704/TasteTailor.git .
 
-# Re-install dependencies in case requirements.txt changed in the application code.
+# ------------------
+# 6. Install Dependencies
+# ------------------
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Collect static files (if applicable).
