@@ -48,7 +48,7 @@ pipeline {
                     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
 
                     // Run the new container in detached mode, using the .env file.
-                    sh "docker run -d --name ${CONTAINER_NAME} -p 8505:8000 --env-file .env.tmp -v ${pwd()}:/app ${env.IMAGE_TAG}"
+                    sh "docker run -d --name ${CONTAINER_NAME} -p 8505:8000 --env-file .env.tmp -v /mnt/Main/TasteTailor:/app ${env.IMAGE_TAG}"
                 }
             }
         }

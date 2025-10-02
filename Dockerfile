@@ -44,8 +44,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 # 6. Copy Application Code
 # ------------------
 # Copy the rest of the application's code into the container.
-COPY TasteTailor .
-COPY . .
+RUN git clone https://github.com/NikhilSinghal1704/TasteTailor.git .
+
+# Re-install dependencies in case requirements.txt changed in the application code.
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Collect static files (if applicable).
+RUN python manage.py collectstatic --noinput
 
 # ------------------
 # 7. Expose Port
@@ -58,5 +63,5 @@ EXPOSE 8000
 # ------------------
 # Run Gunicorn. 'TasteTailor.wsgi:application' should match your project's wsgi file path.
 # Use the exec form to ensure signals are passed correctly.
-CMD ["sh", "-c", "ls -la"]
+CMD ["gunicorn", "TasteTailor.wsgi:application", "--bind", "0.0.0.0:8000"]
 
