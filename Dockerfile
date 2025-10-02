@@ -12,6 +12,8 @@ FROM python:3.11-slim-buster
 # and to ensure print statements are sent straight to the logs.
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+# Add the project directory to the Python path to resolve module import errors.
+ENV PYTHONPATH /app
 
 # ------------------
 # 3. Install System Dependencies
@@ -20,7 +22,7 @@ ENV PYTHONUNBUFFERED 1
 RUN echo "deb http://archive.debian.org/debian/ buster main" > /etc/apt/sources.list && \
     echo "deb http://archive.debian.org/debian-security buster/updates main" >> /etc/apt/sources.list
 
-# Install dependencies needed for psycopg2 (PostgreSQL driver) and other potential libraries.
+# Install dependencies needed for psycopg2 (PostgreSQL driver), git, and other potential libraries.
 RUN apt-get update \
   && apt-get install -y --no-install-recommends gcc libpq-dev git \
   && apt-get clean \
@@ -35,30 +37,37 @@ WORKDIR /app
 # ------------------
 # 5. Copy Application Code
 # ------------------
-# Copy the rest of the application's code into the container.
+# Clone the repository's content directly into the current working directory (/app).
+# The '.' at the end of the command is crucial.
 RUN git clone https://github.com/NikhilSinghal1704/TasteTailor.git .
 
 # ------------------
-# 6. Install Dependencies
+# 6. Install Python Dependencies
 # ------------------
+# Install dependencies from the cloned repository's requirements file.
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Collect static files (if applicable).
+# ------------------
+# 7. Django Static Files
+# ------------------
+# Collect static files for production.
 RUN python manage.py collectstatic --noinput
 
-# Ensure Gunicorn is installed. If not, install it.
+# ------------------
+# 8. Verify/Install Gunicorn
+# ------------------
+# Check if gunicorn is installed, and install it if it's not found.
+# This provides a fallback if gunicorn is missing from requirements.txt.
 RUN which gunicorn || pip install --no-cache-dir gunicorn
 
 # ------------------
-# 7. Expose Port
+# 9. Expose Port
 # ------------------
 # The port the container will listen on. Gunicorn will run on port 8000.
 EXPOSE 8000
 
 # ------------------
-# 8. Run Application
+# 10. Run Application
 # ------------------
-# Run Gunicorn. 'TasteTailor.wsgi:application' should match your project's wsgi file path.
-# Use the exec form to ensure signals are passed correctly.
+# Run Gunicorn to serve the Django application.
 CMD ["gunicorn", "TasteTailor.wsgi:application", "--bind", "0.0.0.0:8000"]
-
