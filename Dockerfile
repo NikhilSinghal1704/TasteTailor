@@ -1,35 +1,52 @@
-# Use the official Python image for Django and Gunicorn
-FROM python:3.10-slim
+# ------------------
+# 1. Base Image
+# ------------------
 
-# Install required packages
-RUN apt-get update && apt-get install -y \
-    nginx \
-    git \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+FROM python:3.11-slim-buster
 
-# Set the working directory
+# ------------------
+# 2. Environment Variables
+# ------------------
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# ------------------
+# 3. Install System Dependencies
+# ------------------
+# Install dependencies needed for psycopg2 (PostgreSQL driver) and other potential libraries.
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends gcc libpq-dev \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# ------------------
+# 4. Set Working Directory
+# ------------------
+# Set the working directory in the container.
 WORKDIR /app
 
-# Clone the Django application from GitHub
-RUN git clone https://github.com/NikhilSinghal1704/Portfolio_Creator .
+# ------------------
+# 5. Install Python Dependencies
+# ------------------
 
-# Install Python dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# ------------------
+# 6. Copy Application Code
+# ------------------
 
-# Expose port 8000 for Nginx
+COPY . .
+
+# ------------------
+# 7. Expose Port
+# ------------------
+
 EXPOSE 8000
 
-# Nginx configuration
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY ./nginx/app.conf /etc/nginx/conf.d/app.conf
+# ------------------
+# 8. Run Application
+# ------------------
 
-# Copy the start script to the container
-COPY ./start.sh /app/start.sh
-
-# Make the start script executable
-RUN chmod +x /app/start.sh
-
-# Use the start.sh script to start Nginx and Gunicorn
-CMD ["./start.sh"]
+CMD ["gunicorn", "TasteTailor.wsgi:application", "--bind", "0.0.0.0:8000"]
