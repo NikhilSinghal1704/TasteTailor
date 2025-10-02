@@ -14,7 +14,7 @@ pipeline {
     }
 
     // 3. Pipeline Stages
-        stages {
+    stages {
         stage('Cleanup Previous Builds') {
             steps {
                 echo "Cleaning up old containers and images..."
@@ -26,7 +26,6 @@ pipeline {
             }
         }
 
-    stages {
         stage('Build Docker Image') {
             steps {
                 echo "Building the Docker image: ${env.IMAGE_TAG}"
