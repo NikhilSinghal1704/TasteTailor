@@ -57,5 +57,5 @@ EXPOSE 8000
 # ------------------
 # Run Gunicorn. 'TasteTailor.wsgi:application' should match your project's wsgi file path.
 # Use the exec form to ensure signals are passed correctly.
-CMD ["sh", "-c", "ls -la && gunicorn TasteTailor.wsgi:application --bind 0.0.0.0:8000"]
+CMD ["sh", "-c", "ls -la"]
 
