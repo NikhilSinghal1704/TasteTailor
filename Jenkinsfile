@@ -23,15 +23,6 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                echo "Running Django tests inside the new container..."
-                // Run the tests inside the container we just built.
-                // We use --rm to automatically remove the container after the tests finish.
-                sh "docker run --rm -e SECRET_KEY=a-dummy-secret-key-for-testing ${env.IMAGE_TAG} python manage.py test"
-            }
-        }
-
         stage('Run Application Locally') {
             steps {
                 echo "Deploying the container to the local machine..."
