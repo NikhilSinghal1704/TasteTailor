@@ -14,6 +14,18 @@ pipeline {
     }
 
     // 3. Pipeline Stages
+        stages {
+        stage('Cleanup Previous Builds') {
+            steps {
+                echo "Cleaning up old containers and images..."
+                // Stop and remove the old container if it exists.
+                sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
+
+                // Find all Docker images with the name 'tastetailor' and forcefully remove them.
+                sh "docker images -q ${IMAGE_NAME} | xargs -r docker rmi -f"
+            }
+        }
+
     stages {
         stage('Build Docker Image') {
             steps {
@@ -30,13 +42,13 @@ pipeline {
                 // 'tastetailor-env-file' is the ID you must set in Jenkins > Credentials.
                 withCredentials([file(credentialsId: 'tastetailor-env-file', variable: 'ENV_FILE_PATH')]) {
                     // Create a temporary .env file in the workspace.
-                    sh 'echo "${DOT_ENV_CONTENT}" > .env.tmp'
+                    sh 'cp ${ENV_FILE_PATH} .env.tmp'
 
                     // Stop and remove any old container with the same name.
                     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
 
                     // Run the new container in detached mode, using the .env file.
-                    sh "docker run -d --name ${CONTAINER_NAME} -p 8505:8000 --env-file .env.tmp -v ${pwd()}:/app ${env.IMAGE_TAG}"
+                    sh "docker run -d --name ${CONTAINER_NAME} -p 8505:8000 --env-file .env.tmp -v /mnt/Main/TasteTailor:/app ${env.IMAGE_TAG}"
                 }
             }
         }
