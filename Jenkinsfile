@@ -28,7 +28,7 @@ pipeline {
                 echo "Deploying the container to the local machine..."
                 // Use the 'withCredentials' block to securely access your .env file content.
                 // 'tastetailor-env-file' is the ID you must set in Jenkins > Credentials.
-                withCredentials([string(credentialsId: 'tastetailor-env-file', variable: 'DOT_ENV_CONTENT')]) {
+                withCredentials([file(credentialsId: 'tastetailor-env-file', variable: 'ENV_FILE_PATH')]) {
                     // Create a temporary .env file in the workspace.
                     sh 'echo "${DOT_ENV_CONTENT}" > .env.tmp'
 
@@ -36,7 +36,7 @@ pipeline {
                     sh "docker stop ${CONTAINER_NAME} || true && docker rm ${CONTAINER_NAME} || true"
 
                     // Run the new container in detached mode, using the .env file.
-                    sh "docker run -d --name ${CONTAINER_NAME} -p 8505:8000 --env-file .env.tmp -v ${pwd()}:/app ${env.IMAGE_TAG}"
+                    sh "docker run -d --name ${CONTAINER_NAME} -p 8504:8000 --env-file .env.tmp -v ${pwd()}:/app ${env.IMAGE_TAG} gunicorn --chdir /app/TasteTailor wsgi:application --bind 0.0.0.0:8000"
                 }
             }
         }
