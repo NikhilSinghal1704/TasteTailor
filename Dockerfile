@@ -22,7 +22,7 @@ RUN echo "deb http://archive.debian.org/debian/ buster main" > /etc/apt/sources.
 
 # Install dependencies needed for psycopg2 (PostgreSQL driver) and other potential libraries.
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends gcc libpq-dev \
+  && apt-get install -y --no-install-recommends gcc libpq-dev git \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -51,6 +51,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Collect static files (if applicable).
 RUN python manage.py collectstatic --noinput
+
+# Ensure Gunicorn is installed. If not, install it.
+RUN which gunicorn || pip install --no-cache-dir gunicorn
 
 # ------------------
 # 7. Expose Port
