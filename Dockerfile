@@ -70,4 +70,4 @@ EXPOSE 8000
 # 10. Run Application
 # ------------------
 # Run Gunicorn to serve the Django application.
-CMD ["gunicorn", "TasteTailor.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["sh", "-c", "ls -la && gunicorn TasteTailor.wsgi:application --bind 0.0.0.0:8000"]
