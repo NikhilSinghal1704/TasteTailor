@@ -162,6 +162,7 @@ CACHE_TIMEOUT = 3600  # 1 hour in seconds
 
 # Cookies should only be sent over HTTPS
 SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_SECURE = True
 
 # Force HTTPS redirects
