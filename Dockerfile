@@ -35,39 +35,27 @@ RUN apt-get update \
 WORKDIR /app
 
 # ------------------
-# 5. Copy Application Code
+# 5. Install Python Dependencies
 # ------------------
-# Clone the repository's content directly into the current working directory (/app).
-# The '.' at the end of the command is crucial.
-RUN git clone https://github.com/NikhilSinghal1704/TasteTailor.git .
-
-# ------------------
-# 6. Install Python Dependencies
-# ------------------
-# Install dependencies from the cloned repository's requirements file.
+# Copy only requirements.txt from Jenkins workspace to leverage Docker layer caching.
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ------------------
-# 7. Django Static Files
-# ------------------
-# Collect static files for production.
-RUN python manage.py collectstatic --noinput
-
-# ------------------
-# 8. Verify/Install Gunicorn
+# 6. Verify/Install Gunicorn
 # ------------------
 # Check if gunicorn is installed, and install it if it's not found.
 # This provides a fallback if gunicorn is missing from requirements.txt.
 RUN which gunicorn || pip install --no-cache-dir gunicorn
 
 # ------------------
-# 9. Expose Port
+# 7. Expose Port
 # ------------------
 # The port the container will listen on. Gunicorn will run on port 8000.
 EXPOSE 8000
 
 # ------------------
-# 10. Run Application
+# 8. Run Application
 # ------------------
 # Run Gunicorn to serve the Django application.
 CMD ["sh", "-c", "ls -la && gunicorn TasteTailor.wsgi:application --bind 0.0.0.0:8000"]

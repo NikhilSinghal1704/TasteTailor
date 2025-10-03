@@ -35,6 +35,21 @@ pipeline {
             }
         }
 
+        stage('Update Git on Remote Host') {
+            steps {
+                echo "Pulling latest code on remote server..."
+                sshagent(['casaos-ssh']) {
+                    sh '''
+                        ssh -o StrictHostKeyChecking=no nikhil@192.168.1.104 "
+                            cd /mnt/Main/TasteTailor &&
+                            git fetch --all &&
+                            git reset --hard origin/main
+                        "
+                    '''
+                }
+            }
+        }
+
         stage('Run Application Locally') {
             steps {
                 echo "Deploying the container to the local machine..."
