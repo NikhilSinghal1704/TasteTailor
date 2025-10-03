@@ -159,3 +159,25 @@ CACHES = {
 
 # Set a timeout value for your cache (e.g., 1 hour).
 CACHE_TIMEOUT = 3600  # 1 hour in seconds
+
+# Cookies should only be sent over HTTPS
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Force HTTPS redirects — but only if Django knows it's behind Nginx Proxy Manager
+SECURE_SSL_REDIRECT = True
+
+# Tell Django how to detect HTTPS when behind a proxy
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# HSTS (start low, then increase once confident)
+SECURE_HSTS_SECONDS = 60           # test first
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = False        # only set True once you're ready to submit to preload list
+
+# Prevent clickjacking
+X_FRAME_OPTIONS = "DENY"
+
+# Additional best practices
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
