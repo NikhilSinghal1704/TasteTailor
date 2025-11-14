@@ -160,20 +160,20 @@ CACHES = {
 # Set a timeout value for your cache (e.g., 1 hour).
 CACHE_TIMEOUT = 3600  # 1 hour in seconds
 
-# Cookies should only be sent over HTTPS
-SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SECURE = True
+# # Cookies should only be sent over HTTPS
+# SESSION_COOKIE_SECURE = True
+# SESSION_COOKIE_HTTPONLY = True
+# CSRF_COOKIE_SECURE = True
 
-# Force HTTPS redirects
-SECURE_SSL_REDIRECT = True
+# # Force HTTPS redirects
+# SECURE_SSL_REDIRECT = True
 
-# Tell Django how to detect HTTPS when behind a proxy
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# # Tell Django how to detect HTTPS when behind a proxy
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-# Prevent clickjacking
-X_FRAME_OPTIONS = "DENY"
+# # Prevent clickjacking
+# X_FRAME_OPTIONS = "DENY"
 
-# Additional best practices
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
+# # Additional best practices
+# SECURE_BROWSER_XSS_FILTER = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True

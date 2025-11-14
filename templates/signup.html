@@ -1,246 +1,127 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 {% load static %}
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>Signup</title>
-    <meta content="" name="description" />
-    <meta content="" name="keywords" />
+{% block title %}Sign Up - TasteTailor{% endblock %}
 
-    <!-- Favicons -->
-    <link href="{% static 'img/logo.png' %}" rel="icon" />
-    <link href="{% static 'img/logo.png' %}" rel="apple-touch-icon" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-      crossorigin="anonymous"
-    />
-    <style>
-      :root {
-        --color-default: #212529;
-        --color-primary: #ce1212;
-        --color-secondary: #37373f;
-      }
+{% block body_class %}auth-page{% endblock %}
 
-      /*--------------------------------------------------------------
-        # Preloader
-        --------------------------------------------------------------*/
-      #preloader {
-        position: fixed;
-        inset: 0;
-        z-index: 9999;
-        overflow: hidden;
-        background: #fff;
-        transition: all 0.6s ease-out;
-        width: 100%;
-        height: 100vh;
-      }
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
 
-      #preloader:before,
-      #preloader:after {
-        content: "";
-        position: absolute;
-        border: 4px solid var(--color-primary);
-        border-radius: 50%;
-        animation: animate-preloader 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-      }
+{% block content %}
+<section class="vh-100 d-flex align-items-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-lg-10 col-xl-9">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <div class="card-body p-4 p-md-5">
+                        <div class="row">
+                            <div class="col-md-6 d-flex flex-column justify-content-center align-items-center border-end">
+                                <img src="{% static 'img/logo.png' %}" alt="TasteTailor Logo" style="width: 100px; height: 100px; border-radius: 50%;">
+                                <h3 class="mt-3 fw-bold">Join TasteTailor</h3>
+                                <p class="text-muted text-center px-3">Create an account to unlock personalized recipe recommendations</p>
+                                <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                                <lottie-player src="https://lottie.host/0edeabf5-4e20-41fb-8a87-f9fec008a0a9/4t17vnneUv.json" background="transparent" speed="1" style="width: 250px; height: 250px" loop autoplay></lottie-player>
+                            </div>
 
-      #preloader:after {
-        animation-delay: -0.5s;
-      }
+                            <div class="col-md-6">
+                                <h4 class="mb-4 fw-bold">Sign up</h4>
+                                
+                                {% if umessage %}
+                                <div class="alert alert-danger" role="alert">{{ umessage }}</div>
+                                {% endif %}
+                                {% if pmessage %}
+                                <div class="alert alert-danger" role="alert">{{ pmessage }}</div>
+                                {% endif %}
 
-      @keyframes animate-preloader {
-        0% {
-          width: 10px;
-          height: 10px;
-          top: calc(50% - 5px);
-          left: calc(50% - 5px);
-          opacity: 1;
-        }
+                                <form id="signup-form" action="signup" method="post">
+                                    {% csrf_token %}
 
-        100% {
-          width: 72px;
-          height: 72px;
-          top: calc(50% - 36px);
-          left: calc(50% - 36px);
-          opacity: 0;
-        }
-      }
+                                    <div class="form-outline mb-3">
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="Create Username" required />
+                                        <label class="form-label" for="username">Username</label>
+                                    </div>
 
-      /*--------------------------------------------------------------
-        # Disable aos animation delay on mobile devices
-        --------------------------------------------------------------*/
-      @media screen and (max-width: 768px) {
-        [data-aos-delay] {
-          transition-delay: 0 !important;
-        }
-      }
-    </style>
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-  </head>
-  <body>
-    <!-- Loader -->
-    <div id="preloader">
-      <div class="loader"></div>
-    </div>
+                                    <div class="form-outline mb-3">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required />
+                                        <label class="form-label" for="email">Email</label>
+                                    </div>
 
-    {% for message in messages %}
-    <div
-      class="alert alert-{{ message.tags }} alert-dismissible fade show"
-      role="alert"
-    >
-      <strong>Message: </strong>{{ message }}
-      <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="alert"
-        aria-label="Close"
-      >
-        <span arial-hidden="true">&times;</span>
-      </button>
-    </div>
-    {% endfor %}
+                                    <div class="form-outline mb-3">
+                                        <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Password" required />
+                                        <label class="form-label" for="pass1">Password</label>
+                                    </div>
 
-    <section class="vh-100" style="background-color: #f7fbfa">
-      <div class="container h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col-lg-12 col-xl-11">
-            <div class="card text-black" style="border-radius: 25px; background-color:#b7c7f6;">
-              <div class="card-body p-md-5">
-                <div class="row justify-content-center">
-                  <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                      Sign up
-                    </p>
+                                    <div class="form-outline mb-3">
+                                        <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Repeat Password" required />
+                                        <label class="form-label" for="pass2">Confirm Password</label>
+                                    </div>
 
-                    <form id="signup-form" action="signup" method="post">
-                      {% csrf_token %}
+                                    <div class="form-check mb-4">
+                                        <input class="form-check-input" type="checkbox" id="terms" required />
+                                        <label class="form-check-label" for="terms">
+                                            I agree to the <a href="#!">Terms of service</a>
+                                        </label>
+                                    </div>
 
-                      <div class="mb-3">
-                        <i class="fas fa-user fa-lg me-2"></i>
-                        <input
-                          type="text"
-                          class="form-control rounded-pill"
-                          id="username"
-                          name="username"
-                          placeholder="Create Username"
-                          required
-                        />
-                      </div>
-
-                      <div style="color: red"><p>{{umessage}}</p></div>
-
-                      <div class="mb-3">
-                        <i class="fas fa-envelope fa-lg me-2"></i>
-                        <input
-                          type="email"
-                          class="form-control rounded-pill"
-                          id="email"
-                          name="email"
-                          placeholder="Your Email"
-                          required
-                        />
-                      </div>
-
-                      <div class="mb-3">
-                        <i class="fas fa-lock fa-lg me-2"></i>
-                        <input
-                          type="password"
-                          class="form-control rounded-pill"
-                          id="pass1"
-                          name="pass1"
-                          placeholder="Password"
-                          required
-                        />
-                      </div>
-
-                      <div class="mb-3">
-                        <i class="fas fa-key fa-lg me-2"></i>
-                        <input
-                          type="password"
-                          class="form-control rounded-pill"
-                          id="pass2"
-                          name="pass2"
-                          placeholder="Repeat Password"
-                          required
-                        />
-                      </div>
-
-                      <div style="color: red"><p>{{pmessage}}</p></div>
-
-                      <div class="form-check mb-4">
-                        <input
-                          class="form-check-input me-2"
-                          type="checkbox"
-                          value=""
-                          id="form2Example3c"
-                          Required
-                        />
-                        <label
-                          class="form-check-label required"
-                          for="form2Example3"
-                        >
-                          I agree to the <a href="#!">Terms of service</a>
-                        </label>
-                      </div>
-
-                      <div class="text-center">
-                        <button
-                          type="submit"
-                          class="btn btn-primary btn-lg rounded-pill"
-                        >
-                          Register
-                        </button>
-                      </div>
-                      <strong"> Already Have an Account <a href = "/authentication/signin"> LogIn </a> </strong>
-                    </form>
-                  </div>
-                  <div
-                    class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2"
-                  >
-                    <lottie-player
-                      src="https://lottie.host/0edeabf5-4e20-41fb-8a87-f9fec008a0a9/4t17vnneUv.json"
-                      background="transparent"
-                      speed="1"
-                      style="width: 550px; height: 550px"
-                      loop
-                      autoplay
-                    ></lottie-player>
-                  </div>
+                                    <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Register</button>
+                                    
+                                    <div class="text-center">
+                                        <p class="mb-0">Already have an account? <a href="/authentication/signin" class="fw-bold">Login</a></p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-    </section>
+    </div>
+</section>
+{% endblock %}
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-      crossorigin="anonymous"
-    ></script>
+{% block extra_css %}
+<style>
+    .auth-page {
+        font-family: var(--font-default);
+    }
+    
+    .card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+    }
+    
+    .form-control:focus {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 0.2rem rgba(206, 18, 18, 0.25);
+    }
+    
+    .btn-primary {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: #ec2727;
+        border-color: #ec2727;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(206, 18, 18, 0.4);
+    }
+</style>
+{% endblock %}
 
-    <script>
-      // Add JavaScript to move to the next field on pressing Enter
-      document
-        .getElementById("signup-form")
-        .addEventListener("keydown", function (e) {
-          if (e.key === "Enter") {
+{% block extra_js %}
+<script>
+    document.getElementById('signup-form').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
             e.preventDefault();
             const form = e.target.form;
             const index = Array.prototype.indexOf.call(form, e.target);
-            form.elements[index + 1].focus();
-          }
-        });
-
-      // Hide the loader when the page is fully loaded
-      window.addEventListener("load", function () {
-        document.querySelector("#preloader").style.display = "none";
-      });
-    </script>
-  </body>
-</html>
+            if (form.elements[index + 1]) {
+                form.elements[index + 1].focus();
+            }
+        }
+    });
+</script>
+{% endblock %}

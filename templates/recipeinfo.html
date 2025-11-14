@@ -1,412 +1,265 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 {% load static %}
-<html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  
-      <title>TasteTailor</title>
-      <meta content="" name="description">
-      <meta content="" name="keywords">
-  
-      <!-- Favicons -->
-      <link href="{% static 'img/logo.png' %}" rel="icon">
-      <link href="{% static 'img/logo.png' %}" rel="apple-touch-icon">
-  
-      <!-- Google Fonts -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-          rel="stylesheet">
-  
-      <!-- Vendor CSS Files -->
-      <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
-      <link href="{% static "vendor/bootstrap-icons/bootstrap-icons.css" %}" rel="stylesheet">
-      <link href="{% static "vendor/aos/aos.css" %}" rel="stylesheet">
-      <link href="{% static "vendor/glightbox/css/glightbox.min.css" %}" rel="stylesheet">
-      <link href="{% static "vendor/swiper/swiper-bundle.min.css" %}" rel="stylesheet">
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-  
-  
-      <!-- Template Main CSS File -->
-      <link href="{% static 'css/main.css' %}" rel="stylesheet">
-      <style>
-          /* Style for the button */
-          .popup-button {
-              display: none;
-              position: absolute;
-              bottom: 0; /* Position at the bottom of the image */
-              left: 50%;
-              transform: translateX(-50%);
-              padding: 5px 15px; /* Smaller size */
-              background-color: #007bff; /* Blue background color */
-              color: #fff;
-              border: 1px solid #007bff; /* Blue border */
-              border-radius: 10px; /* Rounded edges */
-              box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Shadow */
-              cursor: pointer;
-              z-index: 1;
-          }
-          
-          /* Hover effect */
-          .swiper-slide:hover .popup-button {
-              display: block;
-          }
-          /* Add this CSS to your stylesheet */
-          .nutrition-table {
-              width: 100%;
-              border-collapse: collapse;
-          }
-          
-          .nutrient-header, .amount-header, .percent-header {
-              padding: 10px; /* Adjust the padding to control spacing */
-              text-align: left;
-          }
-          
-          .nutrient-name, .nutrient-amount, .percent-of-needs {
-              padding: 10px; /* Adjust the padding to control spacing */
-              text-align: left;
-              border-top: 1px solid #ddd; /* Add a top border for separation */
-          }
+{% load custom_filters %}
 
-          .slider-button {
-              cursor: pointer;
-              padding: 10px 20px;
-              background-color: #f5f5f5;
-              border: 1px solid #ccc;
-              border-radius: 5px;
-              margin-right: 10px;
-          }
-          .slider-button.active {
-              background-color: #007bff;
-              color: #fff;
-          }
-          
-      </style>
-    </head>
+{% block title %}{{ recipe_info.title }} - TasteTailor{% endblock %}
 
-    <body>
-    
-        <!-- ======= Header ======= -->
-        <header id="header" class="header fixed-top d-flex align-items-center justify-content-around">
-            <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
-                <img src="{% static 'img/logo.png' %}" alt="TasteTailor Logo">
-                <h1>TasteTailor</h1>
-            </a>
-        
-            <!-- .navbar -->
-            <nav id="navbar" class="navbar">
-                <ul>
-                    <li><a href="/#hero">Home</a></li>
-                    <li><a href="/#about">About</a></li>
-                    <li><a href="/#menu">Menu</a></li>
-                    <li><a href="#gallery">Similar Recipes</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle">
-                            <span>Services</span>
-                        </a>
-                        <ul>
-                            <li><a href="#">Generate Recipe</a></li>
-                            <li><a href="#">Analyse Recipe</a></li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle">
-                                    <span>Recommender</span>
-                                </a>
-                                <ul>
-                                    <li><a href="#">Search by Ingredients</a></li>
-                                    <li><a href="#">Search by Nutrients</a></li>
-                                    <li><a href="#">Random Recipe</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="/#contact">Contact</a></li>
-                </ul>
-            </nav>
-        
-            <div class="dropdown">
-                <a class="btn btn-link dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{what}}" alt="mdo" width="32" height="32" class="rounded-circle">
-                </a>
-                <ul class="dropdown-menu p-0 border-1">
+{% block content %}
 
-                    {% if user.is_authenticated %}
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Settings</a></li>
-                    <li><a class="dropdown-item" href = "/authentication/signout">Sign Out</a></li>
-
-                    {% else %}
-                    <li><a class="dropdown-item" href="/authentication/signup">Sign Up</a></li>
-                    <li><a class="dropdown-item" href="/authentication/signin">Sign In</a></li>
-
+<!-- Recipe Details Section -->
+<section class="recipe-details-section py-5" style="margin-top: 90px;">
+    <div class="container">
+        {% if recipe_info %}
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-6">
+                {% if recipe_info.image_url %}
+                    <img src="{{ recipe_info.image_url }}" alt="{{ recipe_info.title|default:'Recipe' }}" class="img-fluid rounded shadow-lg">
+                {% else %}
+                    <div class="bg-light rounded shadow-lg d-flex align-items-center justify-content-center" style="height: 400px;">
+                        <i class="bi bi-image" style="font-size: 4rem; color: #ccc;"></i>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-lg-6">
+                <div class="recipe-info">
+                    <h1 class="display-5 fw-bold mb-3">{{ recipe_info.title|default:'Recipe' }}</h1>
+                    {% if recipe_info.summary %}
+                    <div class="recipe-summary mb-4 p-3 bg-light rounded">
+                        {{ recipe_info.summary|safe }}
+                    </div>
                     {% endif %}
-
-                </ul>
-            </div>            
-        </header>
-        <!-- End Header -->
-
-    <main id="main">
-  
-      <!-- ======= Breadcrumbs ======= -->
-      <div class="breadcrumbs">
-        <div class="container">
-            <div class="container recepie_details_area">
-                <div class="row align-items-center">
-                    <div class="col-xl-6 col-md-6">
-                        <div class="recepies_thumb">
-                            <img src="{{ recipe_info.image_url }}" alt="" class="img-fluid">
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-md-6">
-                        <div class="recepies_info">
-                            <h3>{{ recipe_info.title }}</h3>
-                            <p>{{ recipe_info.summary|safe }}</p>
-                            <div class="resepies_details">
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <strong>Serves:</strong> {{ recipe_info.servings }}
-                                    </li>
-                                    <li>
-                                        <strong>Time:</strong> {{ recipe_info.time_to_prepare }} Mins
-                                    </li>
-                                    <li>
-                                        <strong>Category:</strong> {{ recipe_info.type|join:", " }}
-                                    </li>
-                                    <li>
-                                        <strong>Health Rating:</strong> {{ recipe_info.health_rating }}
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="links">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <h2>Ingredients</h2>
-                <br>
-                <div class="row">
-                    <div class="col-xl-12">
-                        
-                        <div class="recepies_text">
-
-                            <!-- Create a container for the sliding button -->
-                            <div class="d-flex justify-content-center align-items-center mb-3">
-                                <div class="slider-button" id="tableButton">Table</div>
-                                <div class="slider-button" id="gridButton">Grid</div>
-                            </div>
-
-                            <!-- Create a carousel for view selection -->
-                            <div id="viewSelectionCarousel" class="carousel slide">
-                                <!-- Slides -->
-                                <div class="carousel-inner">
-                                    <!-- Table View -->
-                                    <div class="carousel-item active" id="tableView">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Image</th>
-                                                    <th>Name</th>
-                                                    <th>Qty</th>
-                                                    <th>Metric</th>
-                                                    <th>Price</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for ingredient in ingredients %}
-                                                <tr>
-                                                    <td><img src="{{ ingredient.img_url }}" alt="{{ ingredient.name }}" style="width: 50px; height: 50px;"></td>
-                                                    <td>{{ ingredient.name }}</td>
-                                                    <td>{{ ingredient.qty }}</td>
-                                                    <td>{{ ingredient.metric }}</td>
-                                                    <td>{{ ingredient.price }}</td>
-                                                </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- Grid View -->
-                                    
-                                    <div class="carousel-item" id="gridView">
-                                        <div class="row">
-                                            {% for ingredient in ingredients %}
-                                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 mb-4">
-                                                <div class="card">
-                                                    <!-- Set a fixed height for the card -->
-                                                    <div class="card-img-container" style="height: 200px; overflow: hidden;">
-                                                        <img src="{{ingredient.img_url}}" alt="{{ ingredient.name }}" class="card-img-top img-fluid">
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">{{ ingredient.name }}</h5>
-                                                        <p class="card-text"><strong>Qty:</strong> {{ ingredient.qty }}</p>
-                                                        <p class="card-text"><strong>Metric:</strong> {{ ingredient.metric }}</p>
-                                                        <p class="card-text"><strong>Price:</strong> {{ ingredient.price }}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                    
-                                    </div>
+                    <div class="recipe-meta">
+                        <div class="row g-3">
+                            {% if recipe_info.servings %}
+                            <div class="col-6">
+                                <div class="info-box p-3 border rounded">
+                                    <i class="bi bi-people text-primary h4"></i>
+                                    <p class="mb-0"><strong>Serves:</strong> {{ recipe_info.servings }}</p>
                                 </div>
-                                <!-- Controls -->
-                                <a class="carousel-control-prev" href="#viewSelectionCarousel" role="button" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#viewSelectionCarousel" role="button" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </a>
                             </div>
-                        
-                            <br>
-                            <h2>Instructions</h2>
-                            <p>
-                                {{ Instructions|safe }}
-                            </p>
-                            <br>
-                            <div>
-                                {{ recipe_info.nutrients|safe }}
+                            {% endif %}
+                            {% if recipe_info.time_to_prepare %}
+                            <div class="col-6">
+                                <div class="info-box p-3 border rounded">
+                                    <i class="bi bi-clock text-primary h4"></i>
+                                    <p class="mb-0"><strong>Time:</strong> {{ recipe_info.time_to_prepare }} mins</p>
+                                </div>
                             </div>
+                            {% endif %}
+                            {% if recipe_info.type %}
+                            <div class="col-6">
+                                <div class="info-box p-3 border rounded">
+                                    <i class="bi bi-tag text-primary h4"></i>
+                                    <p class="mb-0"><strong>Category:</strong> {% if recipe_info.type|is_list %}{{ recipe_info.type|join:", " }}{% else %}{{ recipe_info.type }}{% endif %}</p>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% if recipe_info.health_rating %}
+                            <div class="col-6">
+                                <div class="info-box p-3 border rounded">
+                                    <i class="bi bi-heart text-primary h4"></i>
+                                    <p class="mb-0"><strong>Health:</strong> {{ recipe_info.health_rating|default:'N/A' }}</p>
+                                </div>
+                            </div>
+                            {% endif %}
                         </div>
-                                               
+                    </div>
+                    <div class="social-share mt-4">
+                        <p class="mb-2"><strong>Share:</strong></p>
+                        <a href="#" class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="btn btn-outline-info btn-sm me-2"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-      </div>
 
-      <section id="gallery" class="gallery section-bg">
-        <div class="container" data-aos="fade-up">
-            <div class="section-header">
-                <p>Check Out <span> Similar Recipes</span></p>
+        <!-- Ingredients Section -->
+        {% if ingredients %}
+        <div class="ingredients-section mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold"><i class="bi bi-basket me-2 text-primary"></i>Ingredients</h2>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-outline-primary" id="tableViewBtn">
+                        <i class="bi bi-table me-1"></i>Table
+                    </button>
+                    <button type="button" class="btn btn-outline-primary active" id="gridViewBtn">
+                        <i class="bi bi-grid-3x3-gap me-1"></i>Grid
+                    </button>
+                </div>
             </div>
-            <div class="gallery-slider swiper">
-                <div class="swiper-wrapper align-items-center">
-                    {% for recipe in similar %}
-                    <div class="swiper-slide">
-                        <a class="glightbox" data-gallery="images-gallery" href={{recipe.image_url}}>
-                            <img src={{recipe.image_url}}
-                                 class="img-fluid" alt="">
-                            <!-- Button to be shown on hover -->
-                            <a href = "/recipeinfo/{{recipe.id}}"><button class="popup-button">View Details</button></a>
-                        </a>
-                    </div>                            
-                    {% empty %}
-                        <p>No recipes available.</p>
 
+            <!-- Table View -->
+            <div id="tableView" class="view-container" style="display: none;">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ingredient in ingredients %}
+                            <tr>
+                                <td>{% if ingredient.img_url %}<img src="{{ ingredient.img_url }}" alt="{{ ingredient.name }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">{% endif %}</td>
+                                <td class="fw-bold">{{ ingredient.name|default:'Unknown' }}</td>
+                                <td>{{ ingredient.qty|default:'N/A' }}</td>
+                                <td>{{ ingredient.metric|default:'' }}</td>
+                                <td class="text-primary fw-bold">{{ ingredient.price|default:'N/A' }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Grid View -->
+            <div id="gridView" class="view-container">
+                <div class="row g-3">
+                    {% for ingredient in ingredients %}
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+                        <div class="ingredient-card text-center p-3 border rounded h-100">
+                            {% if ingredient.img_url %}<img src="{{ ingredient.img_url }}" alt="{{ ingredient.name }}" class="img-fluid mb-2 rounded" style="height: 80px; object-fit: cover;">{% endif %}
+                            <h6 class="mb-1">{{ ingredient.name|default:'Ingredient' }}</h6>
+                            <p class="small text-muted mb-1">{{ ingredient.qty|default:'N/A' }} {{ ingredient.metric|default:'' }}</p>
+                            <p class="small text-primary fw-bold mb-0">{{ ingredient.price|default:'N/A' }}</p>
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
-                <div class="swiper-pagination"></div>
             </div>
         </div>
-      </section>
-      <!-- End Gallery Section -->
+        {% endif %}
 
-      
-    <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
-      <div class="container">
-          <div class="row gy-3">
-              <div class="col-lg-3 col-md-6 d-flex">
-                  <i class="bi bi-geo-alt icon"></i>
-                  <div>
-                      <h4>Address</h4>
-                      <p>
-                          FlatNo.104, Palam , New Delhi<br>
-                          New Delhi, Dl 0112525 - IND<br>
-                      </p>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-md-6 footer-links d-flex">
-                  <i class="bi bi-telephone icon"></i>
-                  <div>
-                      <h4>Reservations</h4>
-                      <p>
-                          <strong>Phone:</strong>+91 8708458376<br>
-                          <strong>Email:</strong>TasteTailor@gmail.com<br>
-                      </p>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-md-6 footer-links d-flex">
-                  <i class="bi bi-clock icon"></i>
-                  <div>
-                      <h4>24*7 Available</h4>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-md-6 footer-links">
-                  <h4>Follow Us</h4>
-                  <div class="social-links d-flex">
-                      <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                      <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                      <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                      <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="container">
-          <div class="copyright">
-              &copy; Copyright <strong><span>TasteTailor</span></strong>. All Rights Reserved
-          </div>
-          <div class="credits">
-              Designed by Culinary AI
-          </div>
-      </div>
-    </footer>
-    <!-- End Footer -->
-    
-    <a href="/" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    <div id="preloader"></div> 
-    
-    <!-- Vendor JS Files -->
-    <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
-    <script src="{% static "vendor/aos/aos.js" %}"></script>
-    <script src="{% static "vendor/glightbox/js/glightbox.min.js" %}"></script>
-    <script src="{% static "vendor/purecounter/purecounter_vanilla.js" %}"></script>
-    <script src="{% static "vendor/swiper/swiper-bundle.min.js" %}"></script>
-    <script src="{% static "vendor/php-email-form/validate.js" %}"></script>
-    
-    <!-- Template Main JS File -->
-    <script src="{% static "js/main.js" %}"></script>
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
-    <!-- Include Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-  
-    <!-- Add the JavaScript for the toggle button here -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const tableButton = document.getElementById("tableButton");
-            const gridButton = document.getElementById("gridButton");
-            const viewSelectionCarousel = new bootstrap.Carousel(document.getElementById("viewSelectionCarousel"));
-        
-            tableButton.addEventListener("click", function () {
-                // Show Table View
-                viewSelectionCarousel.to(0); // Go to the first slide (Table View)
-                tableButton.classList.add("active");
-                gridButton.classList.remove("active");
-            });
-        
-            gridButton.addEventListener("click", function () {
-                // Show Grid View
-                viewSelectionCarousel.to(1); // Go to the second slide (Grid View)
-                gridButton.classList.add("active");
-                tableButton.classList.remove("active");
-            });
-        });
-    </script> 
+        <!-- Instructions Section -->
+        {% if Instructions %}
+        <div class="instructions-section mb-5">
+            <h2 class="fw-bold mb-4"><i class="bi bi-list-check me-2 text-primary"></i>Instructions</h2>
+            <div class="instructions-content p-4 bg-light rounded">
+                {{ Instructions|safe }}
+            </div>
+        </div>
+        {% endif %}
 
-  </body>
+        <!-- Nutrition Section -->
+        {% if recipe_info.nutrients %}
+        <div class="nutrition-section mb-5">
+            <h2 class="fw-bold mb-4"><i class="bi bi-heart-pulse me-2 text-primary"></i>Nutrition Facts</h2>
+            <div class="nutrition-content">
+                {{ recipe_info.nutrients|safe }}
+            </div>
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="alert alert-warning text-center py-5">
+            <i class="bi bi-exclamation-triangle h1 d-block mb-3"></i>
+            <h4>Recipe Information Unavailable</h4>
+            <p class="mb-0">We couldn't load the recipe details. Please try again later.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
 
-</html>
+<!-- Similar Recipes Section -->
+{% if similar %}
+<section id="similar-recipes" class="gallery section-bg">
+    <div class="container" data-aos="fade-up">
+        <div class="section-header">
+            <h2>Similar Recipes</h2>
+            <p>You Might Also <span>Like These</span></p>
+        </div>
+        <div class="gallery-slider swiper">
+            <div class="swiper-wrapper align-items-center">
+                {% for recipe in similar %}
+                <div class="swiper-slide">
+                    <a class="glightbox" data-gallery="images-gallery" href="{{ recipe.image_url }}">
+                        <img src="{{ recipe.image_url }}" class="img-fluid" alt="{{ recipe.name|default:'Recipe' }}">
+                        <a href="/recipeinfo/{{ recipe.id }}">
+                            <button class="popup-button">View Details</button>
+                        </a>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .recipe-details-section {
+        background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+    }
+    
+    .info-box {
+        transition: all 0.3s ease;
+        background: white;
+    }
+    
+    .info-box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .ingredient-card {
+        transition: all 0.3s ease;
+        background: white;
+    }
+    
+    .ingredient-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .popup-button {
+        display: none;
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 8px 20px;
+        background-color: var(--color-primary);
+        color: #fff;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .swiper-slide:hover .popup-button {
+        display: block;
+    }
+    
+    .popup-button:hover {
+        background-color: #ec2727;
+        transform: translateX(-50%) translateY(-2px);
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // View Switcher
+    document.getElementById('tableViewBtn').addEventListener('click', function() {
+        document.getElementById('tableView').style.display = 'block';
+        document.getElementById('gridView').style.display = 'none';
+        this.classList.add('active');
+        document.getElementById('gridViewBtn').classList.remove('active');
+    });
+    
+    document.getElementById('gridViewBtn').addEventListener('click', function() {
+        document.getElementById('gridView').style.display = 'block';
+        document.getElementById('tableView').style.display = 'none';
+        this.classList.add('active');
+        document.getElementById('tableViewBtn').classList.remove('active');
+    });
+</script>
+{% endblock %}
