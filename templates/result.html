@@ -1,368 +1,158 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 {% load static %}
 
-  <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  
-    <title>Search</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-  
-    <!-- Favicons -->
-    <link href="{% static "img/logo.png" %}" rel="icon">
-    <link href="{% static 'img/logo.png' %}" rel="apple-touch-icon">
-  
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-  
-    <!-- Vendor CSS Files -->
-    <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
-    <link href="{% static "vendor/bootstrap-icons/bootstrap-icons.css" %}" rel="stylesheet">
-    <link href="{% static "vendor/aos/aos.css" %}" rel="stylesheet">
-    <link href="{% static "vendor/glightbox/css/glightbox.min.css" %}" rel="stylesheet">
-    <link href="{% static "vendor/swiper/swiper-bundle.min.css" %}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-            integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    
-  
-    <!-- Template Main CSS File -->
-    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+{% block title %}Search Results - TasteTailor{% endblock %}
 
-    <!-- Your custom CSS -->
-    <style>
-      /* Custom CSS styles */
-      .child-link {
-          display: block; /* Ensure the entire child div is clickable */
-      }
-      
-      .child {
-          border: 1px solid #ccc; /* Add a border to the child divs */
-          border-radius: 10px; /* Add rounded corners */
-          margin-bottom: 20px; /* Increase space between child elements */
-      }
-      
-      section {
-          width: 80%; /* Set the section width to 80% of the viewport width */
-          margin: 0 auto; /* Center the section horizontally */
-      }
+{% block content %}
 
-    </style>
-  
-  </head>
-  
-  <body>
-  
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top d-flex align-items-center justify-content-around">
-      <a href="/" class="logo d-flex align-items-center me-auto me-lg-0">
-          <img src="{% static 'img/logo.png' %}" alt="TasteTailor Logo">
-          <h1>TasteTailor</h1>
-      </a>
-  
-      <!-- .navbar -->
-      <nav id="navbar" class="navbar">
-          <ul>
-              <li><a href="/#hero">Home</a></li>
-              <li><a href="/#about">About</a></li>
-              <li><a href="/#menu">Menu</a></li>
-              <li><a href="/#gallery">Top Recipes</a></li>
-              <li class="dropdown">
-                  <a class="dropdown-toggle">
-                      <span>Services</span>
-                  </a>
-                  <ul>
-                      <li><a href="#">Generate Recipe</a></li>
-                      <li><a href="#">Analyse Recipe</a></li>
-                      <li class="dropdown">
-                          <a class="dropdown-toggle">
-                              <span>Recommender</span>
-                          </a>
-                          <ul>
-                              <li><a href="#">Search by Ingredients</a></li>
-                              <li><a href="#">Search by Nutrients</a></li>
-                              <li><a href="#">Random Recipe</a></li>
-                          </ul>
-                      </li>
-                  </ul>
-              </li>
-              <li><a href="/#contact">Contact</a></li>
-          </ul>
-      </nav>
-  
-      <div class="dropdown">
-          <a class="btn btn-link dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="{{what}}" alt="mdo" width="32" height="32" class="rounded-circle">
-          </a>
-          <ul class="dropdown-menu p-0 border-1">
-  
-              {% if user.is_authenticated %}
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><a class="dropdown-item" href="#">Settings</a></li>
-              <li><a class="dropdown-item" href = "/authentication/signout">Sign Out</a></li>
-  
-              {% else %}
-              <li><a class="dropdown-item" href="/authentication/signup">Sign Up</a></li>
-              <li><a class="dropdown-item" href="/authentication/signin">Sign In</a></li>
-  
-              {% endif %}
-  
-          </ul>
-      </div>            
-    </header>
-    <!-- End Header -->
-  
-    <main id="main">
-   
-      <section>
-        <!-- Search Bar Section -->
-        <div class="container mt-4">
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                  <form action="search" method="POST">
+<!-- Search Bar Section -->
+<section class="search-section py-5" style="background-color: #f8f9fa; margin-top: 90px;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <form action="search" method="POST">
                     {% csrf_token %}
-                    <div class="d-flex flex-row align-items-start">
-                        <input type="search" id="q" name="q" class="form-control me-2" placeholder="Search..." aria-label="Search">
-                        <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#filterBox">
-                            Filters
+                    <div class="d-flex flex-column flex-md-row align-items-start gap-2">
+                        <input type="search" id="q" name="q" class="form-control form-control-lg" placeholder="Search for recipes..." aria-label="Search" value="{{ query }}">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="collapse" data-bs-target="#filterBox">
+                            <i class="bi bi-funnel me-2"></i>Filters
                         </button>
-                        <button class="btn btn-primary" type="submit">Search</button>
+                        <button class="btn btn-primary btn-lg" type="submit">
+                            <i class="bi bi-search me-2"></i>Search
+                        </button>
                     </div>
-                
-                    <div class="collapse border rounded p-2 shadow" id="filterBox">
-                      <!-- Single-value filter categories with select fields -->
-                      <div class="form-group">
-                          <label class="fw-bold" for="category1">Diet: The diet(s) for which the recipes must be suitable</label>
-                          <select id="Diet" name="Diet" class="form-control">
-                              <option value="" {% if Diet == "" %}selected{% endif %}>omnivore</option>
-                              <option value="Gluten Free" {% if Diet == "Gluten Free" %}selected{% endif %}>Gluten Free: No wheat, barley, rye, and other gluten items</option>
-                              <option value="Ketogenic" {% if Diet == "Ketogenic" %}selected{% endif %}>Ketogenic: high fat and protein-rich foods</option>
-                              <option value="Vegetarian" {% if Diet == "Vegetarian" %}selected{% endif %}>Vegetarian:  No meat or meat by-products</option>
-                              <option value="Lacto-Vegetarian" {% if Diet == "Lacto-Vegetarian" %}selected{% endif %}>Lacto-Vegetarian:  No egg</option>
-                              <option value="Ovo-Vegetarian" {% if Diet == "Ovo-Vegetarian" %}selected{% endif %}>Ovo-Vegetarian:  No dairy</option>
-                              <option value="Vegan" {% if Diet == "Vegan" %}selected{% endif %}>Vegan:  No meat, meat by-products, eggs, dairy, or honey</option>
-                          </select>
-                      </div>
-                  
-                      <div class="form-group">
-                          <label class="fw-bold" for="category2">Type:</label>
-                          <select id="Type" name="Type" class="form-control">
-                              <option value="" {% if Type == "" %}selected{% endif %}>Any</option>                                                                                                                                                     
-                              <option value="main course" {% if Type == "main course" %}selected{% endif %}>Main Course</option>
-                              <option value="side dish" {% if Type == "side dish" %}selected{% endif %}>Side Dish</option>
-                              <option value="dessert" {% if Type == "dessert" %}selected{% endif %}>Dessert</option>
-                              <option value="appetizer" {% if Type == "appetizer" %}selected{% endif %}>Appetizer</option>
-                              <option value="salad" {% if Type == "salad" %}selected{% endif %}>Salad</option>
-                              <option value="bread" {% if Type == "bread" %}selected{% endif %}>Bread</option>
-                              <option value="breakfast" {% if Type == "breakfast" %}selected{% endif %}>Breakfast</option>
-                              <option value="soup" {% if Type == "soup" %}selected{% endif %}>Soup</option>
-                              <option value="beverage" {% if Type == "beverage" %}selected{% endif %}>Beverage</option>
-                              <option value="sauce" {% if Type == "sauce" %}selected{% endif %}>Sauce</option>
-                              <option value="marinade" {% if Type == "marinade" %}selected{% endif %}>Marinade</option>
-                              <option value="fingerfood" {% if Type == "fingerfood" %}selected{% endif %}>Fingerfood</option>
-                              <option value="snack" {% if Type == "snack" %}selected{% endif %}>Snack</option>
-                              <option value="drink" {% if Type == "drink" %}selected{% endif %}>Drink</option>
-                          </select>
-                      </div>
-                  
-                      <div class="form-group">
-                          <label class="fw-bold" for="category3">Sort By:</label>
-                          <select id="sort" name="sort" class="form-control">
-                              <option value="" {% if sort == "" %}selected{% endif %} >--Select--</option>
-                              <option value="meta-score"{% if sort == "meta-score" %}selected{% endif %}>meta-score</option>
-                              <option value="popularity"{% if sort == "popularity" %}selected{% endif %}>popularity</option>
-                              <option value="healthiness"{% if sort == "healthiness" %}selected{% endif %}>healthiness</option>
-                              <option value="price"{% if sort == "price" %}selected{% endif %}>price</option>
-                              <option value="time"{% if sort == "time" %}selected{% endif %}>time</option>
-                              <option value="random"{% if sort == "random" %}selected{% endif %}>random</option>
-                              <option value="energy"{% if sort == "energy" %}selected{% endif %}>energy</option>
-                          </select>
-                      </div>
-                  
-                      <!-- Multi-value filter categories with checkboxes -->
-                      <div class="form-group">
-                          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#multiCategory4" aria-expanded="false">
-                              <label class="fw-bold">Intolerances: Select all your food intolerances</label>
-                          </button>
-                          <div class="collapse overflow-auto" id="multiCategory4" style="max-height: 100px;">
-                              <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="intolerances_option1" name="intolerances" value="Dairy"{% if "Dairy" in intolerances %}checked{% endif %}>
-                                  <label class="form-check-label" for="intolerances_option1">Dairy</label>
-                              </div>
-                              <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="intolerances_option2" name="intolerances" value="Egg"{% if "Egg" in intolerances %}checked{% endif %}>
-                                  <label class="form-check-label" for="intolerances_option2">Egg</label>
-                              </div>
-                              <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="intolerances_option3" name="intolerances" value="Gluten"{% if "Gluten" in intolerances %}checked{% endif %}>
-                                  <label class="form-check-label" for="intolerances_option3">Gluten</label>
-                              </div>
-                              <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="intolerances_option4" name="intolerances" value="Grain"{% if "Grain" in intolerances %}checked{% endif %}>
-                                  <label class="form-check-label" for="intolerances_option4">Grain</label>
-                              </div>
-                              <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="intolerances_option5" name="intolerances" value="Peanut"{% if "Peanut" in intolerances %}checked{% endif %}>
-                                  <label class="form-check-label" for="intolerances_option5">Peanut</label>
-                              </div>
-                              <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="intolerances_option6" name="intolerances" value="Seafood"{% if "Seafood" in intolerances %}checked{% endif %}>
-                                  <label class="form-check-label" for="intolerances_option6">Seafood</label>
-                              </div>
-                              <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="intolerances_option7" name="intolerances" value="Sesame"{% if "Sesame" in intolerances %}checked{% endif %}>
-                                  <label class="form-check-label" for="intolerances_option7">Sesame</label>
-                              </div>
-                              <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="intolerances_option8" name="intolerances" value="Shellfish"{% if "Shellfish" in intolerances %}checked{% endif %}>
-                                  <label class="form-check-label" for="intolerances_option8">Shellfish</label>
-                              </div>
-                              <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="intolerances_option9" name="intolerances" value="Soy"{% if "Soy" in intolerances %}checked{% endif %}>
-                                  <label class="form-check-label" for="intolerances_option9">Soy</label>
-                              </div>
-                              <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="intolerances_option10" name="intolerances" value="Sulfite"{% if "Sulfite" in intolerances %}checked{% endif %}>
-                                  <label class="form-check-label" for="intolerances_option10">Sulfite</label>
-                              </div>
-                              <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="intolerances_option11" name="intolerances" value="Tree Nut"{% if "Tree Nut" in intolerances %}checked{% endif %}>
-                                  <label class="form-check-label" for="intolerances_option11">Tree Nut</label>
-                              </div>
-                              <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="intolerances_option12" name="intolerances" value="Wheat"{% if "Wheat" in intolerances %}checked{% endif %}>
-                                  <label class="form-check-label" for="intolerances_option12">Wheat</label>
-                              </div>
-                              <!-- Add more checkboxes here -->
-                          </div>
-                      </div>
-                    </div>                  
-                    
-                  </form>
-                </div>
-            </div>
-        </div>
-      </section>
-    
-      <!-- Bootstrap container for the image gallery section -->
-      <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        {% for recipe in results %}
-                        <div class="col-md-4">
-                            <a href="/recipeinfo/{{ recipe.id }}" class="child-link"> <!-- Add link -->
-                                <div class="child">
-                                    <img src="{{recipe.image_url}}" alt="Image 1" class="img img-thumbnail"> <!-- Add img-thumbnail class for rounded borders -->
-                                    <div>
-                                        <p class="para">
-                                            <p><strong>Name: {{recipe.name}}</strong></p>
-                                            <ul>
-                                                <li>
-                                                    <p>ID: {{ recipe.id }}</p> <!-- Corrected the variable name -->
-                                                </li>
-                                                <li>
-                                                    <p>Time: {{ recipe.time_to_prepare }} Mins</p>
-                                                </li>
-                                            </ul>
-                                        </p>
+
+                    <div class="collapse mt-3" id="filterBox">
+                        <div class="card card-body shadow-sm">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Diet</label>
+                                    <select id="Diet" name="Diet" class="form-select">
+                                        <option value="" {% if Diet == "" %}selected{% endif %}>Omnivore</option>
+                                        <option value="Gluten Free" {% if Diet == "Gluten Free" %}selected{% endif %}>Gluten Free</option>
+                                        <option value="Ketogenic" {% if Diet == "Ketogenic" %}selected{% endif %}>Ketogenic</option>
+                                        <option value="Vegetarian" {% if Diet == "Vegetarian" %}selected{% endif %}>Vegetarian</option>
+                                        <option value="Lacto-Vegetarian" {% if Diet == "Lacto-Vegetarian" %}selected{% endif %}>Lacto-Vegetarian</option>
+                                        <option value="Ovo-Vegetarian" {% if Diet == "Ovo-Vegetarian" %}selected{% endif %}>Ovo-Vegetarian</option>
+                                        <option value="Vegan" {% if Diet == "Vegan" %}selected{% endif %}>Vegan</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Type</label>
+                                    <select id="Type" name="Type" class="form-select">
+                                        <option value="" {% if Type == "" %}selected{% endif %}>Any</option>
+                                        <option value="main course" {% if Type == "main course" %}selected{% endif %}>Main Course</option>
+                                        <option value="side dish" {% if Type == "side dish" %}selected{% endif %}>Side Dish</option>
+                                        <option value="dessert" {% if Type == "dessert" %}selected{% endif %}>Dessert</option>
+                                        <option value="appetizer" {% if Type == "appetizer" %}selected{% endif %}>Appetizer</option>
+                                        <option value="breakfast" {% if Type == "breakfast" %}selected{% endif %}>Breakfast</option>
+                                        <option value="soup" {% if Type == "soup" %}selected{% endif %}>Soup</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">Sort By</label>
+                                    <select id="sort" name="sort" class="form-select">
+                                        <option value="" {% if sort == "" %}selected{% endif %}>Relevance</option>
+                                        <option value="meta-score" {% if sort == "meta-score" %}selected{% endif %}>Meta Score</option>
+                                        <option value="popularity" {% if sort == "popularity" %}selected{% endif %}>Popularity</option>
+                                        <option value="healthiness" {% if sort == "healthiness" %}selected{% endif %}>Healthiness</option>
+                                        <option value="price" {% if sort == "price" %}selected{% endif %}>Price</option>
+                                        <option value="time" {% if sort == "time" %}selected{% endif %}>Time</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label fw-bold">Intolerances</label>
+                                    <div class="row">
+                                        {% for intolerance in "Dairy,Egg,Gluten,Grain,Peanut,Seafood,Sesame,Shellfish,Soy,Sulfite,Tree Nut,Wheat"|split:"," %}
+                                        <div class="col-md-3 col-sm-6">
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="intolerance_{{ forloop.counter }}" name="intolerances" value="{{ intolerance }}" {% if intolerance in intolerances %}checked{% endif %}>
+                                                <label class="form-check-label" for="intolerance_{{ forloop.counter }}">{{ intolerance }}</label>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
-                        {% empty %}
-                        <p> No result for "{{query}}" </p>
-                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Results Section -->
+<section class="results-section py-5">
+    <div class="container">
+        {% if query %}
+        <h3 class="mb-4">Search results for "<span class="text-primary">{{ query }}</span>"</h3>
+        {% endif %}
+        
+        <div class="row g-4">
+            {% for recipe in results %}
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 shadow-sm recipe-card">
+                    <a href="/recipeinfo/{{ recipe.id }}">
+                        <img src="{{ recipe.image_url }}" class="card-img-top" alt="{{ recipe.name }}" style="height: 250px; object-fit: cover;">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="/recipeinfo/{{ recipe.id }}" class="text-decoration-none text-dark">{{ recipe.name }}</a>
+                        </h5>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="text-muted small"><i class="bi bi-hash"></i> ID: {{ recipe.id }}</span>
+                            <span class="badge bg-primary"><i class="bi bi-clock me-1"></i>{{ recipe.time_to_prepare }} min</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <a href="/recipeinfo/{{ recipe.id }}" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-eye me-2"></i>View Details
+                        </a>
                     </div>
                 </div>
             </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info text-center py-5">
+                    <i class="bi bi-search h1 d-block mb-3"></i>
+                    <h4>No results found for "{{ query }}"</h4>
+                    <p class="mb-0">Try adjusting your search or filters</p>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-      </section>
-    
-    
-  
-    </main><!-- End #main -->
-  
-    <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
-      <div class="container">
-          <div class="row gy-3">
-              <div class="col-lg-3 col-md-6 d-flex">
-                  <i class="bi bi-geo-alt icon"></i>
-                  <div>
-                      <h4>Address</h4>
-                      <p>
-                          FlatNo.104, Palam , New Delhi<br>
-                          New Delhi, Dl 0112525 - IND<br>
-                      </p>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-md-6 footer-links d-flex">
-                  <i class="bi bi-telephone icon"></i>
-                  <div>
-                      <h4>Contacts</h4>
-                      <p>
-                          <strong>Phone:</strong>+91 8708458376<br>
-                          <strong>Email:</strong>TasteTailor@gmail.com<br>
-                      </p>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-md-6 footer-links d-flex">
-                  <i class="bi bi-clock icon"></i>
-                  <div>
-                      <h4>24*7 Available</h4>
-                  </div>
-              </div>
-              <div class="col-lg-3 col-md-6 footer-links">
-                  <h4>Follow Us</h4>
-                  <div class="social-links d-flex">
-                      <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                      <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                      <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                      <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="container">
-          <div class="copyright">
-              &copy; Copyright <strong><span>TasteTailor</span></strong>. All Rights Reserved
-          </div>
-          <div class="credits">
-              <!-- All the links in the footer should remain intact. -->
-              <!-- You can delete the links only if you purchased the pro version. -->
-              <!-- Licensing information: https://bootstrapmade.com/license/ -->
-              <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
-              Culinary AI
-          </div>
-      </div>
-    </footer>
-  
-    <a href="" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-  
-    <div id="preloader"></div>
-  
-    <!-- Vendor JS Files -->
-    <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
-    <script src="{% static "vendor/aos/aos.js" %}"></script>
-    <script src="{% static "vendor/glightbox/js/glightbox.min.js" %}"></script>
-    <script src="{% static "vendor/purecounter/purecounter_vanilla.js" %}"></script>
-    <script src="{% static "vendor/swiper/swiper-bundle.min.js" %}"></script>
-    <script src="{% static "vendor/php-email-form/validate.js" %}"></script>
-  
-    <!-- Template Main JS File -->
-    <script src="{% static "js/main.js" %}"></script>
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  
-    <!-- Include Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </div>
+</section>
 
-  </body>
+{% endblock %}
 
-</html>
+{% block extra_css %}
+<style>
+    .recipe-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    .recipe-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    .recipe-card img {
+        transition: transform 0.3s ease;
+    }
+    
+    .recipe-card:hover img {
+        transform: scale(1.05);
+    }
+    
+    .search-section {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+</style>
+{% endblock %}

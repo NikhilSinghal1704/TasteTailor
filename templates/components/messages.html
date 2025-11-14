@@ -1,0 +1,43 @@
+{% if messages %}
+<div class="message-container" style="position: fixed; top: 100px; right: 20px; z-index: 9999; max-width: 500px;">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show d-flex align-items-center" role="alert" style="margin-bottom: 10px;">
+        {% if message.tags == 'error' or message.tags == 'danger' %}
+            <i class="bi bi-exclamation-circle-fill me-2"></i>
+        {% elif message.tags == 'success' %}
+            <i class="bi bi-check-circle-fill me-2"></i>
+        {% elif message.tags == 'warning' %}
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        {% else %}
+            <i class="bi bi-info-circle-fill me-2"></i>
+        {% endif %}
+        <span>{{ message }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+    .message-container {
+        animation: slideInRight 0.3s ease-in-out;
+    }
+    
+    @keyframes slideInRight {
+        from {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    .alert {
+        border-radius: 8px;
+        border: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        font-weight: 500;
+    }
+</style>
+{% endif %}

@@ -1,0 +1,14 @@
+<div class="col-lg-4 menu-item">
+    <a href="{{ recipe.image_url }}" class="glightbox">
+        <img src="{{ recipe.image_url }}" class="menu-img img-fluid" alt="{{ recipe.name }}">
+    </a>
+    <a href="/recipeinfo/{{ recipe.id }}">
+        <h4>{{ recipe.name }}</h4>
+    </a>
+    <p class="ingredients">
+        Recipe ID: {{ recipe.id }}
+    </p>
+    <p class="price">
+        <i class="bi bi-clock me-1"></i>{{ recipe.time_to_prepare }} minutes
+    </p>
+</div>
