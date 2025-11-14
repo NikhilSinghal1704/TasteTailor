@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -10,6 +11,8 @@ from django.utils.encoding import force_bytes
 from django.core.mail import EmailMessage
 from TasteTailor import settings
 from .tokens import generate_token
+from .models import UserPreferences
+from .forms import PreferencesForm
 import re
 
 
@@ -118,6 +121,17 @@ def signin(request):
         if user is not None:
             login(request, user)
             messages.success(request, "Logged in successfully")
+            
+            # Check if user has completed preferences
+            try:
+                preferences = UserPreferences.objects.get(user=user)
+                if not preferences.preferences_completed:
+                    return redirect("preferences")
+            except UserPreferences.DoesNotExist:
+                # Create new preferences record and redirect
+                UserPreferences.objects.create(user=user)
+                return redirect("preferences")
+            
             return redirect("/")
 
         else:
@@ -148,3 +162,66 @@ def activate(request, uidb64, token):
     else:
         messages.error(request, "Invalid Email")
         return redirect("/authentication/signup")
+
+
+@login_required(login_url='/authentication/signin')
+def preferences(request):
+    """Handle user preferences setup"""
+    try:
+        preferences = UserPreferences.objects.get(user=request.user)
+    except UserPreferences.DoesNotExist:
+        preferences = UserPreferences.objects.create(user=request.user)
+    
+    if request.method == "POST":
+        form = PreferencesForm(request.POST, instance=preferences)
+        if form.is_valid():
+            preferences = form.save(commit=False)
+            preferences.user = request.user
+            preferences.preferences_completed = True
+            preferences.save()
+            
+            messages.success(request, "Preferences saved successfully!")
+            return redirect("/")
+        else:
+            messages.error(request, "Please correct the errors below")
+    else:
+        form = PreferencesForm(instance=preferences)
+    
+    context = {
+        'form': form,
+        'preferences': preferences,
+        'user': request.user,
+        'is_edit': preferences.preferences_completed
+    }
+    
+    return render(request, "preferences.html", context)
+
+
+@login_required(login_url='/authentication/signin')
+def edit_preferences(request):
+    """Edit existing preferences"""
+    try:
+        preferences = UserPreferences.objects.get(user=request.user)
+    except UserPreferences.DoesNotExist:
+        return redirect("preferences")
+    
+    if request.method == "POST":
+        form = PreferencesForm(request.POST, instance=preferences)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Preferences updated successfully!")
+            return redirect("/")
+        else:
+            messages.error(request, "Please correct the errors below")
+    else:
+        form = PreferencesForm(instance=preferences)
+    
+    context = {
+        'form': form,
+        'preferences': preferences,
+        'user': request.user,
+        'is_edit': True
+    }
+    
+    return render(request, "preferences.html", context)
+

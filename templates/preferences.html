@@ -1,0 +1,595 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}User Preferences - TasteTailor{% endblock %}
+
+{% block content %}
+
+<!-- Preferences Section -->
+<section class="preferences-section py-5" style="margin-top: 90px; background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- Header -->
+                <div class="preferences-header text-center mb-5">
+                    {% if is_edit %}
+                    <h1 class="display-5 fw-bold mb-2">
+                        <i class="bi bi-gear me-3 text-primary"></i>Edit Your Preferences
+                    </h1>
+                    <p class="text-muted">Update your profile and preferences for better recipe recommendations</p>
+                    {% else %}
+                    <h1 class="display-5 fw-bold mb-2">
+                        <i class="bi bi-rocket-takeoff me-3 text-primary"></i>Complete Your Profile
+                    </h1>
+                    <p class="text-muted">Help us personalize your recipe recommendations by sharing your preferences</p>
+                    {% endif %}
+                </div>
+
+                <!-- Progress Steps (for first-time setup) -->
+                {% if not is_edit %}
+                <div class="progress-steps mb-5">
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <div class="step-item active">
+                                <div class="step-number">1</div>
+                                <p class="step-title">Personal Info</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="step-item">
+                                <div class="step-number">2</div>
+                                <p class="step-title">Health & Fitness</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="step-item">
+                                <div class="step-number">3</div>
+                                <p class="step-title">Preferences</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- Form -->
+                <form method="POST" class="preferences-form" id="preferencesForm">
+                    {% csrf_token %}
+
+                    <!-- Basic Information Section -->
+                    <div class="form-section mb-5">
+                        <div class="section-header mb-4">
+                            <h3 class="fw-bold">
+                                <i class="bi bi-person-circle text-primary me-2"></i>Personal Information
+                            </h3>
+                            <p class="text-muted small">Help us know you better</p>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">First Name *</label>
+                                {{ form.first_name }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Last Name *</label>
+                                {{ form.last_name }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Date of Birth</label>
+                                {{ form.date_of_birth }}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Bio</label>
+                                {{ form.bio }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Physical Information Section -->
+                    <div class="form-section mb-5">
+                        <div class="section-header mb-4">
+                            <h3 class="fw-bold">
+                                <i class="bi bi-heart-pulse text-primary me-2"></i>Physical Information
+                            </h3>
+                            <p class="text-muted small">Your health metrics</p>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Height (cm)</label>
+                                {{ form.height_cm }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Current Weight (kg)</label>
+                                {{ form.weight_kg }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Target Weight (kg)</label>
+                                {{ form.target_weight_kg }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Health & Fitness Section -->
+                    <div class="form-section mb-5">
+                        <div class="section-header mb-4">
+                            <h3 class="fw-bold">
+                                <i class="bi bi-fire text-primary me-2"></i>Health & Fitness Goals
+                            </h3>
+                            <p class="text-muted small">Help us recommend appropriate recipes</p>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Your Goal</label>
+                                {{ form.goal }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Activity Level</label>
+                                {{ form.activity_level }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Daily Calorie Target</label>
+                                {{ form.daily_calorie_target }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Meals Per Day</label>
+                                {{ form.meals_per_day }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dietary Preferences Section -->
+                    <div class="form-section mb-5">
+                        <div class="section-header mb-4">
+                            <h3 class="fw-bold">
+                                <i class="bi bi-cup-hot text-primary me-2"></i>Dietary Preferences
+                            </h3>
+                            <p class="text-muted small">Your food preferences and cooking style</p>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Diet Type (e.g., Vegetarian, Vegan, Keto)</label>
+                                {{ form.diet_type }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Cooking Skill Level</label>
+                                {{ form.cooking_skill }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Average Cooking Time (minutes)</label>
+                                {{ form.average_cooking_time }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Spice Level Preference</label>
+                                {{ form.spice_level }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Budget Preference</label>
+                                {{ form.budget_preference }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Min. Recipe Rating</label>
+                                <input type="number" class="form-control" name="min_recipe_rating" step="0.5" min="1" max="5" value="{{ form.min_recipe_rating.value|default:3.5 }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kitchen Equipment & Ingredients Section -->
+                    <div class="form-section mb-5">
+                        <div class="section-header mb-4">
+                            <h3 class="fw-bold">
+                                <i class="bi bi-tools text-primary me-2"></i>Kitchen & Ingredients
+                            </h3>
+                            <p class="text-muted small">What you have and what you like</p>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Available Kitchen Equipment</label>
+                                {{ form.kitchen_equipment }}
+                                <small class="form-text text-muted d-block mt-2">{{ form.kitchen_equipment.help_text }}</small>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Favorite Ingredients</label>
+                                {{ form.favorite_ingredients }}
+                                <small class="form-text text-muted d-block mt-2">{{ form.favorite_ingredients.help_text }}</small>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Disliked Ingredients</label>
+                                {{ form.disliked_ingredients }}
+                                <small class="form-text text-muted d-block mt-2">{{ form.disliked_ingredients.help_text }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Allergies & Intolerances Section -->
+                    <div class="form-section mb-5">
+                        <div class="section-header mb-4">
+                            <h3 class="fw-bold">
+                                <i class="bi bi-exclamation-triangle text-danger me-2"></i>Allergies & Intolerances
+                            </h3>
+                            <p class="text-muted small">Important for your safety</p>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Allergies</label>
+                                {{ form.allergies }}
+                                <small class="form-text text-muted d-block mt-2">{{ form.allergies.help_text }}</small>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Intolerances</label>
+                                {{ form.intolerances }}
+                                <small class="form-text text-muted d-block mt-2">{{ form.intolerances.help_text }}</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Health Conditions Section -->
+                    <div class="form-section mb-5">
+                        <div class="section-header mb-4">
+                            <h3 class="fw-bold">
+                                <i class="bi bi-heart text-danger me-2"></i>Health Conditions
+                            </h3>
+                            <p class="text-muted small">Check any that apply</p>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    {{ form.diabetes }}
+                                    <label class="form-check-label" for="{{ form.diabetes.id_for_label }}">
+                                        Diabetes
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    {{ form.hypertension }}
+                                    <label class="form-check-label" for="{{ form.hypertension.id_for_label }}">
+                                        Hypertension
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    {{ form.celiac }}
+                                    <label class="form-check-label" for="{{ form.celiac.id_for_label }}">
+                                        Celiac Disease
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    {{ form.lactose_intolerant }}
+                                    <label class="form-check-label" for="{{ form.lactose_intolerant.id_for_label }}">
+                                        Lactose Intolerant
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    {{ form.heart_disease }}
+                                    <label class="form-check-label" for="{{ form.heart_disease.id_for_label }}">
+                                        Heart Disease
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Other Conditions</label>
+                                {{ form.other_conditions }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lifestyle Preferences Section -->
+                    <div class="form-section mb-5">
+                        <div class="section-header mb-4">
+                            <h3 class="fw-bold">
+                                <i class="bi bi-calendar3 text-primary me-2"></i>Lifestyle Preferences
+                            </h3>
+                            <p class="text-muted small">How you like to manage your meals</p>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-check form-switch">
+                                    {{ form.prefer_meal_prep }}
+                                    <label class="form-check-label" for="{{ form.prefer_meal_prep.id_for_label }}">
+                                        I prefer meal prepping
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6" id="mealPrepFrequencyContainer" style="display: none;">
+                                <label class="form-label fw-bold">Meal Prep Frequency</label>
+                                {{ form.meal_prep_frequency }}
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check form-switch">
+                                    {{ form.prefer_simple_recipes }}
+                                    <label class="form-check-label" for="{{ form.prefer_simple_recipes.id_for_label }}">
+                                        I prefer simple recipes
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check form-switch">
+                                    {{ form.prefer_healthy }}
+                                    <label class="form-check-label" for="{{ form.prefer_healthy.id_for_label }}">
+                                        I prefer healthy recipes
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Errors -->
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        <i class="bi bi-exclamation-circle me-2"></i>
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Form Fields Errors -->
+                    {% for field in form %}
+                        {% if field.errors %}
+                        <div class="alert alert-warning" role="alert">
+                            <strong>{{ field.label }}:</strong>
+                            {% for error in field.errors %}
+                                {{ error }}<br>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- Buttons -->
+                    <div class="form-actions mt-5 d-flex gap-3 justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                            <i class="bi bi-check-circle me-2"></i>
+                            {% if is_edit %}Save Changes{% else %}Complete Setup{% endif %}
+                        </button>
+                        {% if is_edit %}
+                        <a href="/" class="btn btn-outline-secondary btn-lg px-5">
+                            <i class="bi bi-x-circle me-2"></i>Cancel
+                        </a>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .preferences-section {
+        min-height: 100vh;
+        padding-bottom: 80px;
+    }
+
+    .preferences-header {
+        margin-bottom: 40px;
+    }
+
+    .preferences-header h1 {
+        color: var(--color-default);
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    /* Progress Steps */
+    .progress-steps {
+        margin-bottom: 50px;
+    }
+
+    .step-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        opacity: 0.5;
+        transition: all 0.3s ease;
+    }
+
+    .step-item.active {
+        opacity: 1;
+    }
+
+    .step-number {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .step-item.active .step-number {
+        box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.2);
+    }
+
+    .step-title {
+        font-weight: 600;
+        color: var(--color-default);
+        margin: 0;
+    }
+
+    /* Form Sections */
+    .form-section {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .form-section:hover {
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-header {
+        border-bottom: 2px solid var(--color-light);
+        padding-bottom: 20px;
+    }
+
+    .section-header h3 {
+        color: var(--color-default);
+        margin-bottom: 5px;
+    }
+
+    /* Form Controls */
+    .form-label {
+        color: var(--color-default);
+        font-size: 15px;
+        margin-bottom: 8px;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 8px;
+        border: 2px solid #f0f0f0;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+        font-size: 15px;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1);
+    }
+
+    .form-check {
+        padding: 12px;
+        background: var(--color-light);
+        border-radius: 8px;
+        transition: all 0.2s ease;
+    }
+
+    .form-check:hover {
+        background: rgba(255, 107, 53, 0.05);
+    }
+
+    .form-check-input {
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .form-check-input:checked {
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+        border-color: var(--color-primary);
+    }
+
+    .form-check-label {
+        font-weight: 500;
+        margin-bottom: 0;
+        cursor: pointer;
+        padding-left: 10px;
+    }
+
+    /* Form Actions */
+    .form-actions {
+        padding-top: 30px;
+        border-top: 2px solid var(--color-light);
+    }
+
+    .btn-lg {
+        font-weight: 600;
+        border-radius: 8px;
+        padding: 14px 30px !important;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+        border: none;
+        box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
+    }
+
+    .btn-outline-secondary {
+        color: var(--color-secondary);
+        border-color: var(--color-secondary);
+    }
+
+    .btn-outline-secondary:hover {
+        background: var(--color-secondary);
+        color: white;
+        transform: translateY(-3px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .form-section {
+            padding: 20px;
+        }
+
+        .preferences-header h1 {
+            font-size: 32px;
+        }
+
+        .form-actions {
+            flex-direction: column !important;
+        }
+
+        .form-actions .btn {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Show/hide meal prep frequency based on checkbox
+    const mealPrepCheckbox = document.getElementById('id_prefer_meal_prep');
+    const mealPrepFrequencyContainer = document.getElementById('mealPrepFrequencyContainer');
+    
+    function updateMealPrepFrequency() {
+        if (mealPrepCheckbox.checked) {
+            mealPrepFrequencyContainer.style.display = 'block';
+        } else {
+            mealPrepFrequencyContainer.style.display = 'none';
+        }
+    }
+    
+    if (mealPrepCheckbox) {
+        mealPrepCheckbox.addEventListener('change', updateMealPrepFrequency);
+        updateMealPrepFrequency();
+    }
+
+    // Form validation
+    const preferencesForm = document.getElementById('preferencesForm');
+    if (preferencesForm) {
+        preferencesForm.addEventListener('submit', function(e) {
+            const firstName = document.getElementById('id_first_name').value.trim();
+            const lastName = document.getElementById('id_last_name').value.trim();
+            
+            if (!firstName || !lastName) {
+                e.preventDefault();
+                alert('Please enter your first and last name');
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

@@ -69,6 +69,36 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     
+    <script>
+      // User Profile Dropdown
+      document.addEventListener('DOMContentLoaded', function() {
+        const userProfileBtn = document.getElementById('userProfileBtn');
+        const userDropdownMenu = document.getElementById('userDropdownMenu');
+        
+        if (userProfileBtn && userDropdownMenu) {
+          userProfileBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userDropdownMenu.style.display = userDropdownMenu.style.display === 'none' ? 'block' : 'none';
+          });
+          
+          // Close dropdown when clicking outside
+          document.addEventListener('click', function(e) {
+            if (!userProfileBtn.contains(e.target) && !userDropdownMenu.contains(e.target)) {
+              userDropdownMenu.style.display = 'none';
+            }
+          });
+          
+          // Close dropdown when clicking on a link
+          const dropdownItems = userDropdownMenu.querySelectorAll('a');
+          dropdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+              userDropdownMenu.style.display = 'none';
+            });
+          });
+        }
+      });
+    </script>
+    
     {% block extra_js %}{% endblock %}
 </body>
 </html>
