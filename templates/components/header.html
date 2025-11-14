@@ -40,20 +40,18 @@
     <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 
     <!-- User Profile Dropdown -->
-    <div class="dropdown">
-        <a class="btn btn-link dropdown-toggle text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{{ what|default:'https://via.placeholder.com/32' }}" alt="Profile" width="32" height="32" class="rounded-circle">
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end p-0 border-1">
+    <div class="user-profile-dropdown ms-3">
+        <img src="{{ what|default:'https://via.placeholder.com/32' }}" alt="Profile" width="32" height="32" class="rounded-circle" id="userProfileBtn" title="Profile Menu">
+        <div class="dropdown-menu-custom" id="userDropdownMenu" style="display: none;">
             {% if user.is_authenticated %}
-            <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
-            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="/authentication/signout"><i class="bi bi-box-arrow-right me-2"></i>Sign Out</a></li>
+            <a class="dropdown-item-custom" href="#"><i class="bi bi-person"></i> <span>Profile</span></a>
+            <a class="dropdown-item-custom" href="{% url 'edit_preferences' %}"><i class="bi bi-gear"></i> <span>Preferences</span></a>
+            <div class="dropdown-divider-custom"></div>
+            <a class="dropdown-item-custom" href="/authentication/signout" style="color: #dc3545;"><i class="bi bi-box-arrow-right"></i> <span>Sign Out</span></a>
             {% else %}
-            <li><a class="dropdown-item" href="/authentication/signup"><i class="bi bi-person-plus me-2"></i>Sign Up</a></li>
-            <li><a class="dropdown-item" href="/authentication/signin"><i class="bi bi-box-arrow-in-right me-2"></i>Sign In</a></li>
+            <a class="dropdown-item-custom" href="/authentication/signup"><i class="bi bi-person-plus"></i> <span>Sign Up</span></a>
+            <a class="dropdown-item-custom" href="/authentication/signin"><i class="bi bi-box-arrow-in-right"></i> <span>Sign In</span></a>
             {% endif %}
-        </ul>
+        </div>
     </div>
 </header>
