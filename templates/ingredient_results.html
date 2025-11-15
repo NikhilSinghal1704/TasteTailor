@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load custom_filters %}
+
+{% block title %}Recipes by Ingredients - TasteTailor{% endblock %}
+
+{% block content %}
+<section class="py-5" style="margin-top: 90px;">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-3 mb-lg-0">Recipes by Ingredients</h1>
+      <a href="{% url 'pantry' %}" class="btn btn-outline-primary rounded-pill"><i class="bi bi-basket me-1"></i> Manage Pantry</a>
+    </div>
+
+    <form method="post" class="card border-0 shadow-sm mb-4" style="border-radius:16px;">
+      {% csrf_token %}
+      <div class="card-body">
+        <div class="row g-3 align-items-end">
+          <div class="col-lg-6">
+            <label class="form-label fw-semibold">Ingredients (comma separated)</label>
+            <input type="text" name="ingredients" class="form-control" value="{{ include_ingredients|join:', ' }}" placeholder="e.g. chicken, tomato, basil" />
+            <div class="form-text">Leave empty to use your pantry items.</div>
+          </div>
+          <div class="col-lg-2">
+            <label class="form-label fw-semibold">Diet</label>
+            <select class="form-select" name="Diet">
+              <option value="">Any</option>
+              <option value="vegetarian" {% if Diet == 'vegetarian' %}selected{% endif %}>Vegetarian</option>
+              <option value="vegan" {% if Diet == 'vegan' %}selected{% endif %}>Vegan</option>
+              <option value="gluten free" {% if Diet == 'gluten free' %}selected{% endif %}>Gluten Free</option>
+              <option value="ketogenic" {% if Diet == 'ketogenic' %}selected{% endif %}>Ketogenic</option>
+              <option value="paleo" {% if Diet == 'paleo' %}selected{% endif %}>Paleo</option>
+            </select>
+          </div>
+          <div class="col-lg-2">
+            <label class="form-label fw-semibold">Type</label>
+            <select class="form-select" name="Type">
+              <option value="">Any</option>
+              <option value="main course" {% if Type == 'main course' %}selected{% endif %}>Main course</option>
+              <option value="side dish" {% if Type == 'side dish' %}selected{% endif %}>Side dish</option>
+              <option value="dessert" {% if Type == 'dessert' %}selected{% endif %}>Dessert</option>
+              <option value="appetizer" {% if Type == 'appetizer' %}selected{% endif %}>Appetizer</option>
+              <option value="salad" {% if Type == 'salad' %}selected{% endif %}>Salad</option>
+              <option value="breakfast" {% if Type == 'breakfast' %}selected{% endif %}>Breakfast</option>
+              <option value="soup" {% if Type == 'soup' %}selected{% endif %}>Soup</option>
+            </select>
+          </div>
+          <div class="col-lg-2">
+            <label class="form-label fw-semibold">Sort</label>
+            <select class="form-select" name="sort">
+              <option value="">Default</option>
+              <option value="popularity" {% if sort == 'popularity' %}selected{% endif %}>Popularity</option>
+              <option value="time" {% if sort == 'time' %}selected{% endif %}>Time</option>
+              <option value="healthiness" {% if sort == 'healthiness' %}selected{% endif %}>Healthiness</option>
+              <option value="price" {% if sort == 'price' %}selected{% endif %}>Price</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <label class="form-label fw-semibold">Intolerances</label>
+            <div class="d-flex flex-wrap gap-2">
+              <label class="btn btn-outline-secondary btn-sm {% if intolerances and 'dairy' in intolerances %}active{% endif %}">
+                <input type="checkbox" name="intolerances" value="dairy" class="btn-check" {% if intolerances and 'dairy' in intolerances %}checked{% endif %}>Dairy
+              </label>
+              <label class="btn btn-outline-secondary btn-sm {% if intolerances and 'egg' in intolerances %}active{% endif %}">
+                <input type="checkbox" name="intolerances" value="egg" class="btn-check" {% if intolerances and 'egg' in intolerances %}checked{% endif %}>Egg
+              </label>
+              <label class="btn btn-outline-secondary btn-sm {% if intolerances and 'gluten' in intolerances %}active{% endif %}">
+                <input type="checkbox" name="intolerances" value="gluten" class="btn-check" {% if intolerances and 'gluten' in intolerances %}checked{% endif %}>Gluten
+              </label>
+              <label class="btn btn-outline-secondary btn-sm {% if intolerances and 'peanut' in intolerances %}active{% endif %}">
+                <input type="checkbox" name="intolerances" value="peanut" class="btn-check" {% if intolerances and 'peanut' in intolerances %}checked{% endif %}>Peanut
+              </label>
+              <label class="btn btn-outline-secondary btn-sm {% if intolerances and 'seafood' in intolerances %}active{% endif %}">
+                <input type="checkbox" name="intolerances" value="seafood" class="btn-check" {% if intolerances and 'seafood' in intolerances %}checked{% endif %}>Seafood
+              </label>
+              <label class="btn btn-outline-secondary btn-sm {% if intolerances and 'sesame' in intolerances %}active{% endif %}">
+                <input type="checkbox" name="intolerances" value="sesame" class="btn-check" {% if intolerances and 'sesame' in intolerances %}checked{% endif %}>Sesame
+              </label>
+              <label class="btn btn-outline-secondary btn-sm {% if intolerances and 'soy' in intolerances %}active{% endif %}">
+                <input type="checkbox" name="intolerances" value="soy" class="btn-check" {% if intolerances and 'soy' in intolerances %}checked{% endif %}>Soy
+              </label>
+              <label class="btn btn-outline-secondary btn-sm {% if intolerances and 'sulfite' in intolerances %}active{% endif %}">
+                <input type="checkbox" name="intolerances" value="sulfite" class="btn-check" {% if intolerances and 'sulfite' in intolerances %}checked{% endif %}>Sulfite
+              </label>
+              <label class="btn btn-outline-secondary btn-sm {% if intolerances and 'tree nut' in intolerances %}active{% endif %}">
+                <input type="checkbox" name="intolerances" value="tree nut" class="btn-check" {% if intolerances and 'tree nut' in intolerances %}checked{% endif %}>Tree Nut
+              </label>
+              <label class="btn btn-outline-secondary btn-sm {% if intolerances and 'wheat' in intolerances %}active{% endif %}">
+                <input type="checkbox" name="intolerances" value="wheat" class="btn-check" {% if intolerances and 'wheat' in intolerances %}checked{% endif %}>Wheat
+              </label>
+            </div>
+          </div>
+          <div class="col-12 d-flex gap-2">
+            <button class="btn btn-primary rounded-pill"><i class="bi bi-search me-1"></i> Search</button>
+            <a href="{% url 'search_by_ingredients' %}?use_pantry=1" class="btn btn-outline-primary rounded-pill">Use My Pantry</a>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    {% if include_ingredients %}
+    <div class="mb-3">
+      <div class="d-flex align-items-center flex-wrap gap-2">
+        <span class="text-muted">Including:</span>
+        {% for ing in include_ingredients %}
+        <span class="badge bg-light text-dark border">{{ ing }}</span>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if results %}
+    <div class="row g-4">
+      {% for item in results %}
+      <div class="col-xl-3 col-lg-4 col-md-6">
+        <div class="card border-0 shadow-sm h-100" style="border-radius: 16px; overflow: hidden;">
+          <div style="height: 180px; background:#f8f9fa;">
+            <img src="{{ item.image_url }}" alt="{{ item.name }}" class="w-100" style="height:100%; object-fit: cover;">
+          </div>
+          <div class="card-body d-flex flex-column">
+            <h6 class="fw-semibold mb-2">{{ item.name }}</h6>
+            {% if item.time_to_prepare %}<small class="text-muted mb-3"><i class="bi bi-clock me-1"></i>{{ item.time_to_prepare }} mins</small>{% endif %}
+            <a href="/recipeinfo/{{ item.id }}" class="btn btn-sm btn-primary rounded-pill mt-auto">View</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center text-muted py-5">
+      <i class="bi bi-search" style="font-size: 2rem;"></i>
+      <p class="mt-2 mb-0">No results yet. Add ingredients or use your pantry to search.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

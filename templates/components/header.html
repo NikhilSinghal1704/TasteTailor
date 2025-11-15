@@ -25,7 +25,8 @@
                             <span>Recommender</span> <i class="bi bi-chevron-down dropdown-indicator"></i>
                         </a>
                         <ul>
-                            <li><a href="/search">Search by Ingredients</a></li>
+                            <li><a href="{% url 'search_by_ingredients' %}">Search by Ingredients</a></li>
+                            <li><a href="{% url 'pantry' %}">My Pantry</a></li>
                             <li><a href="#">Search by Nutrients</a></li>
                             <li><a href="#">Random Recipe</a></li>
                         </ul>

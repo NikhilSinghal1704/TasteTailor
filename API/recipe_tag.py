@@ -488,5 +488,111 @@ def get_similar_recipes(recipe_id):
     return None  # Return None in case of failure
 
     
+def ingredient_autocomplete(query, number=15):
+    """Autocomplete ingredient names using Spoonacular.
+    Returns list of dicts: {id, name, image_url}
+    """
+    base_url = "https://api.spoonacular.com/food/ingredients/autocomplete"
+    params = {
+        "apiKey": get_next_api_key(),
+        "query": query,
+        "number": number,
+        "metaInformation": True,
+    }
+    try:
+        resp = requests.get(base_url, params=params)
+        resp.raise_for_status()
+        items = resp.json()
+        results = []
+        for it in items:
+            image = it.get("image")
+            if image and not image.startswith("http"):
+                image = f"https://spoonacular.com/cdn/ingredients_100x100/{image}"
+            results.append({
+                "id": it.get("id"),
+                "name": it.get("name"),
+                "image_url": image,
+            })
+        return results
+    except Exception as e:
+        logging.error(f"Ingredient autocomplete failed: {e}")
+        return []
+
+
+def get_recipes_by_ingredients(include_ingredients: str, ex_params: dict = None):
+    """Search recipes using complexSearch with includeIngredients and filters.
+    include_ingredients: comma-separated string of ingredients.
+    ex_params: optional extra params like diet, type, intolerances, sort.
+    Returns JsonResponse like get_recipe_by_query.
+    """
+    if ex_params is None:
+        ex_params = {}
+
+    # Create a safe cache key by hashing the parameters
+    import hashlib
+    params_str = f"{include_ingredients}_{str(sorted(ex_params.items()))}"
+    cache_key = f"ingr_{hashlib.md5(params_str.encode()).hexdigest()}"
+    cached = cache.get(cache_key)
+    if cached is not None:
+        return JsonResponse(cached, safe=False)
+
+    base_url = "https://api.spoonacular.com/recipes/complexSearch"
+    params = {
+        "apiKey": get_next_api_key(),
+        "includeIngredients": include_ingredients,
+        "number": 15,  # Reduced from 60 to conserve API points
+        "addRecipeInformation": True,
+        "fillIngredients": True,
+    }
+    params.update(ex_params)
     
+    # Debug logging
+    logging.info(f"Searching recipes with ingredients: {include_ingredients}")
+    logging.info(f"Extra params: {ex_params}")
+    logging.info(f"Full API params: {params}")
+
+    try:
+        resp = requests.get(base_url, params=params)
+        resp.raise_for_status()
+        data = resp.json()
+        
+        # Debug logging
+        logging.info(f"API Response status: {resp.status_code}")
+        logging.info(f"Total results found: {data.get('totalResults', 0)}")
+        
+        recipes = data.get("results", [])
+        result = []
+        for r in recipes:
+            result.append({
+                "name": r.get("title"),
+                "id": r.get("id"),
+                "time_to_prepare": r.get("readyInMinutes"),
+                "image_url": r.get("image"),
+                "usedIngredientCount": r.get("usedIngredientCount"),
+                "missedIngredientCount": r.get("missedIngredientCount"),
+            })
+        
+        logging.info(f"Returning {len(result)} recipes")
+        cache.set(cache_key, result, CACHE_TIMEOUT)
+        return JsonResponse(result, safe=False)
+    except requests.exceptions.HTTPError as e:
+        # Handle HTTP errors specifically (like 402 Payment Required)
+        error_msg = f"API Error: {e}"
+        if 'resp' in locals():
+            try:
+                error_data = resp.json()
+                if error_data.get('code') == 402:
+                    error_msg = "API daily quota exceeded. Please try again later or contact support."
+                logging.error(f"HTTP Error {resp.status_code}: {error_data}")
+            except:
+                logging.error(f"Response content: {resp.text}")
+        logging.error(error_msg)
+        return JsonResponse({"error": error_msg}, status=500)
+    except Exception as e:
+        logging.error(f"Search by ingredients failed: {e}")
+        logging.error(f"Response content: {resp.text if 'resp' in locals() else 'No response'}")
+        return JsonResponse({"error": f"Ingredient search failed: {e}"}, status=500)
+
+
+
 

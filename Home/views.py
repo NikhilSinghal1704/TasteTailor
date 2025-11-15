@@ -9,7 +9,7 @@ import threading
 from datetime import date
 from API.meal_planner import generate_day_plan
 from Auth.models import UserPreferences
-from .models import MealPlan, Meal, GeneratedRecipe, Contact
+from .models import MealPlan, Meal, GeneratedRecipe, Contact, PantryItem
 from API.ai_recipe import get_gemini_recipe
 
 
@@ -309,3 +309,148 @@ def contact(request):
             return redirect('home')
 
     return redirect('home')
+
+
+@login_required(login_url='/authentication/signin')
+def pantry(request):
+    """Display and manage the user's pantry items."""
+    items = PantryItem.objects.filter(user=request.user).order_by('name')
+    return render(request, 'pantry.html', { 'items': items, 'what': "/static/img/bhaisab.png" })
+
+
+@login_required(login_url='/authentication/signin')
+def pantry_add(request):
+    if request.method != 'POST':
+        return redirect('pantry')
+    name = request.POST.get('name', '').strip()
+    spoon_id = request.POST.get('spoonacular_id')
+    image_url = request.POST.get('image_url')
+    aisle = request.POST.get('aisle')
+    if not name:
+        messages.error(request, 'Ingredient name is required')
+        return redirect('pantry')
+    PantryItem.objects.get_or_create(
+        user=request.user,
+        name=name,
+        defaults={
+            'spoonacular_id': int(spoon_id) if spoon_id else None,
+            'image_url': image_url,
+            'aisle': aisle,
+        }
+    )
+    messages.success(request, f'Added {name} to your pantry')
+    return redirect('pantry')
+
+
+@login_required(login_url='/authentication/signin')
+def pantry_remove(request, item_id):
+    if request.method != 'POST':
+        return redirect('pantry')
+    try:
+        item = PantryItem.objects.get(id=item_id, user=request.user)
+        name = item.name
+        item.delete()
+        messages.success(request, f'Removed {name} from your pantry')
+    except PantryItem.DoesNotExist:
+        messages.error(request, 'Item not found')
+    return redirect('pantry')
+
+
+@login_required(login_url='/authentication/signin')
+def api_ingredient_autocomplete(request):
+    """Return ingredient suggestions for the given query."""
+    q = request.GET.get('q', '').strip()
+    if not q:
+        return JsonResponse([], safe=False)
+    suggestions = ingredient_autocomplete(q)
+    return JsonResponse(suggestions, safe=False)
+
+
+@login_required(login_url='/authentication/signin')
+def search_by_ingredients(request):
+    """Search recipes using user's pantry or custom ingredients with filters pre-applied from preferences."""
+    context = { 'what': "/static/img/bhaisab.png" }
+
+    # Compose includeIngredients
+    include_ingredients = []
+    use_pantry = request.GET.get('use_pantry') or request.POST.get('use_pantry')
+    manual_ingredients = request.POST.get('ingredients') or request.GET.get('ingredients')
+    
+    # If use_pantry flag is set OR no manual ingredients provided, try pantry
+    if use_pantry or (not manual_ingredients):
+        include_ingredients = list(PantryItem.objects.filter(user=request.user).values_list('name', flat=True))
+    
+    # If manual ingredients provided, add them
+    if manual_ingredients:
+        include_ingredients += [part.strip() for part in manual_ingredients.split(',') if part.strip()]
+    
+    # Deduplicate and build string
+    include_ingredients = sorted(set(include_ingredients))
+    include_str = ",".join(include_ingredients)
+    context['include_ingredients'] = include_ingredients
+    
+    # Debug logging
+    import logging
+    logging.info(f"Search by ingredients - User: {request.user.username}")
+    logging.info(f"Use pantry flag: {use_pantry}")
+    logging.info(f"Manual ingredients: {manual_ingredients}")
+    logging.info(f"Final include_ingredients list: {include_ingredients}")
+    logging.info(f"Include string: {include_str}")
+
+    # Filters: defaults from preferences
+    ex_params = {}
+    try:
+        prefs = UserPreferences.objects.get(user=request.user)
+    except UserPreferences.DoesNotExist:
+        prefs = None
+
+    # Diet
+    diet = request.POST.get('Diet') or request.GET.get('Diet')
+    if not diet and prefs and prefs.diet_type:
+        diet = prefs.diet_type
+    if diet:
+        ex_params['diet'] = diet
+        context['Diet'] = diet
+
+    # Intolerances
+    intolerances = request.POST.getlist('intolerances') if request.method == 'POST' else request.GET.get('intolerances', '')
+    if isinstance(intolerances, str):
+        intolerances_list = [i.strip() for i in intolerances.split(',') if i.strip()]
+    else:
+        intolerances_list = intolerances
+    if not intolerances_list and prefs and prefs.intolerances:
+        intolerances_list = prefs.get_intolerances_list()
+    if intolerances_list:
+        ex_params['intolerances'] = ",".join(intolerances_list)
+        context['intolerances'] = intolerances_list
+
+    # Type and sort
+    rtype = request.POST.get('Type') or request.GET.get('Type')
+    sort = request.POST.get('sort') or request.GET.get('sort')
+    if rtype:
+        ex_params['type'] = rtype
+        context['Type'] = rtype
+    if sort:
+        ex_params['sort'] = sort
+        context['sort'] = sort
+
+    if not include_str:
+        messages.info(request, 'Add ingredients to your pantry or enter them to search recipes by ingredients.')
+        logging.info("No ingredients provided, returning empty results")
+        return render(request, 'ingredient_results.html', context)
+
+    # Perform search using includeIngredients
+    try:
+        logging.info(f"Calling get_recipes_by_ingredients with: {include_str}, {ex_params}")
+        response = get_recipes_by_ingredients(include_str, ex_params)
+        results = json.loads(response.content.decode())
+        context['results'] = results
+        logging.info(f"Got {len(results)} results from API")
+    except Exception as e:
+        import traceback
+        logging.error(f"Ingredient search failed: {e}")
+        logging.error(traceback.format_exc())
+        messages.error(request, f"Ingredient search failed: {e}")
+        context['results'] = []
+
+    return render(request, 'ingredient_results.html', context)

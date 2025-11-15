@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+from .models import PantryItem
 
 @admin.register(APIKey)
 class APIKeyAdmin(admin.ModelAdmin):
@@ -53,3 +54,10 @@ class GeneratedRecipeAdmin(admin.ModelAdmin):
     list_display = ("user", "title", "created_at", "diet_type")
     list_filter = ("diet_type", "created_at")
     search_fields = ("user__username", "title", "prompt")
+
+
+@admin.register(PantryItem)
+class PantryItemAdmin(admin.ModelAdmin):
+    list_display = ("name", "user", "spoonacular_id", "created_at")
+    list_filter = ("user",)
+    search_fields = ("name", "user__username")

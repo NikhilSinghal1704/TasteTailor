@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Pantry - TasteTailor{% endblock %}
+
+{% block content %}
+<section class="py-5" style="margin-top: 90px;">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <h1 class="h3 mb-0">My Pantry</h1>
+      <a href="{% url 'search_by_ingredients' %}?use_pantry=1" class="btn btn-primary rounded-pill">
+        <i class="bi bi-search me-1"></i> Search recipes by pantry
+      </a>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+          <div class="card-body p-4">
+            <h5 class="mb-3">Add ingredients</h5>
+            <div class="mb-3">
+              <input id="ingredientSearch" type="text" class="form-control" placeholder="Type to search ingredients..." />
+            </div>
+            <ul id="suggestions" class="list-group"></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="card border-0 shadow-sm" style="border-radius: 16px;">
+          <div class="card-body p-4">
+            <h5 class="mb-3">Pantry Items ({{ items|length }})</h5>
+            {% if items %}
+            <div class="row g-3">
+              {% for it in items %}
+              <div class="col-md-6">
+                <div class="d-flex align-items-center p-2 border rounded" style="border-radius:12px;">
+                  <img src="{{ it.image_url|default:'#' }}" alt="{{ it.name }}" onerror="this.style.display='none'" class="me-3" style="width: 48px; height: 48px; object-fit: cover; border-radius: 8px;">
+                  <div class="flex-grow-1">
+                    <div class="fw-semibold">{{ it.name }}</div>
+                    {% if it.aisle %}<small class="text-muted">{{ it.aisle }}</small>{% endif %}
+                  </div>
+                  <form method="post" action="{% url 'pantry_remove' it.id %}">
+                    {% csrf_token %}
+                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-x"></i></button>
+                  </form>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% else %}
+            <p class="text-muted mb-0">No items yet. Search and add ingredients to your pantry.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const input = document.getElementById('ingredientSearch');
+  const list = document.getElementById('suggestions');
+  let timer;
+  input.addEventListener('input', () => {
+    const q = input.value.trim();
+    clearTimeout(timer);
+    if (!q) { list.innerHTML=''; return; }
+    timer = setTimeout(async () => {
+      const res = await fetch(`/api/ingredients/autocomplete?q=${encodeURIComponent(q)}`);
+      const items = await res.json();
+      list.innerHTML = '';
+      items.forEach(it => {
+        const li = document.createElement('li');
+        li.className = 'list-group-item d-flex align-items-center';
+        li.innerHTML = `
+          <img src="${it.image_url || ''}" onerror="this.style.display='none'" style="width:40px;height:40px;object-fit:cover;border-radius:8px;" class="me-3" />
+          <div class="flex-grow-1">${it.name}</div>
+          <form method="post" action="/pantry/add">
+            <input type="hidden" name="name" value="${it.name}">
+            <input type="hidden" name="spoonacular_id" value="${it.id || ''}">
+            <input type="hidden" name="image_url" value="${it.image_url || ''}">
+            ${csrfTokenInput()}
+            <button class="btn btn-sm btn-primary">Add</button>
+          </form>`;
+        list.appendChild(li);
+      })
+    }, 250);
+  });
+
+  function csrfTokenInput() {
+    const name = 'csrftoken';
+    const cookie = document.cookie.split(';').map(c=>c.trim()).find(c=>c.startsWith(name+'='));
+    const token = cookie ? decodeURIComponent(cookie.split('=')[1]) : '';
+    return `<input type="hidden" name="csrfmiddlewaretoken" value="${token}">`;
+  }
+</script>
+{% endblock %}

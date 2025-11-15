@@ -78,11 +78,33 @@
             {% endif %}
             
             {% if recipe_info.time_to_prepare %}
-            {% include 'partials/_info_box.html' with icon="clock" label="Ready in" value=recipe_info.time_to_prepare|add:" mins" %}
+            <div class="col-6 col-lg-3 mb-3">
+                <div class="card h-100 border-0 shadow-sm" style="border-radius: 12px;">
+                    <div class="card-body text-center py-3">
+                        <i class="bi bi-clock mb-2" style="font-size: 1.8rem; color: var(--color-primary, #ff6b35);"></i>
+                        <div class="fw-bold" style="font-size: 0.95rem; color: #333;">{{ recipe_info.time_to_prepare }} mins</div>
+                        <small class="text-muted">Ready in</small>
+                    </div>
+                </div>
+            </div>
             {% endif %}
             
             {% if recipe_info.type %}
-            {% include 'partials/_info_box.html' with icon="tag" label="Category" value=recipe_info.type %}
+            <div class="col-6 col-lg-3 mb-3">
+                <div class="card h-100 border-0 shadow-sm" style="border-radius: 12px;">
+                    <div class="card-body text-center py-3">
+                        <i class="bi bi-tag mb-2" style="font-size: 1.8rem; color: var(--color-primary, #ff6b35);"></i>
+                        <div class="fw-bold" style="font-size: 0.95rem; color: #333;">
+                            {% if recipe_info.type|is_list %}
+                                {{ recipe_info.type|join:", " }}
+                            {% else %}
+                                {{ recipe_info.type }}
+                            {% endif %}
+                        </div>
+                        <small class="text-muted">Category</small>
+                    </div>
+                </div>
+            </div>
             {% endif %}
             
             {% if recipe_info.health_rating %}
