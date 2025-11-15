@@ -1,0 +1,280 @@
+{% extends 'base.html' %}
+{% load static custom_filters %}
+
+{% block title %}{{ rec.title }}{% endblock %}
+
+{% block content %}
+<section style="background: linear-gradient(135deg, rgba(255, 107, 53, 0.03) 0%, rgba(247, 147, 30, 0.03) 100%); padding: 120px 0 80px 0; margin-top: 90px; min-height: 100vh;">
+  <div class="container">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'my_generated_recipes' %}" style="color: var(--color-primary); text-decoration: none;"><i class="bi bi-arrow-left me-1"></i>My Recipes</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ rec.title|truncatewords:5 }}</li>
+      </ol>
+    </nav>
+
+    <div class="row">
+      <!-- Main Content -->
+      <div class="col-12 col-lg-8">
+        <!-- Header Card -->
+        <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px; overflow: hidden;">
+          <div class="card-body p-4 p-md-5">
+            <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
+              <div>
+                <div class="mb-3">
+                  {% if rec.data.cuisine %}
+                  <span class="badge me-2" style="background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%); font-size: 0.85rem; padding: 8px 16px; border-radius: 20px;">
+                    <i class="bi bi-globe me-1"></i>{{ rec.data.cuisine }}
+                  </span>
+                  {% endif %}
+                  {% if rec.data.diet_labels %}
+                    {% for label in rec.data.diet_labels %}
+                      <span class="badge bg-success me-2 mb-2" style="font-size: 0.85rem; padding: 8px 16px; border-radius: 20px;">
+                        <i class="bi bi-check-circle me-1"></i>{{ label }}
+                      </span>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+              <div class="text-muted small" style="opacity: 0.7;">
+                <i class="bi bi-calendar3 me-1"></i>{{ rec.created_at|date:"M d, Y • H:i" }}
+              </div>
+            </div>
+            
+            <h1 class="mb-3 fw-bold" style="font-family: var(--font-primary); font-size: 2.5rem; color: var(--color-default); line-height: 1.2;">
+              {{ rec.title }}
+            </h1>
+            
+            <div class="recipe-meta d-flex gap-4 flex-wrap">
+              <div class="meta-item">
+                <i class="bi bi-person" style="color: var(--color-primary); font-size: 1.2rem;"></i>
+                <span class="ms-2 fw-semibold">{{ rec.data.servings|default:2 }} servings</span>
+              </div>
+              <div class="meta-item">
+                <i class="bi bi-alarm" style="color: var(--color-primary); font-size: 1.2rem;"></i>
+                <span class="ms-2 fw-semibold">{{ rec.data.ready_in_minutes|default:25 }} minutes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nutrition Stats -->
+        {% if rec.data.estimated_nutrition %}
+        <div class="row g-3 mb-4">
+          <div class="col-6 col-md-3">
+            <div class="card h-100 border-0 shadow-sm text-center" style="border-radius: 16px; background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);">
+              <div class="card-body py-4">
+                <i class="bi bi-fire mb-2" style="font-size: 2rem; color: white;"></i>
+                <div class="display-6 fw-bold mb-1" style="color: white;">{{ rec.data.estimated_nutrition.calories_kcal|floatformat:0|default:"-" }}</div>
+                <small style="color: rgba(255, 255, 255, 0.9); font-weight: 600;">Calories</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="card h-100 border-0 shadow-sm text-center" style="border-radius: 16px; background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+              <div class="card-body py-4">
+                <i class="bi bi-heart-pulse mb-2" style="font-size: 2rem; color: white;"></i>
+                <div class="display-6 fw-bold mb-1" style="color: white;">{{ rec.data.estimated_nutrition.protein_g|floatformat:0|default:"-" }}</div>
+                <small style="color: rgba(255, 255, 255, 0.9); font-weight: 600;">Protein (g)</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="card h-100 border-0 shadow-sm text-center" style="border-radius: 16px; background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);">
+              <div class="card-body py-4">
+                <i class="bi bi-diagram-3 mb-2" style="font-size: 2rem; color: white;"></i>
+                <div class="display-6 fw-bold mb-1" style="color: white;">{{ rec.data.estimated_nutrition.carbs_g|floatformat:0|default:"-" }}</div>
+                <small style="color: rgba(255, 255, 255, 0.9); font-weight: 600;">Carbs (g)</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="card h-100 border-0 shadow-sm text-center" style="border-radius: 16px; background: linear-gradient(135deg, #6f42c1 0%, #d63384 100%);">
+              <div class="card-body py-4">
+                <i class="bi bi-droplet-half mb-2" style="font-size: 2rem; color: white;"></i>
+                <div class="display-6 fw-bold mb-1" style="color: white;">{{ rec.data.estimated_nutrition.fat_g|floatformat:0|default:"-" }}</div>
+                <small style="color: rgba(255, 255, 255, 0.9); font-weight: 600;">Fat (g)</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <!-- Ingredients -->
+        <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 fw-bold d-flex align-items-center" style="color: var(--color-default);">
+              <i class="bi bi-basket3 me-3" style="color: var(--color-primary); font-size: 1.8rem;"></i>
+              Ingredients
+            </h3>
+            <div class="row">
+              {% for ing in rec.data.ingredients %}
+              <div class="col-12 col-md-6 mb-3">
+                <div class="ingredient-item d-flex align-items-center p-3" style="background: rgba(255, 107, 53, 0.05); border-radius: 12px; border-left: 4px solid var(--color-primary);">
+                  <i class="bi bi-check-circle-fill me-3" style="color: var(--color-primary); font-size: 1.2rem;"></i>
+                  <div>
+                    <div class="fw-semibold">{{ ing.name|capfirst }}</div>
+                    {% if ing.quantity %}
+                    <small class="text-muted">{{ ing.quantity }}{% if ing.unit %} {{ ing.unit }}{% endif %}</small>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px;">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 fw-bold d-flex align-items-center" style="color: var(--color-default);">
+              <i class="bi bi-list-ol me-3" style="color: var(--color-primary); font-size: 1.8rem;"></i>
+              Instructions
+            </h3>
+            <ol class="steps-list mb-0" style="padding-left: 0; list-style: none; counter-reset: step-counter;">
+              {% for step in rec.data.steps %}
+              <li class="step-item mb-4" style="counter-increment: step-counter; position: relative; padding-left: 60px;">
+                <div class="step-number" style="position: absolute; left: 0; top: 0; width: 45px; height: 45px; background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);">
+                  <span style="counter-reset: none;">{{ forloop.counter }}</span>
+                </div>
+                <div class="step-content" style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border: 2px solid #f5f5f5;">
+                  <p class="mb-0" style="line-height: 1.7;">{{ step }}</p>
+                </div>
+              </li>
+              {% endfor %}
+            </ol>
+          </div>
+        </div>
+
+        <!-- Tips -->
+        {% if rec.data.tips %}
+        <div class="card border-0 shadow-sm mb-4" style="border-radius: 20px; background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, rgba(32, 201, 151, 0.05) 100%);">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 fw-bold d-flex align-items-center" style="color: var(--color-default);">
+              <i class="bi bi-lightbulb me-3" style="color: #28a745; font-size: 1.8rem;"></i>
+              Pro Tips
+            </h3>
+            <ul class="tips-list mb-0" style="list-style: none; padding-left: 0;">
+              {% for tip in rec.data.tips %}
+              <li class="mb-3 d-flex align-items-start">
+                <i class="bi bi-star-fill me-3 mt-1" style="color: #ffc107; font-size: 1rem;"></i>
+                <span style="line-height: 1.7;">{{ tip }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-12 col-lg-4">
+        <!-- Applied Preferences -->
+        <div class="card border-0 shadow-sm sticky-top" style="border-radius: 20px; top: 110px;">
+          <div class="card-body p-4">
+            <h5 class="fw-bold mb-4 d-flex align-items-center" style="color: var(--color-default);">
+              <i class="bi bi-shield-check me-2" style="color: var(--color-primary);"></i>
+              Applied Preferences
+            </h5>
+            
+            <div class="preference-item mb-3 p-3" style="background: rgba(255, 107, 53, 0.05); border-radius: 12px;">
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-heart-pulse me-2" style="color: var(--color-primary);"></i>
+                <small class="fw-semibold text-muted">Diet Type</small>
+              </div>
+              <div class="fw-bold">
+                {% if rec.vegan %}
+                  <span class="badge bg-success">Vegan</span>
+                {% elif rec.vegetarian %}
+                  <span class="badge bg-success">Vegetarian</span>
+                {% elif rec.diet_type %}
+                  <span class="badge bg-info">{{ rec.diet_type|capfirst }}</span>
+                {% else %}
+                  <span class="text-muted">No restriction</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="preference-item p-3" style="background: rgba(255, 107, 53, 0.05); border-radius: 12px;">
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-x-circle me-2" style="color: var(--color-primary);"></i>
+                <small class="fw-semibold text-muted">Excluded</small>
+              </div>
+              <div>
+                {% if rec.excluded_ingredients %}
+                  {% for item in rec.excluded_ingredients|split:", " %}
+                    <span class="badge bg-danger me-1 mb-1" style="font-size: 0.75rem;">{{ item }}</span>
+                  {% endfor %}
+                {% else %}
+                  <span class="text-muted">None</span>
+                {% endif %}
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-4 d-grid gap-2">
+              <a href="{% url 'my_generated_recipes' %}" class="btn btn-outline-primary" style="border-radius: 50px; border-width: 2px;">
+                <i class="bi bi-arrow-left me-2"></i>Back to My Recipes
+              </a>
+              <a href="{% url 'generate_recipe' %}" class="btn btn-primary" style="border-radius: 50px;">
+                <i class="bi bi-plus-circle me-2"></i>Generate Another
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.breadcrumb {
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "›";
+  color: var(--color-primary);
+}
+
+@media (max-width: 992px) {
+  .sticky-top {
+    position: relative !important;
+    top: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  .display-6 {
+    font-size: 1.5rem !important;
+  }
+  
+  .step-item {
+    padding-left: 50px !important;
+  }
+  
+  .step-number {
+    width: 35px !important;
+    height: 35px !important;
+    font-size: 1rem !important;
+  }
+}
+
+.ingredient-item {
+  transition: all 0.2s ease;
+}
+
+.ingredient-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px rgba(255, 107, 53, 0.2);
+}
+</style>
+{% endblock %}

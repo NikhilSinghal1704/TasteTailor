@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My AI Recipes{% endblock %}
+
+{% block content %}
+<section style="background: linear-gradient(135deg, rgba(255, 107, 53, 0.03) 0%, rgba(247, 147, 30, 0.03) 100%); padding: 120px 0 80px 0; margin-top: 90px; min-height: 80vh;">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
+      <div>
+        <h1 class="mb-2" style="font-family: var(--font-primary); font-size: 3rem; color: var(--color-default);">
+          <i class="bi bi-journal-text me-3" style="color: var(--color-primary);"></i>My AI Recipes
+        </h1>
+        <p class="text-muted mb-0">Your personal collection of AI-generated recipes</p>
+      </div>
+      <a class="btn btn-primary btn-lg" href="{% url 'generate_recipe' %}" style="border-radius: 50px; padding: 12px 32px; box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);">
+        <i class="bi bi-plus-circle me-2"></i>Create New Recipe
+      </a>
+    </div>
+
+    {% if recipes %}
+    <div class="row g-4">
+      {% for r in recipes %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm recipe-card" style="border-radius: 16px; overflow: hidden; transition: all 0.3s ease;">
+          <div class="card-header bg-white border-0 pt-4 px-4 pb-3">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div class="recipe-date-badge" style="background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(247, 147, 30, 0.1) 100%); padding: 6px 12px; border-radius: 20px;">
+                <small style="color: var(--color-primary); font-weight: 600;">
+                  <i class="bi bi-clock me-1"></i>{{ r.created_at|date:"M d, Y" }}
+                </small>
+              </div>
+              {% if r.data.cuisine %}
+              <span class="badge" style="background: var(--color-primary); border-radius: 20px;">{{ r.data.cuisine }}</span>
+              {% endif %}
+            </div>
+            <h5 class="card-title mb-0 fw-bold" style="color: var(--color-default); line-height: 1.4;">{{ r.title }}</h5>
+          </div>
+          
+          <div class="card-body px-4 pb-2 pt-0">
+            {% if r.data.estimated_nutrition %}
+            <div class="nutrition-mini d-flex gap-3 mb-3 flex-wrap">
+              <div class="nutrition-item">
+                <i class="bi bi-fire" style="color: var(--color-primary);"></i>
+                <small class="ms-1 fw-semibold">{{ r.data.estimated_nutrition.calories_kcal|floatformat:0|default:"-" }} cal</small>
+              </div>
+              <div class="nutrition-item">
+                <i class="bi bi-heart-pulse" style="color: var(--color-primary);"></i>
+                <small class="ms-1 fw-semibold">{{ r.data.estimated_nutrition.protein_g|floatformat:0|default:"-" }}g protein</small>
+              </div>
+              {% if r.data.ready_in_minutes %}
+              <div class="nutrition-item">
+                <i class="bi bi-alarm" style="color: var(--color-primary);"></i>
+                <small class="ms-1 fw-semibold">{{ r.data.ready_in_minutes }} min</small>
+              </div>
+              {% endif %}
+            </div>
+            {% endif %}
+
+            {% if r.data.diet_labels %}
+            <div class="diet-labels mb-3">
+              {% for label in r.data.diet_labels|slice:":3" %}
+                <span class="badge bg-success me-1 mb-1" style="font-weight: 500; font-size: 0.75rem;">{{ label }}</span>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if r.data.ingredients %}
+            <p class="text-muted small mb-3">
+              <i class="bi bi-list-ul me-1"></i>
+              {{ r.data.ingredients|length }} ingredients • {{ r.data.steps|length }} steps
+            </p>
+            {% endif %}
+          </div>
+
+          <div class="card-footer bg-white border-0 px-4 pb-4">
+            <a href="{% url 'generated_recipe_detail' r.id %}" class="btn btn-outline-primary w-100" style="border-radius: 50px; font-weight: 600; border-width: 2px;">
+              <i class="bi bi-eye me-2"></i>View Full Recipe
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination hint for future -->
+    <div class="text-center mt-5">
+      <p class="text-muted small">Showing {{ recipes|length }} recipe{{ recipes|length|pluralize }}</p>
+    </div>
+
+    {% else %}
+    <div class="empty-state text-center py-5">
+      <div class="mb-4">
+        <i class="bi bi-journal-x" style="font-size: 5rem; color: #ddd;"></i>
+      </div>
+      <h4 class="mb-3" style="color: var(--color-default);">No recipes yet</h4>
+      <p class="text-muted mb-4">Start creating personalized recipes with AI</p>
+      <a class="btn btn-primary btn-lg" href="{% url 'generate_recipe' %}" style="border-radius: 50px; padding: 14px 36px;">
+        <i class="bi bi-stars me-2"></i>Generate Your First Recipe
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.recipe-card {
+  transition: all 0.3s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15) !important;
+}
+
+.nutrition-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem !important;
+  }
+  
+  .btn-lg {
+    padding: 10px 24px !important;
+    font-size: 1rem !important;
+  }
+}
+</style>
+{% endblock %}

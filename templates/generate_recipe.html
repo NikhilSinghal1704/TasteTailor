@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Generate AI Recipe{% endblock %}
+
+{% block content %}
+<section class="hero-section-ai" style="background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(247, 147, 30, 0.05) 100%); padding: 100px 0 80px 0; margin-top: 90px;">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-12 col-lg-8">
+        <div class="ai-icon-wrapper mb-4">
+          <i class="bi bi-stars" style="font-size: 56px; color: var(--color-primary); animation: pulse 2s infinite;"></i>
+        </div>
+        <h1 class="display-4 fw-bold mb-3" style="color: var(--color-default); font-family: var(--font-primary);">
+          AI Recipe Generator
+        </h1>
+        <p class="lead text-muted">
+          Tell us what you're craving, and our AI will craft a personalized recipe just for you. 
+          Your dietary preferences and allergies are automatically considered.
+        </p>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-9">
+        <div class="card border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+          <div class="card-body p-5">
+            <form method="post" class="generate-form">
+              {% csrf_token %}
+              
+              <div class="mb-4">
+                <label for="prompt" class="form-label fw-semibold d-flex align-items-center mb-3" style="font-size: 1.1rem;">
+                  <i class="bi bi-lightbulb me-2" style="color: var(--color-primary); font-size: 1.3rem;"></i>
+                  Describe your perfect recipe
+                </label>
+                <textarea 
+                  id="prompt" 
+                  name="prompt" 
+                  rows="5" 
+                  class="form-control form-control-lg" 
+                  style="border-radius: 12px; border: 2px solid #e8e8e8; font-size: 1rem; resize: none;"
+                  placeholder="Be as specific as you like! For example:
+• High-protein vegetarian dinner with mushrooms and spinach, ready in 30 minutes
+• Quick breakfast with eggs and avocado, under 400 calories
+• Comfort food pasta dish with creamy sauce, dairy-free
+• Spicy Asian-inspired stir-fry with tofu"
+                  required></textarea>
+                <div class="form-text mt-2 d-flex align-items-center">
+                  <i class="bi bi-info-circle me-2"></i>
+                  <small>Pro tip: Include cuisine type, cooking time, calorie goals, or flavor preferences for best results</small>
+                </div>
+              </div>
+
+              <div class="preference-hints card bg-light border-0 mb-4" style="border-radius: 12px;">
+                <div class="card-body">
+                  <h6 class="fw-bold mb-3 d-flex align-items-center">
+                    <i class="bi bi-shield-check me-2" style="color: var(--color-primary);"></i>
+                    Your Preferences Applied Automatically
+                  </h6>
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill me-2" style="color: #198754;"></i>
+                        <small class="text-muted">Dietary restrictions respected</small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill me-2" style="color: #198754;"></i>
+                        <small class="text-muted">Allergens automatically excluded</small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill me-2" style="color: #198754;"></i>
+                        <small class="text-muted">Ingredients you dislike avoided</small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-check-circle-fill me-2" style="color: #198754;"></i>
+                        <small class="text-muted">Nutrition goals considered</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex gap-3 flex-wrap justify-content-center">
+                <button class="btn btn-primary btn-lg px-5 py-3" type="submit" style="border-radius: 50px; font-size: 1.1rem; box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);">
+                  <i class="bi bi-stars me-2"></i> Generate My Recipe
+                </button>
+                <a class="btn btn-outline-primary btn-lg px-4 py-3" href="{% url 'my_generated_recipes' %}" style="border-radius: 50px; font-size: 1.1rem;">
+                  <i class="bi bi-journal-text me-2"></i> View Saved Recipes
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Quick Examples Section -->
+        <div class="mt-5">
+          <h6 class="text-center text-muted mb-4">Need inspiration? Try these:</h6>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="card border-0 h-100 hover-lift" style="border-radius: 12px; background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(247, 147, 30, 0.05) 100%); cursor: pointer;" onclick="document.getElementById('prompt').value='Quick healthy breakfast under 300 calories with eggs and vegetables'; document.getElementById('prompt').focus();">
+                <div class="card-body text-center p-3">
+                  <i class="bi bi-egg-fried mb-2" style="font-size: 2rem; color: var(--color-primary);"></i>
+                  <p class="small mb-0">Quick healthy breakfast</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card border-0 h-100 hover-lift" style="border-radius: 12px; background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(247, 147, 30, 0.05) 100%); cursor: pointer;" onclick="document.getElementById('prompt').value='High-protein vegetarian dinner with legumes, ready in 45 minutes'; document.getElementById('prompt').focus();">
+                <div class="card-body text-center p-3">
+                  <i class="bi bi-heart-pulse mb-2" style="font-size: 2rem; color: var(--color-primary);"></i>
+                  <p class="small mb-0">High-protein dinner</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card border-0 h-100 hover-lift" style="border-radius: 12px; background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(247, 147, 30, 0.05) 100%); cursor: pointer;" onclick="document.getElementById('prompt').value='Comfort food pasta with creamy sauce, dairy-free version'; document.getElementById('prompt').focus();">
+                <div class="card-body text-center p-3">
+                  <i class="bi bi-heart mb-2" style="font-size: 2rem; color: var(--color-primary);"></i>
+                  <p class="small mb-0">Comfort food dish</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.generate-form textarea:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.1) !important;
+}
+
+@media (max-width: 768px) {
+  .hero-section-ai {
+    padding: 80px 0 60px 0;
+  }
+  
+  .card-body.p-5 {
+    padding: 2rem !important;
+  }
+  
+  .btn-lg {
+    font-size: 1rem !important;
+    padding: 12px 24px !important;
+  }
+}
+</style>
+{% endblock %}

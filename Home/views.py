@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
 from API.recipe_tag import *
 from API.jsontest import json_to_txt
 import json
 import threading
-from .models import Contact
+from datetime import date
+from API.meal_planner import generate_day_plan
+from Auth.models import UserPreferences
+from .models import MealPlan, Meal, GeneratedRecipe, Contact
+from API.ai_recipe import get_gemini_recipe
 
 
 def home(request):
@@ -87,6 +92,11 @@ def recipeinfo(request, id):
     
     var = {
             'what': "/static/img/bhaisab.png",
+            'breadcrumb_items': [
+                {'url': '/', 'label': 'Home'},
+                {'url': '/result/', 'label': 'Recipes'},
+                {'label': 'Recipe Details'}
+            ]
         }
     
     # Define a function to fetch recipe data
@@ -134,6 +144,128 @@ def recipeinfo(request, id):
     var = {'error_message': error_message}
         
     return render(request, 'recipeinfo.html', var)
+
+
+@login_required(login_url='/authentication/signin')
+def meal_plan(request):
+    """Generate a 3-meal day plan from user preferences and render it."""
+    # Ensure preferences exist and completed
+    try:
+        prefs = UserPreferences.objects.get(user=request.user)
+    except UserPreferences.DoesNotExist:
+        return redirect('preferences')
+
+    if not prefs.preferences_completed:
+        return redirect('preferences')
+
+    target_date = date.today()
+
+    # Generate via Spoonacular
+    try:
+        plan_data = generate_day_plan(prefs, target_date)
+    except Exception as e:
+        messages.error(request, f"Failed to generate meal plan: {e}")
+        return redirect('/')
+
+    # Persist MealPlan and Meals (upsert for the date)
+    mealplan, _created = MealPlan.objects.update_or_create(
+        user=request.user,
+        date=target_date,
+        timeframe='day',
+        defaults={
+            'calories': plan_data.get('nutrients', {}).get('calories'),
+            'protein': plan_data.get('nutrients', {}).get('protein'),
+            'fat': plan_data.get('nutrients', {}).get('fat'),
+            'carbohydrates': plan_data.get('nutrients', {}).get('carbohydrates'),
+            'source_payload': plan_data.get('raw'),
+        }
+    )
+
+    # Replace existing meals for the plan
+    mealplan.meals.all().delete()
+    for m in plan_data["meals"]:
+        Meal.objects.create(
+            plan=mealplan,
+            spoonacular_id=m.get('id'),
+            title=m.get('title'),
+            image_url=m.get('image_url'),
+            source_url=m.get('sourceUrl'),
+            meal_type=m.get('meal_type', 'lunch'),
+            ready_in_minutes=m.get('readyInMinutes'),
+            servings=m.get('servings'),
+        )
+
+    context = {
+        'plan': mealplan,
+        'meals': mealplan.meals.all(),
+        'nutrients': {
+            'calories': mealplan.calories,
+            'protein': mealplan.protein,
+            'fat': mealplan.fat,
+            'carbohydrates': mealplan.carbohydrates,
+        },
+        'what': "/static/img/bhaisab.png",
+    }
+
+    return render(request, 'meal_plan.html', context)
+
+
+@login_required(login_url='/authentication/signin')
+def generate_recipe(request):
+    """Form to collect a user's idea and generate an AI recipe with Gemini."""
+    if request.method == 'POST':
+        prompt = request.POST.get('prompt', '').strip()
+        if not prompt:
+            messages.error(request, 'Please describe what you want to cook.')
+            return render(request, 'generate_recipe.html', { 'what': "/static/img/bhaisab.png" })
+
+        # Get preferences for diet/allergies; require completion for best results but allow fallback.
+        prefs = None
+        try:
+            prefs = UserPreferences.objects.get(user=request.user)
+        except UserPreferences.DoesNotExist:
+            messages.info(request, 'Preferences not set yet — generating with defaults. Consider completing your preferences for better results.')
+
+        try:
+            result = get_gemini_recipe(prompt, prefs)
+            data = result['data']
+            constraints = result['constraints']
+
+            # Save in DB
+            rec = GeneratedRecipe.objects.create(
+                user=request.user,
+                prompt=prompt,
+                title=data.get('title') or 'AI Recipe',
+                data=data,
+                diet_type=constraints.get('diet_type'),
+                vegetarian=constraints.get('vegetarian', False),
+                vegan=constraints.get('vegan', False),
+                excluded_ingredients=", ".join(constraints.get('excluded') or []),
+            )
+
+            return redirect('generated_recipe_detail', id=rec.id)
+        except Exception as e:
+            messages.error(request, f"Failed to generate recipe: {e}")
+            return render(request, 'generate_recipe.html', { 'what': "/static/img/bhaisab.png" })
+
+    return render(request, 'generate_recipe.html', { 'what': "/static/img/bhaisab.png" })
+
+
+@login_required(login_url='/authentication/signin')
+def my_generated_recipes(request):
+    recipes = GeneratedRecipe.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'my_generated_recipes.html', { 'recipes': recipes, 'what': "/static/img/bhaisab.png" })
+
+
+@login_required(login_url='/authentication/signin')
+def generated_recipe_detail(request, id):
+    try:
+        rec = GeneratedRecipe.objects.get(id=id, user=request.user)
+    except GeneratedRecipe.DoesNotExist:
+        messages.error(request, 'Recipe not found')
+        return redirect('my_generated_recipes')
+
+    return render(request, 'generated_recipe_detail.html', { 'rec': rec, 'what': "/static/img/bhaisab.png" })
 
 
 def contact(request):

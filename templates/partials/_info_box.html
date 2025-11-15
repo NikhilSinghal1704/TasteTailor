@@ -1,0 +1,25 @@
+{% comment %}
+Reusable Info Box Component
+Usage: {% include 'partials/_info_box.html' with icon="clock" label="Ready in" value="45 min" %}
+{% endcomment %}
+
+<div class="col-6 col-lg-3 mb-3">
+  <div class="card h-100 border-0 shadow-sm" style="border-radius: 12px;">
+    <div class="card-body text-center py-3">
+      <i class="bi bi-{{ icon|default:'info-circle' }} mb-2" style="font-size: 1.8rem; color: var(--color-primary, #ff6b35);"></i>
+      <div class="fw-bold" style="font-size: 0.95rem; color: #333;">{{ value|default:"-" }}</div>
+      <small class="text-muted">{{ label }}</small>
+    </div>
+  </div>
+</div>
+
+<style>
+.info-box-card {
+  transition: all 0.3s ease;
+}
+
+.info-box-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+}
+</style>

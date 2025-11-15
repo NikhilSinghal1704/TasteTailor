@@ -1,0 +1,32 @@
+{% comment %}
+Reusable Breadcrumb Component
+Usage: {% include 'partials/_breadcrumb.html' with items=breadcrumb_items %}
+Where items is a list of dicts: [{'url': '/home', 'label': 'Home'}, {'label': 'Recipe'}]
+{% endcomment %}
+
+<nav aria-label="breadcrumb" class="mb-4">
+  <ol class="breadcrumb" style="background: transparent; padding: 0;">
+    {% for item in items %}
+      {% if forloop.last %}
+        <li class="breadcrumb-item active" aria-current="page" style="color: #6c757d;">{{ item.label }}</li>
+      {% else %}
+        <li class="breadcrumb-item">
+          <a href="{{ item.url }}" style="color: var(--color-primary, #ff6b35); text-decoration: none;">
+            {{ item.label }}
+          </a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ol>
+</nav>
+
+<style>
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "›";
+  color: #6c757d;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline !important;
+}
+</style>

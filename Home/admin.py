@@ -1,23 +1,5 @@
 from django.contrib import admin
-from .models import APIKey, Contact
-
-
-@admin.register(Contact)
-class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'subject', 'created_at', 'is_read')
-    list_filter = ('is_read', 'created_at')
-    search_fields = ('name', 'email', 'subject', 'message')
-    list_editable = ('is_read',)
-    readonly_fields = ('created_at',)
-    fieldsets = (
-        ('Contact Information', {
-            'fields': ('name', 'email', 'subject', 'message')
-        }),
-        ('Status', {
-            'fields': ('is_read', 'created_at'),
-        }),
-    )
-
+from .models import *
 
 @admin.register(APIKey)
 class APIKeyAdmin(admin.ModelAdmin):
@@ -50,3 +32,24 @@ class APIKeyAdmin(admin.ModelAdmin):
         return super().get_fieldsets(request, obj)
 
 admin.site.site_header = 'TasteTailor Administration'
+
+
+@admin.register(MealPlan)
+class MealPlanAdmin(admin.ModelAdmin):
+    list_display = ("user", "date", "calories", "protein", "carbohydrates", "fat")
+    list_filter = ("date",)
+    search_fields = ("user__username",)
+
+
+@admin.register(Meal)
+class MealAdmin(admin.ModelAdmin):
+    list_display = ("plan", "meal_type", "title", "ready_in_minutes", "servings")
+    list_filter = ("meal_type",)
+    search_fields = ("title",)
+
+
+@admin.register(GeneratedRecipe)
+class GeneratedRecipeAdmin(admin.ModelAdmin):
+    list_display = ("user", "title", "created_at", "diet_type")
+    list_filter = ("diet_type", "created_at")
+    search_fields = ("user__username", "title", "prompt")

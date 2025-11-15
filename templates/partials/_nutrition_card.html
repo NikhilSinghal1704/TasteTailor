@@ -1,0 +1,25 @@
+{% comment %}
+Reusable Nutrition Card Component
+Usage: {% include 'partials/_nutrition_card.html' with value=calories label="Calories" icon="fire" color="primary" unit="kcal" %}
+{% endcomment %}
+
+<div class="col-6 col-md-3">
+  <div class="card h-100 border-0 shadow-sm text-center nutrition-card" style="border-radius: 16px; background: linear-gradient(135deg, {% if color == 'primary' %}#ff6b35 0%, #f7931e 100%{% elif color == 'success' %}#28a745 0%, #20c997 100%{% elif color == 'warning' %}#ffc107 0%, #fd7e14 100%{% elif color == 'purple' %}#6f42c1 0%, #d63384 100%{% else %}#007bff 0%, #0056b3 100%{% endif %});">
+    <div class="card-body py-4">
+      <i class="bi bi-{{ icon|default:'heart' }} mb-2" style="font-size: 2rem; color: white;"></i>
+      <div class="display-6 fw-bold mb-1" style="color: white;">{{ value|default:"-" }}</div>
+      <small style="color: rgba(255, 255, 255, 0.9); font-weight: 600;">{{ label }} {% if unit %}({{ unit }}){% endif %}</small>
+    </div>
+  </div>
+</div>
+
+<style>
+.nutrition-card {
+  transition: all 0.3s ease;
+}
+
+.nutrition-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2) !important;
+}
+</style>

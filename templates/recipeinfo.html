@@ -6,71 +6,114 @@
 
 {% block content %}
 
-<!-- Recipe Details Section -->
-<section class="recipe-details-section py-5" style="margin-top: 90px;">
+<!-- Recipe Hero Section -->
+<section class="recipe-hero" style="margin-top: 90px; background: linear-gradient(135deg, rgba(255,107,53,0.05) 0%, rgba(247,147,30,0.05) 100%); padding: 2rem 0;">
     <div class="container">
         {% if recipe_info %}
-        <div class="row align-items-center mb-5">
-            <div class="col-lg-6">
+        <!-- Breadcrumb -->
+        {% include 'partials/_breadcrumb.html' with items=breadcrumb_items %}
+        
+        <div class="row align-items-center mb-4">
+            <div class="col-lg-7 mb-4 mb-lg-0">
                 {% if recipe_info.image_url %}
-                    <img src="{{ recipe_info.image_url }}" alt="{{ recipe_info.title|default:'Recipe' }}" class="img-fluid rounded shadow-lg">
+                    <img src="{{ recipe_info.image_url }}" 
+                         alt="{{ recipe_info.title|default:'Recipe' }}" 
+                         class="img-fluid shadow-lg" 
+                         style="border-radius: 20px; width: 100%; max-height: 500px; object-fit: cover;">
                 {% else %}
-                    <div class="bg-light rounded shadow-lg d-flex align-items-center justify-content-center" style="height: 400px;">
-                        <i class="bi bi-image" style="font-size: 4rem; color: #ccc;"></i>
+                    <div class="bg-light shadow-lg d-flex align-items-center justify-content-center" 
+                         style="height: 500px; border-radius: 20px;">
+                        <i class="bi bi-image" style="font-size: 5rem; color: #ccc;"></i>
                     </div>
                 {% endif %}
             </div>
-            <div class="col-lg-6">
-                <div class="recipe-info">
-                    <h1 class="display-5 fw-bold mb-3">{{ recipe_info.title|default:'Recipe' }}</h1>
+            <div class="col-lg-5">
+                <div class="recipe-header">
+                    <h1 class="display-4 fw-bold mb-3" style="color: #333; line-height: 1.2;">
+                        {{ recipe_info.title|default:'Recipe' }}
+                    </h1>
+                    
                     {% if recipe_info.summary %}
-                    <div class="recipe-summary mb-4 p-3 bg-light rounded">
-                        {{ recipe_info.summary|safe }}
+                    <div class="recipe-summary mb-4 p-4 bg-white rounded-3 shadow-sm" style="border-left: 4px solid var(--color-primary, #ff6b35);">
+                        <div style="color: #555; line-height: 1.7;">{{ recipe_info.summary|safe }}</div>
                     </div>
                     {% endif %}
-                    <div class="recipe-meta">
-                        <div class="row g-3">
-                            {% if recipe_info.servings %}
-                            <div class="col-6">
-                                <div class="info-box p-3 border rounded">
-                                    <i class="bi bi-people text-primary h4"></i>
-                                    <p class="mb-0"><strong>Serves:</strong> {{ recipe_info.servings }}</p>
-                                </div>
-                            </div>
-                            {% endif %}
-                            {% if recipe_info.time_to_prepare %}
-                            <div class="col-6">
-                                <div class="info-box p-3 border rounded">
-                                    <i class="bi bi-clock text-primary h4"></i>
-                                    <p class="mb-0"><strong>Time:</strong> {{ recipe_info.time_to_prepare }} mins</p>
-                                </div>
-                            </div>
-                            {% endif %}
-                            {% if recipe_info.type %}
-                            <div class="col-6">
-                                <div class="info-box p-3 border rounded">
-                                    <i class="bi bi-tag text-primary h4"></i>
-                                    <p class="mb-0"><strong>Category:</strong> {% if recipe_info.type|is_list %}{{ recipe_info.type|join:", " }}{% else %}{{ recipe_info.type }}{% endif %}</p>
-                                </div>
-                            </div>
-                            {% endif %}
-                            {% if recipe_info.health_rating %}
-                            <div class="col-6">
-                                <div class="info-box p-3 border rounded">
-                                    <i class="bi bi-heart text-primary h4"></i>
-                                    <p class="mb-0"><strong>Health:</strong> {{ recipe_info.health_rating|default:'N/A' }}</p>
-                                </div>
-                            </div>
-                            {% endif %}
+                    
+                    <!-- Quick Actions -->
+                    <div class="d-flex gap-2 mb-3">
+                        <button class="btn btn-primary px-4 py-2 rounded-pill shadow-sm">
+                            <i class="bi bi-bookmark me-2"></i>Save Recipe
+                        </button>
+                        <button class="btn btn-outline-primary px-4 py-2 rounded-pill" onclick="window.print()">
+                            <i class="bi bi-printer me-2"></i>Print
+                        </button>
+                    </div>
+                    
+                    <!-- Social Share -->
+                    <!-- <div class="social-share">
+                        <p class="mb-2 fw-semibold text-muted"><small>Share this recipe:</small></p>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="btn btn-sm btn-outline-primary rounded-circle" style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-outline-info rounded-circle" style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-twitter"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-outline-danger rounded-circle" style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-pinterest"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-outline-success rounded-circle" style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
                         </div>
-                    </div>
-                    <div class="social-share mt-4">
-                        <p class="mb-2"><strong>Share:</strong></p>
-                        <a href="#" class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="btn btn-outline-info btn-sm me-2"><i class="bi bi-twitter"></i></a>
-                        <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-linkedin"></i></a>
-                    </div>
+                    </div> -->
                 </div>
+            </div>
+        </div>
+        
+        <!-- Recipe Meta Info Boxes -->
+        <div class="row g-3 mb-4">
+            {% if recipe_info.servings %}
+            {% include 'partials/_info_box.html' with icon="people" label="Servings" value=recipe_info.servings %}
+            {% endif %}
+            
+            {% if recipe_info.time_to_prepare %}
+            {% include 'partials/_info_box.html' with icon="clock" label="Ready in" value=recipe_info.time_to_prepare|add:" mins" %}
+            {% endif %}
+            
+            {% if recipe_info.type %}
+            {% include 'partials/_info_box.html' with icon="tag" label="Category" value=recipe_info.type %}
+            {% endif %}
+            
+            {% if recipe_info.health_rating %}
+            {% include 'partials/_info_box.html' with icon="heart-pulse" label="Health Score" value=recipe_info.health_rating %}
+            {% endif %}
+        </div>
+
+        <!-- Nutrition Cards Section -->
+        <div class="nutrition-section mb-5">
+            <h2 class="fw-bold mb-4 d-flex align-items-center">
+                <i class="bi bi-lightning-charge me-2" style="color: var(--color-primary, #ff6b35); font-size: 1.8rem;"></i>
+                <span>Nutrition Overview</span>
+            </h2>
+            
+            <div class="row g-3 mb-4">
+                <!-- These will be populated if we have basic nutrition data -->
+                {% if recipe_info.calories %}
+                {% include 'partials/_nutrition_card.html' with value=recipe_info.calories label="Calories" icon="fire" color="primary" unit="kcal" %}
+                {% endif %}
+                
+                {% if recipe_info.protein %}
+                {% include 'partials/_nutrition_card.html' with value=recipe_info.protein label="Protein" icon="egg" color="success" unit="g" %}
+                {% endif %}
+                
+                {% if recipe_info.carbs %}
+                {% include 'partials/_nutrition_card.html' with value=recipe_info.carbs label="Carbs" icon="pie-chart" color="warning" unit="g" %}
+                {% endif %}
+                
+                {% if recipe_info.fat %}
+                {% include 'partials/_nutrition_card.html' with value=recipe_info.fat label="Fat" icon="droplet" color="purple" unit="g" %}
+                {% endif %}
             </div>
         </div>
 
@@ -78,12 +121,18 @@
         {% if ingredients %}
         <div class="ingredients-section mb-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="fw-bold"><i class="bi bi-basket me-2 text-primary"></i>Ingredients</h2>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-primary" id="tableViewBtn">
+                <h2 class="fw-bold d-flex align-items-center">
+                    <i class="bi bi-basket me-2" style="color: var(--color-primary, #ff6b35); font-size: 1.8rem;"></i>
+                    <span>Ingredients</span>
+                    <span class="badge bg-primary ms-3" style="font-size: 0.9rem; padding: 0.5rem 1rem; border-radius: 20px;">
+                        {{ ingredients|length }} items
+                    </span>
+                </h2>
+                <div class="btn-group shadow-sm" role="group" style="border-radius: 10px; overflow: hidden;">
+                    <button type="button" class="btn btn-outline-primary" id="tableViewBtn" style="border-radius: 0;">
                         <i class="bi bi-table me-1"></i>Table
                     </button>
-                    <button type="button" class="btn btn-outline-primary active" id="gridViewBtn">
+                    <button type="button" class="btn btn-outline-primary active" id="gridViewBtn" style="border-radius: 0;">
                         <i class="bi bi-grid-3x3-gap me-1"></i>Grid
                     </button>
                 </div>
@@ -91,25 +140,39 @@
 
             <!-- Table View -->
             <div id="tableView" class="view-container" style="display: none;">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead class="table-light">
+                <div class="table-responsive shadow-sm" style="border-radius: 12px; overflow: hidden;">
+                    <table class="table table-hover mb-0 bg-white">
+                        <thead style="background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); color: white;">
                             <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Quantity</th>
-                                <th>Unit</th>
-                                <th>Price</th>
+                                <th style="padding: 1rem; border: none;">Image</th>
+                                <th style="padding: 1rem; border: none;">Ingredient</th>
+                                <th style="padding: 1rem; border: none;">Quantity</th>
+                                <th style="padding: 1rem; border: none;">Unit</th>
+                                <th style="padding: 1rem; border: none;">Price</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for ingredient in ingredients %}
-                            <tr>
-                                <td>{% if ingredient.img_url %}<img src="{{ ingredient.img_url }}" alt="{{ ingredient.name }}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;">{% endif %}</td>
-                                <td class="fw-bold">{{ ingredient.name|default:'Unknown' }}</td>
-                                <td>{{ ingredient.qty|default:'N/A' }}</td>
-                                <td>{{ ingredient.metric|default:'' }}</td>
-                                <td class="text-primary fw-bold">{{ ingredient.price|default:'N/A' }}</td>
+                            <tr style="transition: all 0.2s;">
+                                <td style="padding: 0.75rem;">
+                                    {% if ingredient.img_url %}
+                                    <img src="{{ ingredient.img_url }}" 
+                                         alt="{{ ingredient.name }}" 
+                                         style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    {% else %}
+                                    <div style="width: 60px; height: 60px; background: #f8f9fa; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="bi bi-image text-muted"></i>
+                                    </div>
+                                    {% endif %}
+                                </td>
+                                <td class="fw-semibold align-middle" style="padding: 0.75rem; color: #333;">{{ ingredient.name|default:'Unknown' }}</td>
+                                <td class="align-middle" style="padding: 0.75rem;">{{ ingredient.qty|default:'N/A' }}</td>
+                                <td class="text-muted align-middle" style="padding: 0.75rem;">{{ ingredient.metric|default:'-' }}</td>
+                                <td class="align-middle" style="padding: 0.75rem;">
+                                    <span class="badge" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); padding: 0.4rem 0.8rem; border-radius: 8px;">
+                                        {{ ingredient.price|default:'N/A' }}
+                                    </span>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -122,12 +185,7 @@
                 <div class="row g-3">
                     {% for ingredient in ingredients %}
                     <div class="col-lg-2 col-md-3 col-sm-4 col-6">
-                        <div class="ingredient-card text-center p-3 border rounded h-100">
-                            {% if ingredient.img_url %}<img src="{{ ingredient.img_url }}" alt="{{ ingredient.name }}" class="img-fluid mb-2 rounded" style="height: 80px; object-fit: cover;">{% endif %}
-                            <h6 class="mb-1">{{ ingredient.name|default:'Ingredient' }}</h6>
-                            <p class="small text-muted mb-1">{{ ingredient.qty|default:'N/A' }} {{ ingredient.metric|default:'' }}</p>
-                            <p class="small text-primary fw-bold mb-0">{{ ingredient.price|default:'N/A' }}</p>
-                        </div>
+                        {% include 'partials/_ingredient_card.html' with name=ingredient.name amount=ingredient.qty|add:" "|add:ingredient.metric image=ingredient.img_url price=ingredient.price %}
                     </div>
                     {% endfor %}
                 </div>
@@ -138,27 +196,46 @@
         <!-- Instructions Section -->
         {% if Instructions %}
         <div class="instructions-section mb-5">
-            <h2 class="fw-bold mb-4"><i class="bi bi-list-check me-2 text-primary"></i>Instructions</h2>
-            <div class="instructions-content p-4 bg-light rounded">
-                {{ Instructions|safe }}
+            <h2 class="fw-bold mb-4 d-flex align-items-center">
+                <i class="bi bi-list-check me-2" style="color: var(--color-primary, #ff6b35); font-size: 1.8rem;"></i>
+                <span>Instructions</span>
+            </h2>
+            
+            <div class="card border-0 shadow-sm" style="border-radius: 16px; overflow: hidden;">
+                <div class="card-body p-4" style="background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);">
+                    <div class="instructions-content" style="color: #555; line-height: 1.8;">
+                        {{ Instructions|safe }}
+                    </div>
+                </div>
             </div>
         </div>
         {% endif %}
 
-        <!-- Nutrition Section -->
+        <!-- Detailed Nutrition Section -->
         {% if recipe_info.nutrients %}
-        <div class="nutrition-section mb-5">
-            <h2 class="fw-bold mb-4"><i class="bi bi-heart-pulse me-2 text-primary"></i>Nutrition Facts</h2>
-            <div class="nutrition-content">
-                {{ recipe_info.nutrients|safe }}
+        <div class="nutrition-details-section mb-5">
+            <h2 class="fw-bold mb-4 d-flex align-items-center">
+                <i class="bi bi-clipboard-data me-2" style="color: var(--color-primary, #ff6b35); font-size: 1.8rem;"></i>
+                <span>Detailed Nutrition Facts</span>
+            </h2>
+            
+            <div class="card border-0 shadow-sm" style="border-radius: 16px; overflow: hidden;">
+                <div class="card-body p-4" style="background: white;">
+                    <div class="nutrition-table-content">
+                        {{ recipe_info.nutrients|safe }}
+                    </div>
+                </div>
             </div>
         </div>
         {% endif %}
         {% else %}
-        <div class="alert alert-warning text-center py-5">
-            <i class="bi bi-exclamation-triangle h1 d-block mb-3"></i>
-            <h4>Recipe Information Unavailable</h4>
-            <p class="mb-0">We couldn't load the recipe details. Please try again later.</p>
+        <div class="alert alert-warning text-center py-5 shadow-sm" style="border-radius: 16px; border: none; background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);">
+            <i class="bi bi-exclamation-triangle h1 d-block mb-3" style="color: #856404;"></i>
+            <h4 style="color: #856404;">Recipe Information Unavailable</h4>
+            <p class="mb-3" style="color: #856404;">We couldn't load the recipe details. Please try again later.</p>
+            <a href="/" class="btn btn-warning px-4 py-2 rounded-pill">
+                <i class="bi bi-house me-2"></i>Back to Home
+            </a>
         </div>
         {% endif %}
     </div>
@@ -166,22 +243,31 @@
 
 <!-- Similar Recipes Section -->
 {% if similar %}
-<section id="similar-recipes" class="gallery section-bg">
+<section id="similar-recipes" class="gallery section-bg py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
     <div class="container" data-aos="fade-up">
-        <div class="section-header">
-            <h2>Similar Recipes</h2>
-            <p>You Might Also <span>Like These</span></p>
+        <div class="section-header text-center mb-5">
+            <h2 class="fw-bold" style="font-size: 2.5rem; color: #333;">Similar Recipes</h2>
+            <p style="color: #666; font-size: 1.1rem;">You Might Also <span style="color: var(--color-primary, #ff6b35);">Love These</span></p>
         </div>
+        
         <div class="gallery-slider swiper">
             <div class="swiper-wrapper align-items-center">
                 {% for recipe in similar %}
                 <div class="swiper-slide">
-                    <a class="glightbox" data-gallery="images-gallery" href="{{ recipe.image_url }}">
-                        <img src="{{ recipe.image_url }}" class="img-fluid" alt="{{ recipe.name|default:'Recipe' }}">
-                        <a href="/recipeinfo/{{ recipe.id }}">
-                            <button class="popup-button">View Details</button>
+                    <div class="similar-recipe-card" style="position: relative; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                        <a class="glightbox" data-gallery="images-gallery" href="{{ recipe.image_url }}">
+                            <img src="{{ recipe.image_url }}" 
+                                 class="img-fluid" 
+                                 alt="{{ recipe.name|default:'Recipe' }}"
+                                 style="width: 100%; height: 300px; object-fit: cover;">
                         </a>
-                    </a>
+                        <div class="recipe-overlay" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%); padding: 1.5rem; color: white;">
+                            <h5 class="mb-2" style="font-weight: 600;">{{ recipe.name|default:'Delicious Recipe' }}</h5>
+                            <a href="/recipeinfo/{{ recipe.id }}" class="btn btn-sm btn-light rounded-pill px-3">
+                                View Recipe <i class="bi bi-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 {% endfor %}
             </div>
@@ -195,71 +281,156 @@
 
 {% block extra_css %}
 <style>
-    .recipe-details-section {
-        background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+    /* Recipe Hero Styles */
+    .recipe-hero {
+        min-height: 100vh;
     }
     
-    .info-box {
-        transition: all 0.3s ease;
-        background: white;
+    /* Hover Effects */
+    .similar-recipe-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.2) !important;
     }
     
-    .info-box:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    /* Table Row Hover */
+    #tableView tbody tr:hover {
+        background-color: rgba(255, 107, 53, 0.05);
+        transform: scale(1.01);
     }
     
-    .ingredient-card {
-        transition: all 0.3s ease;
-        background: white;
+    /* Button Group Active State */
+    .btn-group .btn.active {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        border-color: #ff6b35;
+        color: white;
     }
     
-    .ingredient-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    /* Nutrition Content Styling */
+    .nutrition-table-content table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 0.5rem;
     }
     
-    .popup-button {
-        display: none;
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 8px 20px;
-        background-color: var(--color-primary);
-        color: #fff;
+    .nutrition-table-content tr {
+        background: #f8f9fa;
+        transition: all 0.2s ease;
+    }
+    
+    .nutrition-table-content tr:hover {
+        background: rgba(255, 107, 53, 0.1);
+        transform: translateX(5px);
+    }
+    
+    .nutrition-table-content td,
+    .nutrition-table-content th {
+        padding: 0.75rem 1rem;
         border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s ease;
     }
     
-    .swiper-slide:hover .popup-button {
-        display: block;
+    .nutrition-table-content th {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        color: white;
+        font-weight: 600;
     }
     
-    .popup-button:hover {
-        background-color: #ec2727;
-        transform: translateX(-50%) translateY(-2px);
+    /* Instructions Content Styling */
+    .instructions-content ol {
+        counter-reset: step-counter;
+        list-style: none;
+        padding-left: 0;
+    }
+    
+    .instructions-content ol li {
+        counter-increment: step-counter;
+        position: relative;
+        padding-left: 4rem;
+        margin-bottom: 2rem;
+    }
+    
+    .instructions-content ol li::before {
+        content: counter(step-counter);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    }
+    
+    /* Print Styles */
+    @media print {
+        .btn, .social-share, #similar-recipes, .btn-group {
+            display: none !important;
+        }
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .recipe-hero h1 {
+            font-size: 2rem;
+        }
+        
+        .instructions-content ol li {
+            padding-left: 3rem;
+        }
+        
+        .instructions-content ol li::before {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+        }
     }
 </style>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    // View Switcher
+    // View Switcher with Animation
     document.getElementById('tableViewBtn').addEventListener('click', function() {
-        document.getElementById('tableView').style.display = 'block';
-        document.getElementById('gridView').style.display = 'none';
+        const tableView = document.getElementById('tableView');
+        const gridView = document.getElementById('gridView');
+        
+        gridView.style.opacity = '0';
+        setTimeout(() => {
+            gridView.style.display = 'none';
+            tableView.style.display = 'block';
+            setTimeout(() => {
+                tableView.style.opacity = '1';
+            }, 50);
+        }, 200);
+        
         this.classList.add('active');
         document.getElementById('gridViewBtn').classList.remove('active');
     });
     
     document.getElementById('gridViewBtn').addEventListener('click', function() {
-        document.getElementById('gridView').style.display = 'block';
-        document.getElementById('tableView').style.display = 'none';
+        const tableView = document.getElementById('tableView');
+        const gridView = document.getElementById('gridView');
+        
+        tableView.style.opacity = '0';
+        setTimeout(() => {
+            tableView.style.display = 'none';
+            gridView.style.display = 'block';
+            setTimeout(() => {
+                gridView.style.opacity = '1';
+            }, 50);
+        }, 200);
+        
         this.classList.add('active');
         document.getElementById('tableViewBtn').classList.remove('active');
     });
+    
+    // Set initial opacity
+    document.getElementById('gridView').style.opacity = '1';
+    document.getElementById('tableView').style.opacity = '0';
 </script>
 {% endblock %}
