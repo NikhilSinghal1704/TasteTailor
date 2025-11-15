@@ -9,6 +9,6 @@
         Recipe ID: {{ recipe.id }}
     </p>
     <p class="price">
-        <i class="bi bi-clock me-1"></i>{{ recipe.time_to_prepare }} minutes
+        <i class="bi bi-clock me-1"></i>{{ recipe.time_to_prepare|default:"N/A" }} minutes
     </p>
 </div>

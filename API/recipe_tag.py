@@ -328,6 +328,8 @@ def get_recipe_by_query(query, ex_params = {}):
         "apiKey": key,
         "number": 900,
     }
+    # Request additional recipe information so fields like readyInMinutes are returned
+    params["addRecipeInformation"] = "true"
     
     params.update(analyze_query(query))
     #print(params)
@@ -350,6 +352,9 @@ def get_recipe_by_query(query, ex_params = {}):
                 "name": recipe["title"],
                 "id": recipe["id"],
             }
+
+            # include preparation time if available
+            details["time_to_prepare"] = recipe.get("readyInMinutes")
 
             # Use a reliable default image URL
             details["image_url"] = recipe.get(
