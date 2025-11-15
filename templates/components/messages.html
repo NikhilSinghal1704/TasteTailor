@@ -1,7 +1,7 @@
 {% if messages %}
 <div class="message-container" style="position: fixed; top: 100px; right: 20px; z-index: 9999; max-width: 500px;">
     {% for message in messages %}
-    <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show d-flex align-items-center" role="alert" style="margin-bottom: 10px;">
+    <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show d-flex align-items-center" role="alert" style="margin-bottom: 10px;" data-message-auto-dismiss>
         {% if message.tags == 'error' or message.tags == 'danger' %}
             <i class="bi bi-exclamation-circle-fill me-2"></i>
         {% elif message.tags == 'success' %}
@@ -32,12 +32,54 @@
             opacity: 1;
         }
     }
+
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+    }
     
     .alert {
         border-radius: 8px;
         border: none;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         font-weight: 500;
+        font-size: 16px;
+        padding: 16px 20px;
+        min-width: 300px;
+    }
+    
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border-left: 4px solid #28a745;
+    }
+    
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-left: 4px solid #dc3545;
     }
 </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const messages = document.querySelectorAll('[data-message-auto-dismiss]');
+        messages.forEach(function(message) {
+            // Auto-dismiss after 7 seconds (increased from 5 for better visibility)
+            setTimeout(function() {
+                const bsAlert = new bootstrap.Alert(message);
+                message.style.animation = 'slideOutRight 0.3s ease-in-out forwards';
+                setTimeout(function() {
+                    bsAlert.close();
+                }, 300);
+            }, 7000);
+        });
+    });
+</script>
 {% endif %}

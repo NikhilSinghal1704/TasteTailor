@@ -1,8 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.http import JsonResponse
 from API.recipe_tag import *
 from API.jsontest import json_to_txt
 import json
 import threading
+from .models import Contact
 
 
 def home(request):
@@ -131,3 +134,46 @@ def recipeinfo(request, id):
     var = {'error_message': error_message}
         
     return render(request, 'recipeinfo.html', var)
+
+
+def contact(request):
+    """Handle contact form submissions"""
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        email = request.POST.get('email', '').strip()
+        subject = request.POST.get('subject', '').strip()
+        message_text = request.POST.get('message', '').strip()
+
+        # Validate form data
+        if not all([name, email, subject, message_text]):
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'success': False, 'message': 'All fields are required.'})
+            messages.error(request, 'All fields are required.')
+            return redirect('home')
+
+        # Create and save the contact message
+        try:
+            contact_msg = Contact(
+                name=name,
+                email=email,
+                subject=subject,
+                message=message_text
+            )
+            contact_msg.save()
+            
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'success': True, 'message': 'Thank you! Your message has been sent successfully. We will get back to you soon.'})
+            
+            messages.success(request, 'Thank you! Your message has been sent successfully. We will get back to you soon.')
+            return redirect('home')
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return JsonResponse({'success': False, 'message': f'An error occurred: {str(e)}'})
+            
+            messages.error(request, f'An error occurred: {str(e)}')
+            return redirect('home')
+
+    return redirect('home')
