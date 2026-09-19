@@ -1,0 +1,12 @@
+{
+  "agents": {
+    "architecture": true,
+    "code_quality": true,
+    "regression": true,
+    "alignment": true
+  },
+  "rules": {
+    "architectural_rules_path": "PR Reviewer/architecture-rules.md",
+    "tech_stack_path": "PR Reviewer/tech-stack.md"
+  }
+}
