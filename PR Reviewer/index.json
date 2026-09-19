@@ -1,0 +1,2248 @@
+{
+  "version": "1.0",
+  "branch": "main",
+  "truncated": false,
+  "tree": [
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dfb82f1c20abbec30457117116c6e083b8993793",
+      "size": 62
+    },
+    {
+      "path": "API",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4232e5ae34297c3c20bafe199187818bc9f92e3e"
+    },
+    {
+      "path": "API/__init__.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "API/ai_recipe.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "32fa018debc8e3bae8c93dae2da39edef48f29ae",
+      "size": 5268
+    },
+    {
+      "path": "API/api_key_manager.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4426e0ce8e5fb221497dc24edcf4e397ad9205c7",
+      "size": 1301
+    },
+    {
+      "path": "API/jsontest.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a3470edd51641b98e7e70856d4fd15af5b5317c4",
+      "size": 318
+    },
+    {
+      "path": "API/meal_planner.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9e75670b501be9a2dd57c81fe03abe22dc4ff6dc",
+      "size": 2865
+    },
+    {
+      "path": "API/recipe_tag.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "80bb66a6d06d34aef54468d2ffa08a954d1c359c",
+      "size": 20673
+    },
+    {
+      "path": "Auth",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f19eacfdafb61798198102aee4fe89dace47c98b"
+    },
+    {
+      "path": "Auth/__init__.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "Auth/admin.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d1bf8fbc6f8fb9620c61c924c34c213ddb916e23",
+      "size": 1988
+    },
+    {
+      "path": "Auth/apps.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e9e5f7e1f44dec1873debce507095b920cc422bb",
+      "size": 140
+    },
+    {
+      "path": "Auth/forms.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "18b1f828a1f2ad3ced370d49064518ee01077902",
+      "size": 6366
+    },
+    {
+      "path": "Auth/migrations",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a22354559ad3702f74e3549569b92d3eef9d7cfc"
+    },
+    {
+      "path": "Auth/migrations/0001_initial.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a0a3231124f2836b2e7537995f756686997b03b8",
+      "size": 5366
+    },
+    {
+      "path": "Auth/migrations/__init__.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "Auth/models.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5f2f2bf041b1ebaa56b21d542911ca5c28fda758",
+      "size": 6831
+    },
+    {
+      "path": "Auth/tests.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7ce503c2dd97ba78597f6ff6e4393132753573f6",
+      "size": 60
+    },
+    {
+      "path": "Auth/tokens.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "34ec4d2fae9fbb200344a4f92897d66794d6437c",
+      "size": 318
+    },
+    {
+      "path": "Auth/urls.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a9c0a27fa6937a3dc8f7c963927ddc83bdd4f4ed",
+      "size": 445
+    },
+    {
+      "path": "Auth/views.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f191f774631037473a9d901fad2b104e54c9f443",
+      "size": 7537
+    },
+    {
+      "path": "BUGFIX_INGREDIENT_SEARCH.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f0c6954045b75020de075b143e79c1f630597afd",
+      "size": 2965
+    },
+    {
+      "path": "Dockerfile",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c51823fbaecd6bbccb5e047f100a65299e5cdcfe",
+      "size": 2118
+    },
+    {
+      "path": "Home",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "8a530910a47c004f4c7f19f91bbf0ae5d447ea43"
+    },
+    {
+      "path": "Home/__init__.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "Home/admin.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b36ac036f902076f41e05e4a7705885152deae83",
+      "size": 1872
+    },
+    {
+      "path": "Home/apps.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8679da1eed1949b60c107f9b83e4b43ca725ea40",
+      "size": 140
+    },
+    {
+      "path": "Home/migrations",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a4e970afc15ba19f2709ba644390aca5fefbf45a"
+    },
+    {
+      "path": "Home/migrations/0001_initial.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a78189518ed8e6778d40b151e444f7d2f5809303",
+      "size": 726
+    },
+    {
+      "path": "Home/migrations/0002_apikey_is_active.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b93d4de8f8958634d9d7f46ab8b165a4ee38b988",
+      "size": 375
+    },
+    {
+      "path": "Home/migrations/0003_remove_apikey_rotation_order.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "019562c563bb8b0405776e23743170bd3cc452b8",
+      "size": 331
+    },
+    {
+      "path": "Home/migrations/0004_apikey_call_history_apikey_last_called_and_more.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f00d28509c0d159ac5d84caac33850e6b18cbff3",
+      "size": 727
+    },
+    {
+      "path": "Home/migrations/0005_contact.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "af81e9700b1cc83b0e4f5a1a70a4be763e00d148",
+      "size": 938
+    },
+    {
+      "path": "Home/migrations/0005_mealplan_meal.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "afd60098f2d6c1e51ff4c7f88f125fcdadea5d05",
+      "size": 3004
+    },
+    {
+      "path": "Home/migrations/0006_generatedrecipe.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5ef2b7266867f3cb7c73708253b7ec42d2b0d6ed",
+      "size": 1517
+    },
+    {
+      "path": "Home/migrations/0007_merge_0005_contact_0006_generatedrecipe.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "018bb35bdc6675dc43a2213927a2ed64d5143be3",
+      "size": 253
+    },
+    {
+      "path": "Home/migrations/0008_pantryitem.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "837d6fdc29d51d343117a67eb1626e78a633feee",
+      "size": 1282
+    },
+    {
+      "path": "Home/migrations/__init__.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "Home/models.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2aaf83f94016e296cc5f1df1f8c6a69c7463762f",
+      "size": 5669
+    },
+    {
+      "path": "Home/templatetags",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "aa9f6155852e5e3ce6e1f07d5078cdea1cec900b"
+    },
+    {
+      "path": "Home/templatetags/__init__.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "Home/templatetags/custom_filters.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5800b0828b885103f2981b710379a437c893c549",
+      "size": 256
+    },
+    {
+      "path": "Home/tests.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7ce503c2dd97ba78597f6ff6e4393132753573f6",
+      "size": 60
+    },
+    {
+      "path": "Home/urls.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4dcc1b5fcbf4d0db7105c4d07b7f753cc0cfd8a0",
+      "size": 1051
+    },
+    {
+      "path": "Home/views.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f478545d23766b1069058b067df97d6ab5df0923",
+      "size": 16438
+    },
+    {
+      "path": "INGREDIENT_SEARCH_ISSUE.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2131029cb7a22c198f482cce2f0fd13146e284a1",
+      "size": 3349
+    },
+    {
+      "path": "Jenkinsfile",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "33f2c22a2071d75ce4ac8ffb0259d36f76ec6eb8",
+      "size": 3290
+    },
+    {
+      "path": "PR Reviewer/architecture-rules.md",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "PR Reviewer/config.json",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "PR Reviewer/index.json",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "PR Reviewer/tech-stack.md",
+      "mode": "100644",
+      "type": "blob"
+    },
+    {
+      "path": "PREFERENCES_FEATURE.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f7795980bf5e6b48cbf259ea45c6126aa3ef876c",
+      "size": 11455
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b1ff23826535e98468fd79ce9989f79f1ed1cb08",
+      "size": 1128
+    },
+    {
+      "path": "TasteTailor",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0af35f4a5096b66e20ab1f6d848421f0b2e710ca"
+    },
+    {
+      "path": "TasteTailor/.gitattributes",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dfe0770424b2a19faf507a501ebfc23be8f54e7b",
+      "size": 66
+    },
+    {
+      "path": "TasteTailor/README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a5c8da81e12c635c793e98c9d84802b94bf4f354",
+      "size": 16
+    },
+    {
+      "path": "TasteTailor/__init__.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "size": 0
+    },
+    {
+      "path": "TasteTailor/asgi.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c0c0acbba35e6bb72a0104fd0dea56b5b5812ad0",
+      "size": 399
+    },
+    {
+      "path": "TasteTailor/settings.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0c9aefbef98a1ea848eb7b72a7f4edf347f06f92",
+      "size": 4701
+    },
+    {
+      "path": "TasteTailor/urls.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "24b1dbbf609ead468565b737a7e524ccc52ea640",
+      "size": 1017
+    },
+    {
+      "path": "TasteTailor/wsgi.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8b8fbca84037138983184042a23cc78944e117f2",
+      "size": 399
+    },
+    {
+      "path": "UI_REFACTOR_SUMMARY.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "39833451b94eb842f1d03137d4e0b59c5d1cc1ef",
+      "size": 8460
+    },
+    {
+      "path": "index_storage",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bf0d87ab1b2b0ec1a11a3973d2845b42413d9767",
+      "size": 1
+    },
+    {
+      "path": "manage.py",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "da1d994a93f6ac2d6d373f2c7a9f66c13040981f",
+      "size": 667
+    },
+    {
+      "path": "requirements.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a9f766132ccc1a93238c2fe1f9fde3bfa7b09257",
+      "size": 319
+    },
+    {
+      "path": "static",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "6adfcfa6556aed6c9b1c1f2baf8ebb3a819db87f"
+    },
+    {
+      "path": "static/admin",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "39b5dd260a8a5f5a589eab8ce432f96339877b6b"
+    },
+    {
+      "path": "static/admin/css",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0aa04b2f2205c92717a64b4cb4dfd9ae76086c38"
+    },
+    {
+      "path": "static/admin/css/autocomplete.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "69c94e73477467d7a9376ebbdf20955c2defb9cb",
+      "size": 9114
+    },
+    {
+      "path": "static/admin/css/base.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "72f4ae169b30e7851f8a8a81b9bfa0ff4936f9de",
+      "size": 21207
+    },
+    {
+      "path": "static/admin/css/changelists.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a7545131a3917bb3e56774126bc78ab2b97e68a3",
+      "size": 6566
+    },
+    {
+      "path": "static/admin/css/dark_mode.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6d08233aaebcd6708c5c5fbc55738610cd5e911d",
+      "size": 2929
+    },
+    {
+      "path": "static/admin/css/dashboard.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "242b81a45f8540831ef7c40536f79530b6652c62",
+      "size": 441
+    },
+    {
+      "path": "static/admin/css/forms.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e45abe1c07e9875c703d20bbf44890019fa8e1d5",
+      "size": 9047
+    },
+    {
+      "path": "static/admin/css/login.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "389772f5bcec0fc5dce54cab9afdf5a8545bb713",
+      "size": 958
+    },
+    {
+      "path": "static/admin/css/nav_sidebar.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f76e6ce485911e70589d28d63e01dad0c82331ad",
+      "size": 2694
+    },
+    {
+      "path": "static/admin/css/responsive.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9ce4f67bf22373e4f2ead9d18b4e300aee5eab53",
+      "size": 18533
+    },
+    {
+      "path": "static/admin/css/responsive_rtl.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "639e20b2d18eb13614837b3f2c0d1c71202aa9cc",
+      "size": 1785
+    },
+    {
+      "path": "static/admin/css/rtl.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "53a6dd6ca93e02a2de08db55bbe2ab3004d22647",
+      "size": 4788
+    },
+    {
+      "path": "static/admin/css/vendor",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f67ad9df37008043a00d8b7ce8e1f1e3f455ed6b"
+    },
+    {
+      "path": "static/admin/css/vendor/select2",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2f0c5fb0c2f24cd7fbc43d07b8915049c58e6a5e"
+    },
+    {
+      "path": "static/admin/css/vendor/select2/LICENSE-SELECT2.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8cb8a2b12cb7207f971f93f5e3f6fcfff8863d4c",
+      "size": 1124
+    },
+    {
+      "path": "static/admin/css/vendor/select2/select2.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "750b3207aeb800f8e76420253229bd1c5c135d0d",
+      "size": 17358
+    },
+    {
+      "path": "static/admin/css/vendor/select2/select2.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7c18ad59dfc37f537cfd158e9222062fa9196e37",
+      "size": 14966
+    },
+    {
+      "path": "static/admin/css/widgets.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5f7adcb22139b37f80d7d6c7b296047f1b569fa6",
+      "size": 11900
+    },
+    {
+      "path": "static/admin/img",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e277ef906386c1e6e996a1ad6cd00b4ba697ac41"
+    },
+    {
+      "path": "static/admin/img/LICENSE",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a4faaa1dfa226ac68c6a7898f7161d0e2956dcb3",
+      "size": 1081
+    },
+    {
+      "path": "static/admin/img/README.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4eb2e492a9be5f85a3b2cf039257b500273c2bc0",
+      "size": 319
+    },
+    {
+      "path": "static/admin/img/calendar-icons.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dbf21c39d238c60288c0206a3969eb8a50d3a278",
+      "size": 1094
+    },
+    {
+      "path": "static/admin/img/gis",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "8c0a9bbe1c0b0c2726a6b31bd89a567c68ee16a7"
+    },
+    {
+      "path": "static/admin/img/gis/move_vertex_off.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "228854f3b00be502dbb2deed17020bbfe915556d",
+      "size": 1129
+    },
+    {
+      "path": "static/admin/img/gis/move_vertex_on.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "96b87fdd708ef19fc3c6e466c44d7c212efa1d14",
+      "size": 1129
+    },
+    {
+      "path": "static/admin/img/icon-addlink.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e004fb162633a3cab16d650492698785194cb66f",
+      "size": 331
+    },
+    {
+      "path": "static/admin/img/icon-alert.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e51ea83f5bb0e420a11f6b91c18654d0a227da97",
+      "size": 504
+    },
+    {
+      "path": "static/admin/img/icon-calendar.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "97910a9949126a13793506efed884f378fc8449a",
+      "size": 1086
+    },
+    {
+      "path": "static/admin/img/icon-changelink.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bbb137aa0866379ef81fd5a0e8a6d3207628b0ac",
+      "size": 380
+    },
+    {
+      "path": "static/admin/img/icon-clock.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bf9985d3f44610bd43d9daada9876db12100d504",
+      "size": 677
+    },
+    {
+      "path": "static/admin/img/icon-deletelink.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4059b15544994e5e73e9b219c31627055dfa17bc",
+      "size": 392
+    },
+    {
+      "path": "static/admin/img/icon-no.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2e0d3832c9299c3994f627cd64ed0341a5da7b14",
+      "size": 560
+    },
+    {
+      "path": "static/admin/img/icon-unknown-alt.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1c6b99fc0946c3f41df99174e3621eb88d3c23e7",
+      "size": 655
+    },
+    {
+      "path": "static/admin/img/icon-unknown.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "50b4f97276b46f2d3cd7102aaede3c526d3887b6",
+      "size": 655
+    },
+    {
+      "path": "static/admin/img/icon-viewlink.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a1ca1d3f4e246eb6b7bc4bc078b0cce37cc27e42",
+      "size": 581
+    },
+    {
+      "path": "static/admin/img/icon-yes.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5883d877e89b89d42fa121725ae7b726dbfa5f50",
+      "size": 436
+    },
+    {
+      "path": "static/admin/img/inline-delete.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "17d1ad67cdcca17f6ddcdbb4edf062a9f2b49b60",
+      "size": 560
+    },
+    {
+      "path": "static/admin/img/search.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c8c69b2acc1cd0104aa9fbcd61893d9eeace8f25",
+      "size": 458
+    },
+    {
+      "path": "static/admin/img/selector-icons.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "926b8e21b524c4bdd8a2f094d7f8b3043196112a",
+      "size": 3291
+    },
+    {
+      "path": "static/admin/img/sorting-icons.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7c31ec91145538b8f985d8991489b076daec514c",
+      "size": 1097
+    },
+    {
+      "path": "static/admin/img/tooltag-add.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1ca64ae5b08ed18efda27c9a58a8496d31afac2a",
+      "size": 331
+    },
+    {
+      "path": "static/admin/img/tooltag-arrowright.svg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b664d61937be6fa51d59453a7c21228b5d2ace7a",
+      "size": 280
+    },
+    {
+      "path": "static/admin/js",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e720b9772088bfc956cede83440122acd4e9f993"
+    },
+    {
+      "path": "static/admin/js/SelectBox.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3db4ec7fa6612625ec731a2103a489bcdbce4637",
+      "size": 4530
+    },
+    {
+      "path": "static/admin/js/SelectFilter2.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9a4e0a3a91bbd381cc12b71f66f4c6648c97806a",
+      "size": 15292
+    },
+    {
+      "path": "static/admin/js/actions.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "20a5c14353affa7d83a241f85c0b7ca0a434c58a",
+      "size": 7872
+    },
+    {
+      "path": "static/admin/js/admin",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "22bbe8ec94cdad68a9b7e0e37d5220fa0cb99533"
+    },
+    {
+      "path": "static/admin/js/admin/DateTimeShortcuts.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aa1cae9eeb451b0aefffeb7f5c6ea75753b6a190",
+      "size": 19319
+    },
+    {
+      "path": "static/admin/js/admin/RelatedObjectLookups.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "afb6b66c2565d19e62b6393a23bd2bfadd0d8226",
+      "size": 8943
+    },
+    {
+      "path": "static/admin/js/autocomplete.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d3daeab8909597077addecf34ab05800705f77c8",
+      "size": 1060
+    },
+    {
+      "path": "static/admin/js/calendar.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a62d10a75980b7a73e79542b0da2b6f3c66ea829",
+      "size": 8466
+    },
+    {
+      "path": "static/admin/js/cancel.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3069c6f27bfdec0b246d21311f50951e5ed6c356",
+      "size": 884
+    },
+    {
+      "path": "static/admin/js/change_form.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "96a4c62ef4c353109f22c5d4c7bf7827fe74597b",
+      "size": 606
+    },
+    {
+      "path": "static/admin/js/collapse.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c6c7b0f68a2d96cbbcbe783498dd9b2bb5e7e064",
+      "size": 1803
+    },
+    {
+      "path": "static/admin/js/core.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0344a13f42af20cc292f40ccc2e23a5d8e1115dc",
+      "size": 5682
+    },
+    {
+      "path": "static/admin/js/filters.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f5536ebc2d3b10ded6750bd5d9eba59566733ea7",
+      "size": 978
+    },
+    {
+      "path": "static/admin/js/inlines.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e9a1dfe12299e9d7e436e832c0c393e05b311c73",
+      "size": 15526
+    },
+    {
+      "path": "static/admin/js/jquery.init.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f40b27f47da411062930b3758fc7b242e932f91e",
+      "size": 347
+    },
+    {
+      "path": "static/admin/js/nav_sidebar.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7e735db15cf33805b1ab498b4476f218d4f690a5",
+      "size": 3063
+    },
+    {
+      "path": "static/admin/js/popup_response.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2b1d3dd31d7acba2456e79bd3430c7e075883676",
+      "size": 551
+    },
+    {
+      "path": "static/admin/js/prepopulate.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "89e95ab44dc74c5be08339a937908a73c15c86ab",
+      "size": 1531
+    },
+    {
+      "path": "static/admin/js/prepopulate_init.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a58841f004129659c58f6cfa9c05174e0e63c63b",
+      "size": 586
+    },
+    {
+      "path": "static/admin/js/theme.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "794cd15f701aed5214280a6404e9beb21d751a6c",
+      "size": 1943
+    },
+    {
+      "path": "static/admin/js/urlify.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9fc04094964786db564c511b439244ee7015ccea",
+      "size": 7887
+    },
+    {
+      "path": "static/admin/js/vendor",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "c88486bd495020aa0be497db23726702c4427c47"
+    },
+    {
+      "path": "static/admin/js/vendor/jquery",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "03aab9f76d3ab78d3ec3362ec004b5c6a43a5241"
+    },
+    {
+      "path": "static/admin/js/vendor/jquery/LICENSE.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f642c3f7a77a5833bc3dfee643ad8ca6387b23e7",
+      "size": 1097
+    },
+    {
+      "path": "static/admin/js/vendor/jquery/jquery.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f35c11bdf388b4516df3bc03ec3488e8b2654b2",
+      "size": 292458
+    },
+    {
+      "path": "static/admin/js/vendor/jquery/jquery.min.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "0de648ed3b5201e4e05ace86e01f8ef201d2770e",
+      "size": 89795
+    },
+    {
+      "path": "static/admin/js/vendor/select2",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "db2690adb6ba779339fa8968de07c805bc8512d0"
+    },
+    {
+      "path": "static/admin/js/vendor/select2/LICENSE.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8cb8a2b12cb7207f971f93f5e3f6fcfff8863d4c",
+      "size": 1124
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "48721eaa4dae63514987494ec6023078461a8bd3"
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/af.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "32e5ac7de893370dfbbffa11a373a9c3b3662d12",
+      "size": 866
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/ar.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "64e1caad34d1ced8f681e3ba7722cfefde077fde",
+      "size": 905
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/az.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1d52c260f2987b63385bf9aa4e04eb7a410a0202",
+      "size": 721
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/bg.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "73b730a705ad39f9a44edf4f9bc1590b8d1e0502",
+      "size": 968
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/bn.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2d17b9d8e057659eba3730ad1917efd98ef89a5c",
+      "size": 1291
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/bs.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "46b084d7583aaa6d35ee5c7bf2621f9b8ba66ce9",
+      "size": 965
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/ca.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "82dbbb7a212113654ec2da3da4b7b1dad3a7e160",
+      "size": 900
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/cs.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7116d6c1dfdf05c6a3c0d2a372fb992a03e4d25b",
+      "size": 1292
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/da.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cda32c34aaa0424f4d45504c230e02a4dc7ffb58",
+      "size": 828
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/de.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c2e61e5800bbd8c07d848c0d5ec8deb4b4fe03fd",
+      "size": 866
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/dsb.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "02f283abada802aa2dc4fab5181c166ab711b75a",
+      "size": 1017
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/el.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4922a1df5b3c8604a1f8ad3e0aa1b7623340b7e",
+      "size": 1182
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/en.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3b19285734251bd44ba90495f3edf1429417937f",
+      "size": 844
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/es.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "68afd6d2592395509b829dc3f4cb7091116999af",
+      "size": 922
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/et.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "070b61a26dd6fdd1e1d468b391ab37ac8eff4c57",
+      "size": 801
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/eu.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "90d5e73f8a88fe13161b2c2b763e83411ee06b02",
+      "size": 868
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/fa.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e1ffdbed0d8ca663cfcab21818bb3f9c6938c7a2",
+      "size": 1023
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/fi.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ffed1247dd05d8b081bc89e944a190e6848e6ff6",
+      "size": 803
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/fr.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dd02f973ffac9248294c499ec7cbdedb5991162a",
+      "size": 924
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/gl.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "208a00570578b507081cb1e77ff8bb75e3f13b22",
+      "size": 924
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/he.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "25a8805aa025a301edc5b224614e2d1b77658952",
+      "size": 984
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/hi.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f3ed798434baac41fa8eacbfa48eded2308812c4",
+      "size": 1175
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/hr.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cb3268db161cc71a12a034c8b0b90296bb5436ac",
+      "size": 852
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/hsb.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3d5bf09dbd5b041381511a5c0becbdf6cc9c16ac",
+      "size": 1018
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/hu.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4893aa2f70d916528dfc3a1a7cd44e45439e26b6",
+      "size": 831
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/hy.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8230007141a7e0d6d361b097f47b8e281c91c878",
+      "size": 1028
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/id.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4a0b3bf009dc8aa9634681bd11b863924457c5e3",
+      "size": 768
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/is.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cca5bbecf021a598719b9050cc796f6a50a3c44b",
+      "size": 807
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/it.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "507c7d9f293deb442690a3cc1d91a6367c38119e",
+      "size": 897
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/ja.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "451025e2c7d24e9e02a2042025b688da7e0b9265",
+      "size": 862
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/ka.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "60c593b705d7331a443f1843fdd633e61adc1a05",
+      "size": 1195
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/km.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4dca94f414ee9fdfa596cf9cc0148b7673353d90",
+      "size": 1088
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/ko.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f2880fb0043b8dabc9f83fe5fe73223e4499eccb",
+      "size": 855
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/lt.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f6a42155ad81f648ca22e06d250f39e4ef718924",
+      "size": 944
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/lv.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "806dc5c4339db0a8769f475b4b7dddf1b38cff5c",
+      "size": 900
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/mk.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cb7b84a263419cabde0aa38ddad00e79b4db68ab",
+      "size": 1038
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/ms.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6bd7eaa3e02c80d0cbb01f64869b56e304ec9d5f",
+      "size": 811
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/nb.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "25d89c6870401d398e81d5cb6dfeca6a25dee4fd",
+      "size": 778
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/ne.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1c39f672103d721b9e82e3d98f35f2f5051a7a9f",
+      "size": 1357
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/nl.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2b74058d23746b6aa789693573283ed969821274",
+      "size": 904
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/pl.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4ca5748c3867383a078312e5200b6cb12d40af20",
+      "size": 947
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/ps.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9b008e4c145a5eafcd355b21fd6233448589a54b",
+      "size": 1049
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/pt-BR.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c991e2550ae4f276c4269b3314b7fc127460ed87",
+      "size": 876
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/pt.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b5da1a6b496e342398ceb1845b1bd186e95fdfbf",
+      "size": 878
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/ro.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1ba7b40bef7ef1f6efbe0718d3d00ac3f9f3910e",
+      "size": 938
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/ru.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "63a7d66c3b4f012f0ad58856eef58708ffde6c5b",
+      "size": 1171
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/sk.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5049528ad0d5901a3499e71a88a36853c19e5639",
+      "size": 1306
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/sl.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4d0b7d3e345cd5b1119ee1868ab826d9a1c87fd5",
+      "size": 925
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/sq.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "59162024ed384536040f0bda730abc91bc9658a3",
+      "size": 903
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/sr-Cyrl.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ce13ce8f9a17c05fe671b9b7ad7fa434cd495f68",
+      "size": 1109
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/sr.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "dd407a06dc4becc6cf55bfa023e2b114d5013138",
+      "size": 980
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/sv.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1bc8724a79a21465291b3c0424f1280dd4eda9ac",
+      "size": 786
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/th.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "63eab7114b0b2c0629514996dcae2dd267cb5e1a",
+      "size": 1074
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/tk.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "30255ff377719751d344db5ffb76e5979bac077c",
+      "size": 771
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/tr.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fc4c0bf05126d2cbac929bb11752173305462fd8",
+      "size": 775
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/uk.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "63697e38849c6c1876ad8bfe8d8d1e3dd15be0bd",
+      "size": 1156
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/vi.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "24f3bc2d61addd21f3d6c65f603e647ab8480fe0",
+      "size": 796
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/zh-CN.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2c5649d31089b222143ad84b00aac9c4136905c5",
+      "size": 768
+    },
+    {
+      "path": "static/admin/js/vendor/select2/i18n/zh-TW.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "570a5669374963a6ed9120aa784b8aaf15bceacc",
+      "size": 707
+    },
+    {
+      "path": "static/admin/js/vendor/select2/select2.full.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "358572a6576bb33f5a4a16763803c2769d48f278",
+      "size": 173566
+    },
+    {
+      "path": "static/admin/js/vendor/select2/select2.full.min.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "fa781916e8b571323735773d423a0f06f56d9787",
+      "size": 79212
+    },
+    {
+      "path": "static/admin/js/vendor/xregexp",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "d1346dfe81e956cd8cea2078714bcdc2031a219d"
+    },
+    {
+      "path": "static/admin/js/vendor/xregexp/LICENSE.txt",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "43f08b4c3d0882b9b5bd64169a3480650b84cefe",
+      "size": 1103
+    },
+    {
+      "path": "static/admin/js/vendor/xregexp/xregexp.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ded6f6faa274657b65b444356ee78ad914595bc5",
+      "size": 232381
+    },
+    {
+      "path": "static/admin/js/vendor/xregexp/xregexp.min.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6d56b1bd887af1ce0c943668641675f2ad514fe4",
+      "size": 125266
+    },
+    {
+      "path": "static/css",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "4238010f80e70d6db7eb7f5665edede78503441c"
+    },
+    {
+      "path": "static/css/main.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a93359bbc41f4cc381ab43590961193f2a21d9bb",
+      "size": 38339
+    },
+    {
+      "path": "static/img",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "887692d4e792cf33aad9398f7e19a4899d3ddd52"
+    },
+    {
+      "path": "static/img/about-2.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "95db813c216be5ca1a0669bf3365f4aa9fb2ea52",
+      "size": 147577
+    },
+    {
+      "path": "static/img/about.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2f36bcc7e0b8f02f8d2fcee0170d61d4b89d2a9b",
+      "size": 119262
+    },
+    {
+      "path": "static/img/bhaisab.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1c927a4f2f4ed48d50493ff0dd74f1cfdb6e44df",
+      "size": 32174
+    },
+    {
+      "path": "static/img/events-1.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e4747faa9bae4e644baed19d1c4be30d361500a8",
+      "size": 225878
+    },
+    {
+      "path": "static/img/events-2.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d2ef514d16ce7fbdf269307ae212b553738c7e22",
+      "size": 242161
+    },
+    {
+      "path": "static/img/events-3.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aae277e8b1915a7fa22ad52b66fa2ce9fd6ab8f3",
+      "size": 110005
+    },
+    {
+      "path": "static/img/logo.png",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "33e979f68797c8c391b27992f2e294d84acc649d",
+      "size": 3102294
+    },
+    {
+      "path": "static/img/lul.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5a98dbe2317b13c8cb73a20b90c1f7e64faece12",
+      "size": 143111
+    },
+    {
+      "path": "static/img/stats-bg.jpg",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "73af203a896fa5777010db255e9b4b8b5dddd13a",
+      "size": 305960
+    },
+    {
+      "path": "static/js",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "9d4e8a13dc7642fdad5442d1e7837f968b2d3952"
+    },
+    {
+      "path": "static/js/main.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5a7b2caca66a41f7bba8e0146a65c09c9684339f",
+      "size": 6004
+    },
+    {
+      "path": "static/vendor",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "ac83d3a41264bd85a30d90ca4f6396a02f8619b4"
+    },
+    {
+      "path": "static/vendor/aos",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "febb3c0b160a4ef65895e2b66cab0d55bccfe821"
+    },
+    {
+      "path": "static/vendor/aos/aos.cjs.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "86119ba65eecd962c1f3faae5896c587ba08d06a",
+      "size": 19941
+    },
+    {
+      "path": "static/vendor/aos/aos.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2e1a9be7148cc41ac5ac4cbd5a0ada07f820f2fa",
+      "size": 28765
+    },
+    {
+      "path": "static/vendor/aos/aos.esm.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d5597d43c754f43da86eaa8614e936cb86ae47b1",
+      "size": 19768
+    },
+    {
+      "path": "static/vendor/aos/aos.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "74d35d999546b560598e72a6bef9cd0c2a8f80e2",
+      "size": 13800
+    },
+    {
+      "path": "static/vendor/aos/aos.js.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "45e362dd743b6929452d676d7d4f4a786cd4d700",
+      "size": 56459
+    },
+    {
+      "path": "static/vendor/bootstrap",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "28d802e8071eabb429ac4cad8ccb44b9caf75b0f"
+    },
+    {
+      "path": "static/vendor/bootstrap-icons",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "204e45f5e45400c981ecee61e058463ed5f03e6f"
+    },
+    {
+      "path": "static/vendor/bootstrap-icons/bootstrap-icons.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8bda018e9a347d146c07d75a8bd07cf99800d62a",
+      "size": 93734
+    },
+    {
+      "path": "static/vendor/bootstrap-icons/bootstrap-icons.json",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d85eaaf2b2793a9f9a6c82db98e903a2f2616aac",
+      "size": 49971
+    },
+    {
+      "path": "static/vendor/bootstrap-icons/bootstrap-icons.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "088ba56931d308cd50354cb40acbc1d027a674aa",
+      "size": 81936
+    },
+    {
+      "path": "static/vendor/bootstrap-icons/bootstrap-icons.scss",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5ebd3b0673fd72d7f0f121c4dbff3916a6248072",
+      "size": 55174
+    },
+    {
+      "path": "static/vendor/bootstrap-icons/fonts",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "14849589078ac24c7e9276155c77e0f2e66bf66c"
+    },
+    {
+      "path": "static/vendor/bootstrap-icons/fonts/bootstrap-icons.woff",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6e72a590a26bc71c7011e3c50da2ca766a853344",
+      "size": 164360
+    },
+    {
+      "path": "static/vendor/bootstrap-icons/fonts/bootstrap-icons.woff2",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3b957d5a764cc096fcee42de5ab6a48dfee9af4a",
+      "size": 121340
+    },
+    {
+      "path": "static/vendor/bootstrap/css",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "75b3cb5eb3c34eb3ee31e43fc2a5cf404043f0b5"
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-grid.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8db184889a29a1cb6737e6bf3cad4a072e2fce7e",
+      "size": 70353
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-grid.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "bcf72a7f61b90615220cbd35d8f72a2ad7339ede",
+      "size": 202836
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-grid.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f4f50ae03d459654807fedb1bd4e4e76d89adc6f",
+      "size": 51819
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-grid.min.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5431138b19e8ceea99d5388c5d88ec9406f80c32",
+      "size": 116002
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-grid.rtl.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d4df19dc3770aa3f4877c5b75fae2bcf6e4fe6b9",
+      "size": 70427
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-grid.rtl.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6fd37993f42db92c43440e2df8a3c6732b81733a",
+      "size": 202840
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-grid.rtl.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "396fbaa510ca44f085b1cb44838d0cd65c0cbc86",
+      "size": 51894
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-grid.rtl.min.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "632fe907717b92866c44e6486abb698d3309c0aa",
+      "size": 116079
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-reboot.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6660a8d272cecdabd6361c9d8c81d0596229b7d8",
+      "size": 11933
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-reboot.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ae775b72a0143781f3b59fd66bc81541fd535f9d",
+      "size": 128591
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-reboot.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "990e8fc86d234a44b25da584c6e58ee8d56dea7c",
+      "size": 10010
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-reboot.min.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "cfb440879787a31b9fdb8f50ffba358589095cf0",
+      "size": 50992
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-reboot.rtl.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a953af30f6e0f73e60619e28ba49ec8a41464ffe",
+      "size": 11926
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-reboot.rtl.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "26a795fa111eefbc6adbeae3c451684e633ee4c8",
+      "size": 128606
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-reboot.rtl.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "293e48306c171530ff26659ee441b13a69ab0d27",
+      "size": 10082
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-reboot.rtl.min.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c6f2536c0307e43ba53c01a0ee0ff2a9b7bec245",
+      "size": 63429
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-utilities.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3a397144334a59acf01b935ae5b5d580068346b3",
+      "size": 107765
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-utilities.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c59760608691a3614d03def55898e5ee1a1ef43c",
+      "size": 266887
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-utilities.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9e8454c0d5e614c0bdb1dc63bff0ab980805303e",
+      "size": 85291
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-utilities.min.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aa0c3d668bc53cb5690cc5291cfc3994efbb3e36",
+      "size": 180180
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-utilities.rtl.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c9871597b76cb8c51f0ce180cd857d744960be4e",
+      "size": 107633
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-utilities.rtl.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "87a6dd5ba7160e7b48de046dc46a53bdc5077463",
+      "size": 266828
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-utilities.rtl.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1b555a12713d0d32b3de6ff3fd1c61a58d23f8a3",
+      "size": 85220
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap-utilities.rtl.min.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5e1ad1013a619508cd1e20c59520b19a9f88edf3",
+      "size": 180016
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c7c4fbc63506d6452516898592ef7c093ae462f6",
+      "size": 280715
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aa836c2fb8d4a2edda852258e71eeae11c8fa07d",
+      "size": 678304
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a89937ccb889c96d10c79cf2813ae07334178cb5",
+      "size": 232855
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap.min.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "816a51a37b1a4c6c45388eee64872305d8f1ef3d",
+      "size": 588931
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap.rtl.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f9996ac9621d58e9068ca79511e1be5b24c07d66",
+      "size": 280294
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap.rtl.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "eee415dcb6b727c719f46554eb2ac23dff871d24",
+      "size": 678149
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap.rtl.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ff88164ee6f09146bf80d656b094ab964ff6ed8a",
+      "size": 232962
+    },
+    {
+      "path": "static/vendor/bootstrap/css/bootstrap.rtl.min.css.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "020fc60b7262286214b4bb945a271c7d2785ca9e",
+      "size": 588464
+    },
+    {
+      "path": "static/vendor/bootstrap/js",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "9a77c6a5fee751276bb3d05b7cddcf7aa5f69ef3"
+    },
+    {
+      "path": "static/vendor/bootstrap/js/bootstrap.bundle.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "111a2ca1ab66306c85dff2b60d207660377d936b",
+      "size": 207720
+    },
+    {
+      "path": "static/vendor/bootstrap/js/bootstrap.bundle.js.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "aadbc1b7f1f65b2d95682ec588a9e72c32a41d03",
+      "size": 444233
+    },
+    {
+      "path": "static/vendor/bootstrap/js/bootstrap.bundle.min.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e8f21f703f7bb4e9ab84daca93c9ee1d5358a316",
+      "size": 80668
+    },
+    {
+      "path": "static/vendor/bootstrap/js/bootstrap.bundle.min.js.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3863da8b7fc1ff8bde216be07ac7da1afe39cf34",
+      "size": 331827
+    },
+    {
+      "path": "static/vendor/bootstrap/js/bootstrap.esm.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8143ac2c680fc817054306804192b9deaf8ec6aa",
+      "size": 135736
+    },
+    {
+      "path": "static/vendor/bootstrap/js/bootstrap.esm.js.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "081c826890a7297ac2a646a2731336e7d7d26aac",
+      "size": 305099
+    },
+    {
+      "path": "static/vendor/bootstrap/js/bootstrap.esm.min.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a8c9202faffb6429520981f02e3f497939335fe3",
+      "size": 74154
+    },
+    {
+      "path": "static/vendor/bootstrap/js/bootstrap.esm.min.js.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b5bf9f067f694848047e962db5fd4363738b798d",
+      "size": 222450
+    },
+    {
+      "path": "static/vendor/bootstrap/js/bootstrap.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "954a55b6583abcbadf241e0c47269587e1b93bf5",
+      "size": 145302
+    },
+    {
+      "path": "static/vendor/bootstrap/js/bootstrap.js.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a9d8eb9829d5b484dfcc5667567ad90bf2ab6e52",
+      "size": 306267
+    },
+    {
+      "path": "static/vendor/bootstrap/js/bootstrap.min.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f2a11d156540fe8734e0f8ac070ca96713b68c2b",
+      "size": 60582
+    },
+    {
+      "path": "static/vendor/bootstrap/js/bootstrap.min.js.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9b18a423d0488c8b1e4e7f0cc022819a2b1fbaf1",
+      "size": 220293
+    },
+    {
+      "path": "static/vendor/glightbox",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "639a6dbfddba409c66824a8483740b98da9532d5"
+    },
+    {
+      "path": "static/vendor/glightbox/css",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "0b62be14362fbe6bca7434401b999a0bc08b7e24"
+    },
+    {
+      "path": "static/vendor/glightbox/css/glightbox.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "120aa434f197956dc809253e0e53d050d32cf85f",
+      "size": 17372
+    },
+    {
+      "path": "static/vendor/glightbox/css/glightbox.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "3c9ff877576aab6409a105383011853cec111bc7",
+      "size": 13749
+    },
+    {
+      "path": "static/vendor/glightbox/css/plyr.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e4f616d517a005e959da03be5badacb9f1f69815",
+      "size": 52561
+    },
+    {
+      "path": "static/vendor/glightbox/css/plyr.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4867c86bfd933e37bd9a883a15953118ae293ca8",
+      "size": 45081
+    },
+    {
+      "path": "static/vendor/glightbox/js",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "e1171b8989041664ef3aaed1e4a878e53fd9cb3e"
+    },
+    {
+      "path": "static/vendor/glightbox/js/glightbox.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1761dc6cd29765c43e8eeb36b45b11dd3e7b0953",
+      "size": 109391
+    },
+    {
+      "path": "static/vendor/glightbox/js/glightbox.min.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "997908b5973ef49cdfc15588054983740ebce63d",
+      "size": 55880
+    },
+    {
+      "path": "static/vendor/php-email-form",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "2d683eb0c7b96e4c456d6495340ec2cf5d98da5a"
+    },
+    {
+      "path": "static/vendor/php-email-form/validate.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "1e8ad538b7a7044da45e6adad99d524bb2e8af24",
+      "size": 2649
+    },
+    {
+      "path": "static/vendor/purecounter",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "a88ba8b7573f38ce272abd7f8b378de8d96584e8"
+    },
+    {
+      "path": "static/vendor/purecounter/purecounter_vanilla.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "2551e8f970ed14240428e5b7b1bd92a2b4ea2c4b",
+      "size": 5409
+    },
+    {
+      "path": "static/vendor/purecounter/purecounter_vanilla.js.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c7290171b7236fdacae12b14d533858df8bece35",
+      "size": 24750
+    },
+    {
+      "path": "static/vendor/swiper",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "9c382a97594701f7631d0fd1c58c0998c957450d"
+    },
+    {
+      "path": "static/vendor/swiper/swiper-bundle.min.css",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "16833ecdf649f3ba4e2838bc6247359e7d42008e",
+      "size": 16493
+    },
+    {
+      "path": "static/vendor/swiper/swiper-bundle.min.js",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "9353f8c29ae7e4bbc0cb7434137feb312c84a018",
+      "size": 143706
+    },
+    {
+      "path": "static/vendor/swiper/swiper-bundle.min.js.map",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "6398d24f2cc6079344dce638b64ec815f9f1e459",
+      "size": 540665
+    },
+    {
+      "path": "templates",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "ba0f682ed4e4a66254072116d9a1bef865dbae95"
+    },
+    {
+      "path": "templates/base.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "de39cb8947ca9c53e71745ea344c3b5e4e8a950e",
+      "size": 4501
+    },
+    {
+      "path": "templates/components",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "de698d7f3ff36e72215be15eb32755434a965604"
+    },
+    {
+      "path": "templates/components/footer.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5d724484ffeeaeb73743939a78375cfaeb8d840f",
+      "size": 1953
+    },
+    {
+      "path": "templates/components/header.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "b69a4495d20008cb8d942034d69f80834f565bd9",
+      "size": 3335
+    },
+    {
+      "path": "templates/components/messages.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a66e15bb34e59c56520350740f3f6d5786a7d3db",
+      "size": 2619
+    },
+    {
+      "path": "templates/components/recipe_card.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4cdb877a9a3038c5f71ecedcecbc2247ee342e10",
+      "size": 479
+    },
+    {
+      "path": "templates/email_confirmation.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "5a3fcbf3003787dc4e31193b2fbf26d12c898287",
+      "size": 360
+    },
+    {
+      "path": "templates/generate_recipe.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "27bef3fd4835c09fb946c5d7d609df8bbe8ee926",
+      "size": 8147
+    },
+    {
+      "path": "templates/generated_recipe_detail.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a11634f3001018c4375cd400066a6b560448b810",
+      "size": 13107
+    },
+    {
+      "path": "templates/index.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "8572e1fae8fe497d73d0e893e7381d83bdd58ae6",
+      "size": 23874
+    },
+    {
+      "path": "templates/ingredient_results.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "4460e6cef2e0fb127ede6eca6b0bb82f3a165531",
+      "size": 8674
+    },
+    {
+      "path": "templates/ingridients.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "78492f9dec3f310b89d1ccf2aacc8bd1243b5be8",
+      "size": 4631
+    },
+    {
+      "path": "templates/meal_plan.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "ce5dcf491163f9d3f8d03dc36f23c52713b8c314",
+      "size": 3001
+    },
+    {
+      "path": "templates/message.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "72848323b95fc550faf759569a079aff6f2178d9",
+      "size": 2168
+    },
+    {
+      "path": "templates/my_generated_recipes.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f42f700f9c606ccd15dd3c1d8eb9718eeb981016",
+      "size": 5459
+    },
+    {
+      "path": "templates/pantry.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7cc468a0f8852801f176749eb66380a939de7aee",
+      "size": 4120
+    },
+    {
+      "path": "templates/partials",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "28861e779e010ab34cfbbc8d0a0ca3035d032f7b"
+    },
+    {
+      "path": "templates/partials/_breadcrumb.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "78f84b614b2be13c3d1a7fa76d564f2b98166686",
+      "size": 947
+    },
+    {
+      "path": "templates/partials/_info_box.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d9dbeadc9b9d21e1177ab0c0da03f86e14005f11",
+      "size": 799
+    },
+    {
+      "path": "templates/partials/_ingredient_card.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f2b49eb165566e2e82b491c8ac87ab332e246d97",
+      "size": 1057
+    },
+    {
+      "path": "templates/partials/_nutrition_card.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "7f4ec671ae1a3065f76e40f6cc8a6bf528ad0725",
+      "size": 1184
+    },
+    {
+      "path": "templates/partials/_step_item.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "e544397f3e855f47f7b95472ac63854da92640e2",
+      "size": 901
+    },
+    {
+      "path": "templates/preferences.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "d8171b981613dfdb54d3806d674866b58766df75",
+      "size": 24558
+    },
+    {
+      "path": "templates/recipeinfo.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "081508a3f2b2257bc97e913a3dedde96e3cc9790",
+      "size": 21053
+    },
+    {
+      "path": "templates/result.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "61ed2ab830f3d4073f625c7c9361258405605703",
+      "size": 8876
+    },
+    {
+      "path": "templates/sample-inner-page.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "c8e0cdb35e197e1bd0fabaa7b9dd07a35e696365",
+      "size": 12312
+    },
+    {
+      "path": "templates/signin.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "a0cc1291490b8079c9aea30f73f647437cd21e5d",
+      "size": 3786
+    },
+    {
+      "path": "templates/signup.html",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "f33b9d4c66fab13bb15e13f80a84503e8ec0e04b",
+      "size": 5913
+    }
+  ]
+}
